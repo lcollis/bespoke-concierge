@@ -1,5 +1,8 @@
-<StackLayout>
-    <Label [text]='offer.OfferName' class="offerTitle"></Label>
-    <Label [text]='offer.OfferContent' class="offerDetail" textWrap="true"></Label>
-    
-</StackLayout>
+<DockLayout stretchLastChild="false">
+    <StackLayout dock="top">
+        <Label [text]='offer.OfferName' class="offerTitle"></Label>
+        <Label [text]='offer.OfferContent' class="offerDetail" textWrap="true"></Label>
+        <Label [text]='"Use Promo Code: " + offer.PromoCode + " at checkout!"' class="offerDetail"></Label>
+    </StackLayout>
+        <Label [text]='"Expires " + offer.ExpirationDate.toDateString()' class="offerDetail" dock="bottom"></Label>
+</DockLayout>
