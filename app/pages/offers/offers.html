@@ -1,1 +1,8 @@
-<Label text="Offers"></Label>
+<<ListView [items]="offers" (itemTap)="onOfferTap($event)">
+    <template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        <StackLayout>
+            <Label [text]='item.OfferName' class="offerTitle"></Label>
+            <Label [text]='item.OfferContent' class="offerDetail" textWrap="true"></Label>
+        </StackLayout>
+    </template>
+</ListView>
