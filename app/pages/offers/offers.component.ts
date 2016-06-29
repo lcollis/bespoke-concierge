@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferService } from "../../services/offers.service";
+import { OfferService } from "../../services/offer.service";
 import { Offer } from "../../services/offer";
+import {Router} from "@angular/router-deprecated";
 
 @Component({
     selector: 'offers',
@@ -11,12 +12,13 @@ import { Offer } from "../../services/offer";
 export class OffersComponent implements OnInit {
     offers: Offer[];
 
-    constructor(_offer: OfferService) { 
-        this.offers = _offer.getOffers();
+    constructor(_offer: OfferService, private _router: Router) { 
+        this.offers = _offer.getOffers();        
     }
 
-    onItemTap($event) {
-
+    onItemTap(args) {
+        var offerIndex : number = args.index;
+        this._router.navigate(["OfferDetail", {index: offerIndex}]);
     }
 
     ngOnInit() { }

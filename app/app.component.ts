@@ -3,6 +3,7 @@ import {RouteConfig} from "@angular/router-deprecated";
 import {NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS} from "nativescript-angular/router";
 import {HomeComponent} from "./pages/home/home.component";
 import {OffersComponent} from "./pages/offers/offers.component";
+import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.component";
 
 @Component({
   selector: 'app',
@@ -16,7 +17,8 @@ import {OffersComponent} from "./pages/offers/offers.component";
 
 @RouteConfig([
   { path: '/Home', component: HomeComponent, name: "Home", useAsDefault: true },
-  { path: '/Offers', component: OffersComponent, name: "Offers"}
+  { path: '/Offers', component: OffersComponent, name: "Offers"},
+  { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail"}
 ])
 
 
