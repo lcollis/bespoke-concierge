@@ -5,14 +5,14 @@ import {HomeComponent} from "./pages/home/home.component";
 
 @Component({
     selector: 'app',
-    templateUrl: '<page-router-outlet></page-router-outlet>',
+    template: '<page-router-outlet></page-router-outlet>',
     directives: [NS_ROUTER_DIRECTIVES],
     providers: [NS_ROUTER_PROVIDERS]
 })
 
 
 @RouteConfig([
-  { path: '/Home', component: HomeComponent, name: "home", useAsDefault: true }
+  { path: '/Home', component: HomeComponent, name: "Home", useAsDefault: true }
 ])
 
 
