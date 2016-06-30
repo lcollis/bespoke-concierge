@@ -4,6 +4,8 @@ import {NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS} from "nativescript-angular/ro
 import {HomeComponent} from "./pages/home/home.component";
 import {OffersComponent} from "./pages/offers/offers.component";
 import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.component";
+import {HotelInfoComponent} from "./pages/hotelInfo/hotelInfo.component";
+import {FaqComponent } from "./pages/faq/faq.component";
 
 @Component({
   selector: 'app',
@@ -17,8 +19,10 @@ import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.compo
 
 @RouteConfig([
   { path: '/Home', component: HomeComponent, name: "Home", useAsDefault: true },
-  { path: '/Offers', component: OffersComponent, name: "Offers"},
-  { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail"}
+  { path: '/Offers', component: OffersComponent, name: "Offers" },
+  { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail" },
+  { path: '/HotelInfo', component: HotelInfoComponent, name: "HotelInfo" },
+  { path: '/Faq', component: FaqComponent, name: 'Faq' },
 ])
 
 

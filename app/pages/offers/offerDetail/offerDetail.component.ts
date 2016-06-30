@@ -15,7 +15,7 @@ export class OfferDetailComponent implements OnInit {
 
     constructor(params: RouteParams, _offerService: OfferService, private _router: Router) {
         var offerID: number = Number(params.get('index'));
-        this.offer = _offerService.getOffers()[offerID];
+        this.offer = _offerService.getValidOffers()[offerID];
     }
 
     ngOnInit() { }

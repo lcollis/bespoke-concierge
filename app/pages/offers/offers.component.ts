@@ -13,7 +13,7 @@ export class OffersComponent implements OnInit {
     offers: Offer[];
 
     constructor(_offer: OfferService, private _router: Router) {
-        this.offers = _offer.getOffers();
+        this.offers = _offer.getValidOffers();
     }
 
     onItemTap(args) {

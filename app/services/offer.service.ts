@@ -14,6 +14,14 @@ export class OfferService {
             ExpirationDate: new Date("August 25, 2016")
         },
         {
+            OfferID: 1,
+            OfferName: "expires",
+            OfferCampaignID: 1,
+            OfferContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate nibh sem, rutrum faucibus magna blandit eget. Praesent id convallis risus, eu placerat arcu. Etiam luctus quis felis id blandit. Vestibulum vel turpis ante. Sed interdum ultricies augue, non feugiat eros. Sed justo dui, efficitur vitae velit ut, tristique blandit metus. Proin ut sollicitudin nulla, at dictum enim. Donec vulputate consequat finibus.",
+            PromoCode: "FAKE",
+            ExpirationDate: new Date("June 25, 2016")
+        },
+        {
             OfferID: 2,
             OfferName: "Another Offer",
             OfferCampaignID: 1,
@@ -89,6 +97,21 @@ export class OfferService {
 
     getOffers() {
         return this.offers;
+    }
+
+    //get offers that have not expired
+    getValidOffers() {
+        var validOffers: Offer[] = [];
+
+        var currentDate: Date = new Date();
+
+        this.offers.forEach(offer => {
+            if (currentDate.getTime() < offer.ExpirationDate.getTime()) {
+                validOffers.push(offer);
+            }
+        });
+
+        return validOffers;
     }
 
 }

@@ -1,0 +1,8 @@
+<ActionBar>
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
+</ActionBar>
+
+<StackLayout>
+    <Label text="Frequently Asked Questions" class="title"></Label>
+    <Label [text]="faq" class="detail" textWrap="true"></Label>
+</StackLayout>

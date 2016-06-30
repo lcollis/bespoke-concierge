@@ -13,5 +13,12 @@ export class HomeComponent implements OnInit {
     specialOffers() {
         this._router.navigate(["Offers"]);
     }
+    
+    hotelInformation() {
+        this._router.navigate(["HotelInfo"]);
+    }
 
+    faq() {
+        this._router.navigate(["Faq"]);
+    }
 }
