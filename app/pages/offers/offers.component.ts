@@ -12,13 +12,17 @@ import {Router} from "@angular/router-deprecated";
 export class OffersComponent implements OnInit {
     offers: Offer[];
 
-    constructor(_offer: OfferService, private _router: Router) { 
-        this.offers = _offer.getOffers();        
+    constructor(_offer: OfferService, private _router: Router) {
+        this.offers = _offer.getOffers();
     }
 
     onItemTap(args) {
-        var offerIndex : number = args.index;
-        this._router.navigate(["OfferDetail", {index: offerIndex}]);
+        var offerIndex: number = args.index;
+        this._router.navigate(["OfferDetail", { index: offerIndex }]);
+    }
+
+    onNavBtnTap() {
+        this._router.navigate(["Home"]);
     }
 
     ngOnInit() { }
