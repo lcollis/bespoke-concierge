@@ -6,6 +6,7 @@ import {OffersComponent} from "./pages/offers/offers.component";
 import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.component";
 import {HotelInfoComponent} from "./pages/hotelInfo/hotelInfo.component";
 import {FaqComponent } from "./pages/faq/faq.component";
+import {WeatherComponent} from "./pages/weather/weather.component";
 
 @Component({
   selector: 'app',
@@ -23,6 +24,7 @@ import {FaqComponent } from "./pages/faq/faq.component";
   { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail" },
   { path: '/HotelInfo', component: HotelInfoComponent, name: "HotelInfo" },
   { path: '/Faq', component: FaqComponent, name: 'Faq' },
+  { path: '/Weather', component: WeatherComponent, name: 'Weather' }
 ])
 
 

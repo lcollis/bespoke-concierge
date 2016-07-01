@@ -21,4 +21,8 @@ export class HomeComponent implements OnInit {
     faq() {
         this._router.navigate(["Faq"]);
     }
+
+    weather() {
+        this._router.navigate(["Weather"]);
+    }
 }
