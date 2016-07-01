@@ -25,4 +25,9 @@ export class HomeComponent implements OnInit {
     weather() {
         this._router.navigate(["Weather"]);
     }
+
+    tripAdvisor() {
+        this._router.navigate(["TripAdvisor"]);
+    }
+
 }

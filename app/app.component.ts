@@ -7,6 +7,7 @@ import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.compo
 import {HotelInfoComponent} from "./pages/hotelInfo/hotelInfo.component";
 import {FaqComponent } from "./pages/faq/faq.component";
 import {WeatherComponent} from "./pages/weather/weather.component";
+import {TripAdvisorComponent} from "./pages/tripAdvisor/tripAdvisor.component";
 
 @Component({
   selector: 'app',
@@ -24,7 +25,8 @@ import {WeatherComponent} from "./pages/weather/weather.component";
   { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail" },
   { path: '/HotelInfo', component: HotelInfoComponent, name: "HotelInfo" },
   { path: '/Faq', component: FaqComponent, name: 'Faq' },
-  { path: '/Weather', component: WeatherComponent, name: 'Weather' }
+  { path: '/Weather', component: WeatherComponent, name: 'Weather' },
+  { path: '/TripAdvisor', component: TripAdvisorComponent, name: 'TripAdvisor'},
 ])
 
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
+import { Observable }     from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -11,17 +11,20 @@ export class WeatherService {
     lat: string = "32.4195";
     long: string = "-80.6903";
 
+    weather: any;
+
     constructor(private _http: Http) { }
 
     getWeather(): Observable<any> {
-        var urlString: string = "https://api.forecast.io/forecast/" + this.apiKey + "/" + this.lat + "," + this.long + "?exclude:[minutely,alerts,flags]";
-        return this._http.get(urlString)
-            .map(this.extractData)
-            .catch(this.handleError);
+            var urlString: string = "https://api.forecast.io/forecast/" + this.apiKey + "/" + this.lat + "," + this.long + "?exclude:[minutely,alerts,flags]";
+            return this._http.get(urlString)
+                .map(this.extractData)
+                .catch(this.handleError);
     }
 
     private extractData(res: any) {
-        return res._body || {};
+        this.weather = res._body;
+        return this.weather || {};
     }
 
     private handleError(error: any) {

@@ -2,4 +2,15 @@
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
-<Label [text]="'Current Temperature: ' + currentTemp"></Label>
+
+<StackLayout *ngIf="!loading">
+    <Label text="Current Weather at the Ancorage Hotel:" class="title"></Label>
+    <Image [src]="'res://' + imageURL" stretch="none" horizontalAlignment="center"></Image>
+    <Label [text]="currentSummary" class="detail"></Label>
+    <Label [text]="'Current Temperature: ' + currentTemp" class="detail"></Label>
+    <Label [text]="'Todays High: ' + todayHigh" class="detail"></Label>
+    <Label [text]="'Todays Low: ' + todayLow" class="detail"></Label>
+</StackLayout>
+
+
+<ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
