@@ -22,7 +22,7 @@ export class WeatherComponent {
         weatherService.getWeather()
             .subscribe(
             weather => this.gotWeather(weather),
-            error => console.error(error.status));
+            error => this.weatherError(error));
 
     }
 
@@ -40,6 +40,12 @@ export class WeatherComponent {
         this.loading = false;
 
         this.handleImage();
+    }
+
+    weatherError(error:any) {
+        console.error(error.status);
+        alert("No Internet Connection");
+        this._router.navigate(["Home"]);
     }
 
     handleImage() {        

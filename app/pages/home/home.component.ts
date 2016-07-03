@@ -3,7 +3,8 @@ import {Router} from "@angular/router-deprecated";
 
 @Component({
     selector: 'home',
-    templateUrl: 'pages/home/home.html'
+    templateUrl: 'pages/home/home.html',
+    styleUrls: ['pages/home/home.css']
 })
 export class HomeComponent implements OnInit {
     constructor(private _router: Router) { }

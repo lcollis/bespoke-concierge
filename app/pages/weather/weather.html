@@ -4,7 +4,7 @@
 
 
 <StackLayout *ngIf="!loading">
-    <Label text="Current Weather at the Ancorage Hotel:" class="title"></Label>
+    <Label text="Current Weather at the Ancorage Hotel:" class="title" textWrap="true"></Label>
     <Image [src]="'res://' + imageURL" stretch="none" horizontalAlignment="center"></Image>
     <Label [text]="currentSummary" class="detail"></Label>
     <Label [text]="'Current Temperature: ' + currentTemp" class="detail"></Label>
