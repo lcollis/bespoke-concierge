@@ -8,6 +8,7 @@ import {HotelInfoComponent} from "./pages/hotelInfo/hotelInfo.component";
 import {FaqComponent } from "./pages/faq/faq.component";
 import {WeatherComponent} from "./pages/weather/weather.component";
 import {TripAdvisorComponent} from "./pages/tripAdvisor/tripAdvisor.component";
+import {SocialMediaComponent} from "./pages/socialMedia/socialMedia.component";
 
 @Component({
   selector: 'app',
@@ -27,6 +28,7 @@ import {TripAdvisorComponent} from "./pages/tripAdvisor/tripAdvisor.component";
   { path: '/Faq', component: FaqComponent, name: 'Faq' },
   { path: '/Weather', component: WeatherComponent, name: 'Weather' },
   { path: '/TripAdvisor', component: TripAdvisorComponent, name: 'TripAdvisor'},
+  { path: '/SocialMedia', component: SocialMediaComponent, name: 'SocialMedia'},
 ])
 
 

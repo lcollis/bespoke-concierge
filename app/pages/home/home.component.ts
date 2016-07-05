@@ -31,4 +31,8 @@ export class HomeComponent implements OnInit {
         this._router.navigate(["TripAdvisor"]);
     }
 
+    socialMedia() {
+        this._router.navigate(["SocialMedia"]);
+    }
+
 }
