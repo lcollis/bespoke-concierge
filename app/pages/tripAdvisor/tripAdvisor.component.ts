@@ -6,11 +6,18 @@ import {Router} from "@angular/router-deprecated";
     templateUrl: '/pages/tripAdvisor/tripAdvisor.html'
 })
 export class TripAdvisorComponent implements OnInit {
-    constructor(private _router:Router) { }
+
+    loading: boolean = true;
+
+    constructor(private _router: Router) { }
 
     ngOnInit() { }
 
     onNavBtnTap() {
         this._router.navigate(["Home"]);
+    }
+
+    pageLoaded() {
+        this.loading = false;
     }
 }
