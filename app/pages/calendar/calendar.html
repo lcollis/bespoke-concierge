@@ -1,0 +1,12 @@
+<ActionBar>
+    <NavigationButton text='Go Back' android.systemIcon='ic_menu_back' (tap)='onNavBtnTap()'> </NavigationButton>
+</ActionBar>
+
+<ListView [items]="events" (itemTap)="onItemTap($event)">
+    <template let-item="item">
+        <StackLayout>
+            <Label [text]='item.title' class="offerTitle"></Label>
+            <Label [text]='item.description' class="offerDetail" textWrap="true"></Label>
+        </StackLayout>
+    </template>
+</ListView>

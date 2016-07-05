@@ -35,4 +35,8 @@ export class HomeComponent implements OnInit {
         this._router.navigate(["SocialMedia"]);
     }
 
+    calendar() {
+        this._router.navigate(["Calendar"]);
+    }
+
 }
