@@ -1,106 +1,44 @@
 import { Injectable } from '@angular/core';
 import {Offer} from "./offer";
+import { Http, Response } from '@angular/http';
+import { Observable }     from 'rxjs/Rx';
+import {XmlService} from "./xml.service";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class OfferService {
 
-    offers: Offer[] = [
-        {
-            OfferID: 1,
-            OfferName: "Fake Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate nibh sem, rutrum faucibus magna blandit eget. Praesent id convallis risus, eu placerat arcu. Etiam luctus quis felis id blandit. Vestibulum vel turpis ante. Sed interdum ultricies augue, non feugiat eros. Sed justo dui, efficitur vitae velit ut, tristique blandit metus. Proin ut sollicitudin nulla, at dictum enim. Donec vulputate consequat finibus.",
-            PromoCode: "FAKE",
-            ExpirationDate: new Date("August 25, 2016")
-        },
-        {
-            OfferID: 1,
-            OfferName: "expires",
-            OfferCampaignID: 1,
-            OfferContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate nibh sem, rutrum faucibus magna blandit eget. Praesent id convallis risus, eu placerat arcu. Etiam luctus quis felis id blandit. Vestibulum vel turpis ante. Sed interdum ultricies augue, non feugiat eros. Sed justo dui, efficitur vitae velit ut, tristique blandit metus. Proin ut sollicitudin nulla, at dictum enim. Donec vulputate consequat finibus.",
-            PromoCode: "FAKE",
-            ExpirationDate: new Date("June 25, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        },
-        {
-            OfferID: 2,
-            OfferName: "Another Offer",
-            OfferCampaignID: 1,
-            OfferContent: "Nullam volutpat mollis lacus, nec pharetra arcu sollicitudin non. Nunc id dolor vel velit mollis volutpat ut vitae felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi turpis massa, bibendum a lobortis at, sodales vel tortor. Aliquam convallis risus eget augue dapibus, nec varius nibh fringilla. Etiam dignissim massa imperdiet augue auctor blandit. Sed blandit at nisi vitae convallis. Proin in purus suscipit, suscipit neque nec, finibus nisi.",
-            PromoCode: "ANOTHER",
-            ExpirationDate: new Date("July 7, 2016")
-        }
-    ];
+     offers: Offer[];
+     selectedOffer: Offer;
 
-    getOffers() {
-        return this.offers;
+    constructor(private _http: Http, private _xmlService: XmlService) { }
+
+    loadOffers(): Observable<any> {
+        var urlString: string = "http://bespokeapi.dev.bespoke.house/api/offer";
+        return this._http.get(urlString)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    extractData(response: any) {
+        this.offers = response;
+        return this.offers || {};
+    }
+
+    handleError(error: any) {
+        console.log("++++++++++++++++++ failed to get offers");
+
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg);
+        return Observable.throw(errMsg);
     }
 
     //get offers that have not expired
     getValidOffers() {
+        this.loadOffers();
+
         var validOffers: Offer[] = [];
 
         var currentDate: Date = new Date();

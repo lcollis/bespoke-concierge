@@ -1,7 +1,8 @@
 .buttonImage {
     horizontal-align: center;
     margin: 5;
-    width: 40%;
+    width: 200;
+    height: 75;
     background-color: #999;
     background-repeat : no-repeat;
     background-position : left center;

@@ -16,10 +16,10 @@ export class WeatherService {
     constructor(private _http: Http) { }
 
     getWeather(): Observable<any> {
-            var urlString: string = "https://api.forecast.io/forecast/" + this.apiKey + "/" + this.lat + "," + this.long + "?exclude:[minutely,alerts,flags]";
-            return this._http.get(urlString)
-                .map(this.extractData)
-                .catch(this.handleError);
+        var urlString: string = "https://api.forecast.io/forecast/" + this.apiKey + "/" + this.lat + "," + this.long + "?exclude:[minutely,alerts,flags]";
+        return this._http.get(urlString)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     private extractData(res: any) {
@@ -32,7 +32,7 @@ export class WeatherService {
 
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        console.error(errMsg);
         return Observable.throw(errMsg);
     }
 

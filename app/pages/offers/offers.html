@@ -2,7 +2,7 @@
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
-<ListView [items]="offers" (itemTap)="onItemTap($event)">
+<ListView [items]="offers" (itemTap)="onItemTap($event)" *ngIf="!loading">
     <template let-item="item">
         <StackLayout>
             <Label [text]='item.OfferName' class="offerTitle"></Label>
@@ -10,3 +10,5 @@
         </StackLayout>
     </template>
 </ListView>
+
+<ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>

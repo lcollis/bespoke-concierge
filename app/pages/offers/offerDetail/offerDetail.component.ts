@@ -6,16 +6,14 @@ import { OfferService } from "../../../services/offer.service"
 @Component({
     selector: 'offerDetail',
     templateUrl: 'pages/offers/offerDetail/offerDetail.html',
-    styleUrls: ['pages/offers/offerDetail/offerDetail.css'],
-    providers: [OfferService]
+    styleUrls: ['pages/offers/offerDetail/offerDetail.css']
 })
 export class OfferDetailComponent implements OnInit {
 
-    offer: Offer;
+    offer: any;
 
     constructor(params: RouteParams, _offerService: OfferService, private _router: Router) {
-        var offerID: number = Number(params.get('index'));
-        this.offer = _offerService.getValidOffers()[offerID];
+        this.offer = _offerService.selectedOffer;
     }
 
     ngOnInit() { }

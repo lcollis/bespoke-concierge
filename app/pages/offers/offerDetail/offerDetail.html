@@ -8,5 +8,5 @@
         <Label [text]='offer.OfferContent' class="offerDetail" textWrap="true"></Label>
         <Label [text]='"Use Promo Code: " + offer.PromoCode + " at checkout!"' class="offerDetail"></Label>
     </StackLayout>
-        <Label [text]='"Expires " + offer.ExpirationDate.toDateString()' class="offerDetail" dock="bottom"></Label>
+        <Label [text]='"Expires " + offer.ExpirationDate.toDateString()' class="offerDetail" dock="bottom" *ngIf="offer.ExpirationDate"></Label>
 </DockLayout>
