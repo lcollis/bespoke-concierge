@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Offer} from "./offer";
 import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Rx';
-import {XmlService} from "./xml.service";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,7 +11,7 @@ export class OfferService {
      offers: Offer[];
      selectedOffer: Offer;
 
-    constructor(private _http: Http, private _xmlService: XmlService) { }
+    constructor(private _http: Http) { }
 
     loadOffers(): Observable<any> {
         var urlString: string = "http://bespokeapi.dev.bespoke.house/api/offer";
