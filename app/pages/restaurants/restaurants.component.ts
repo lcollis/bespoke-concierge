@@ -20,8 +20,8 @@ export class RestaurantsComponent implements OnInit {
     constructor(private _router: Router, private restaurantService:RestaurantsService) {
        // this.restaurant = restaurantService.getRestaurant()
 
-        restaurantService.loadRestaurant().subscribe(
-            restaurant => this.getRestaurant(this.restaurant),
+        restaurantService.loadRestaurant().then(
+            restaurant => this.getRestaurant(restaurant),
             error => this.receivingError(error));
     }
   

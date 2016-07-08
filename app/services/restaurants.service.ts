@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
+var http = require("http");
 @Injectable()
 export class RestaurantsService {
     restaurant: Restaurants[] = [ {RestaurantID: 1,RestaurantName:"aa",RestaurantAddress:"aa",RestaurantURL:"aa",RestaurantPhone:"aa"}];
@@ -16,24 +16,29 @@ selectedRestaurant: Restaurants;
 
     constructor(private _http: Http) { }
 
-   loadRestaurant(): Observable<any> {
-        var currentTime: Date = new Date();
-        var timeSinceLastUpdate: number = currentTime.getTime() - this.lastUpdate.getTime();
-        var that = this;
-        if (timeSinceLastUpdate > this.updateDelay || this.restaurant === {}) {
-            this.lastUpdate = new Date();
-            console.log("+++++++++++++++updating restaurant list. Time since last update: " + timeSinceLastUpdate + "  Update delay: " + this.updateDelay);
-            var urlString: string = "http://theanchorage.dev.bespoke.house/GoogleMap/nearbyRestaurant.json";
-            return this._http.get(urlString)
-                .map(response => { return that.restaurant = response as any })
-                .catch(this.handleError);
-        } else {
-            console.log("+++++++++++++++ using old restaurant")
-            return new Observable(observer => {
-                observer.next(that.restaurant);
-                observer.complete();
-            });
-        }
+   loadRestaurant() {
+
+       return http.getJSON("http://theanchorage.dev.bespoke.house/GoogleMap/nearbyRestaurant.json");
+        // var currentTime: Date = new Date();
+        // var timeSinceLastUpdate: number = currentTime.getTime() - this.lastUpdate.getTime();
+        // var that = this;
+        // if (timeSinceLastUpdate > this.updateDelay || this.restaurant === {}) {
+        //     this.lastUpdate = new Date();
+        //     console.log("+++++++++++++++updating restaurant list. Time since last update: " + timeSinceLastUpdate + "  Update delay: " + this.updateDelay);
+        //     var urlString: string = "http://theanchorage.dev.bespoke.house/GoogleMap/nearbyRestaurant.json";
+        //     return this._http.get(urlString)
+        //         .map(response => {
+        //             console.log("+++++++++++++++++" + JSON.stringify(response));
+                     
+        //              return that.restaurant = response as any;})
+        //         .catch(this.handleError);
+        // } else {
+        //     console.log("+++++++++++++++ using old restaurant")
+        //     return new Observable(observer => {
+        //         observer.next(that.restaurant);
+        //         observer.complete();
+        //     });
+        // }
     }
 
     handleError(error: any) {
