@@ -1,0 +1,12 @@
+.restaurantTitle {
+    font-size: 24;
+    color: black;
+}
+.restaurantDetail {
+    font-size: 14;
+    width: 100%;
+}
+.restaurantLink{
+    color: darkblue;
+    font-size: 14;
+}

@@ -38,5 +38,7 @@ export class HomeComponent implements OnInit {
     calendar() {
         this._router.navigate(["Calendar"]);
     }
-
+    restaurants() {
+        this._router.navigate(["Restaurants"]);
+    }
 }
