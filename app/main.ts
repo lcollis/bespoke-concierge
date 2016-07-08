@@ -4,5 +4,6 @@ import {AppComponent} from "./app.component";
 import {HTTP_PROVIDERS} from "@angular/http";
 import {WeatherService} from "./services/weather.service";
 import {OfferService} from "./services/offer.service";
+import {RestaurantsService} from  "./services/restaurants.service";
 
-nativeScriptBootstrap(AppComponent, [HTTP_PROVIDERS, WeatherService, OfferService]);
+nativeScriptBootstrap(AppComponent, [HTTP_PROVIDERS, WeatherService, OfferService,RestaurantsService]);

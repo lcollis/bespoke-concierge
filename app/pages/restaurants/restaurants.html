@@ -5,9 +5,10 @@
 <ListView [items]="restaurant" (itemTap)="onItemTap($event)" *ngIf="!loading">
     <template let-item="item">
         <StackLayout>
-            <Label [text]='item.restaurantName' class="restaurantTitle"></Label>
-            <Label [text]='item.restaurantContent' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.restaurantLink' class="restaurantLink" textWrap="true"></Label>
+            <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
+            <Label [text]='item.RestaurantAddress' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.RestaurantURL' class="restaurantLink" textWrap="true"></Label>
+            <Label [text]='item.RestaurantPhone' class="restaurantPhone" textWrap="true"></Label>
         </StackLayout>
     </template>
 </ListView>
