@@ -41,4 +41,8 @@ export class HomeComponent implements OnInit {
     restaurants() {
         this._router.navigate(["Restaurants"]);
     }
+
+    chat() {
+        this._router.navigate(["Chat"]);
+    }
 }

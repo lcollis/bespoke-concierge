@@ -11,6 +11,7 @@ import {TripAdvisorComponent} from "./pages/tripAdvisor/tripAdvisor.component";
 import {SocialMediaComponent} from "./pages/socialMedia/socialMedia.component";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {RestaurantsComponent} from "./pages/restaurants/restaurants.component";
+import {ChatComponent} from "./pages/chat/chat.component";
 
 @Component({
   selector: 'app',
@@ -33,6 +34,7 @@ import {RestaurantsComponent} from "./pages/restaurants/restaurants.component";
   { path: '/SocialMedia', component: SocialMediaComponent, name: 'SocialMedia'},
   { path: '/Calendar', component: CalendarComponent, name: 'Calendar'},
   { path: '/Restaurants', component: RestaurantsComponent, name: 'Restaurants'},
+  { path: '/Chat', component: ChatComponent, name: 'Chat'},
 ])
 
 
