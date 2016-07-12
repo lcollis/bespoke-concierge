@@ -2,7 +2,11 @@
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
-<StackLayout>
-    <Label text="Frequently Asked Questions" class="title"></Label>
-    <Label [text]="faq" class="detail" textWrap="true"></Label>
-</StackLayout>
+<ListView [items]="faq" (itemTap)="onItemTap($event)" *ngIf="!loading">
+    <template let-item="item">
+        <StackLayout>
+            <Label [text]='item.DisplayText' class="title"></Label>
+            <Label [text]='item.ShortSummaryText' class="detail" textWrap="true"></Label>
+        </StackLayout>
+    </template>
+</ListView>

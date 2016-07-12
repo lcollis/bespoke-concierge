@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router-deprecated";
-import {FaqService} from "../../services/faq.service";
-import { Faq } from "../../services/Faq";
+import {MenuService} from "../../services/menu.service";
+import {Menu} from "../../services/menu";
 import appModule = require("application");
 
 @Component({
-    selector: 'faq',
-    templateUrl: 'pages/faq/faq.html',
-    styleUrls: ['pages/faq/faq.css'],
-    providers: [FaqService]
+    selector: 'menu',
+    templateUrl: 'pages/menu/menu.html',
+    styleUrls: ['pages/menu/menu.css'],
+    providers: [MenuService]
 })
 
-export class FaqComponent implements OnInit {
-    faq: Faq[];
+export class MenuComponent implements OnInit {
+    menu: Menu[];
    
     loading: boolean = true;
 
-    constructor(private _router: Router, private faqService:FaqService) {
-        faqService.loadFaq().subscribe(
-            faq => this.getFaq(faq),
+    constructor(private _router: Router, private _menu:MenuService) {
+        _menu.loadMenu().subscribe(
+            menu => this.getMenu(menu),
             error => this.receivingError(error));
     }
   
-    getFaq(faq) {
-        this.faq = faq._body;
+    getMenu(menu) {
+        this.menu = menu._body;
         this.loading = false;
     }
     receivingError(error) {

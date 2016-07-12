@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RestaurantsService } from "../../services/restaurants.service";
-import { Restaurants } from "../../services/restaurants";
+import {RestaurantsService} from "../../services/restaurants.service";
+import {Restaurants} from "../../services/restaurants";
 import {Router} from "@angular/router-deprecated";
 import appModule = require("application");
 
@@ -11,22 +11,18 @@ import appModule = require("application");
 })
 
 export class RestaurantsComponent implements OnInit {
-    
-   // restaurant: Restaurants[];
-    restaurant: Restaurants[];// = [ {RestaurantID: 1,RestaurantName:"aa",RestaurantAddress:"aa",RestaurantURL:"aa",RestaurantPhone:"aa"}];
-   
+    restaurant: Restaurants[];
     loading: boolean = true;
 
-    constructor(private _router: Router, private restaurantService:RestaurantsService) {
-       // this.restaurant = restaurantService.getRestaurant()
-
-        restaurantService.loadRestaurant().then(
+    constructor(private _router: Router, private _restaurant:RestaurantsService) {
+        _restaurant.loadRestaurant().subscribe(
             restaurant => this.getRestaurant(restaurant),
             error => this.receivingError(error));
     }
   
+
     getRestaurant(restaurant) {
-        this.restaurant = restaurant;
+        this.restaurant = restaurant._body;
         this.loading = false;
     }
 
@@ -35,6 +31,7 @@ export class RestaurantsComponent implements OnInit {
         alert("No Internet Connection");
         this._router.navigate(["Home"]);
     }
+
     onNavBtnTap() {
         this._router.navigate(["Home"]);
     }

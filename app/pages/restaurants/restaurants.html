@@ -1,14 +1,21 @@
 <ActionBar>
-  <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
 <ListView [items]="restaurant" (itemTap)="onItemTap($event)" *ngIf="!loading">
     <template let-item="item">
         <StackLayout>
             <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
-            <Label [text]='item.RestaurantAddress' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.RestaurantURL' class="restaurantLink" textWrap="true"></Label>
-            <Label [text]='item.RestaurantPhone' class="restaurantPhone" textWrap="true"></Label>
+            <Label [text]='item.Street1' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.Street2' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.City' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.PostalCode' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.State' class="restaurantDetail" textWrap="true"></Label>
+            <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
+            <Label [text]='item.Fax' class="restaurantPhone" textWrap="true"></Label>
+            <Label [text]='item.Websites' class="restaurantPhone" textWrap="true"></Label>
+            <Label [text]='item.PhotoURL' class="restaurantLink" textWrap="true"></Label>
+             
         </StackLayout>
     </template>
 </ListView>
