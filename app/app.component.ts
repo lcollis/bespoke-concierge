@@ -12,6 +12,7 @@ import {SocialMediaComponent} from "./pages/socialMedia/socialMedia.component";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {RestaurantsComponent} from "./pages/restaurants/restaurants.component";
 import {ChatComponent} from "./pages/chat/chat.component";
+import {RequestsComponent} from "./pages/requests/requests.component";
 
 @Component({
   selector: 'app',
@@ -35,6 +36,7 @@ import {ChatComponent} from "./pages/chat/chat.component";
   { path: '/Calendar', component: CalendarComponent, name: 'Calendar'},
   { path: '/Restaurants', component: RestaurantsComponent, name: 'Restaurants'},
   { path: '/Chat', component: ChatComponent, name: 'Chat'},
+  { path: '/Requests', component: RequestsComponent, name: 'Requests'},
 ])
 
 

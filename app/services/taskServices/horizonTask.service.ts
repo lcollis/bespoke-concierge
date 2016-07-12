@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable'
+import {Observable} from 'rxjs/Observable';
+import {Task} from "./task";
 import fs = require("file-system");
-import {Message} from "./message";
-import {Chat} from "./chat";
 var Horizon = require('@horizon/client/dist/horizon-dev');
 const SERVER_URL = "10.0.3.2:8181";
 
 @Injectable()
-export class HorizonService {
+export class HorizonTaskService {
+
     private horizon;
-    chats;
-    userID: string; //id for every user so we can tell who is who
+    tasksDatabase;
 
     constructor() {
         //show server status
@@ -25,51 +24,31 @@ export class HorizonService {
         this.horizon.onSocketError()
             .subscribe(status => { console.log(status.type) })
 
-        //get userID or make one if it doesn't exist
-        var that = this;
-        this.getUserID()
-            .then(function (content) {
-                that.userID = content;
-            }, function (error) {
-                console.log(error);
-            });
-
-        this.connectToChats();
-
+        this.connectToTasks();
     }
 
-    connectToChats() {
-        this.chats = this.horizon('chats');
+    connectToTasks() {
+        this.tasksDatabase = this.horizon('tasks');
     }
 
-    getMessages(): Observable<Chat> {
-        var id = this.userID;
-        return this.chats.find({ id: id }).watch();
+    getUsersTasks(userID: string)  { //: Observable<Task[]> {
+        console.log("+++++++++++++finding tasks for user: " + userID);
+        return this.tasksDatabase.findAll({requesterID: userID}).watch();
     }
 
-    sendMessages(messages: Message[]) {
-        var id = this.userID;
-        return this.chats
-            .upsert({
-                id: id,
-                messages: messages,
-                lastMessageTime: new Date()
-            } as Chat);
+    getAllTasks(): Observable<Task[]> {
+        return this.tasksDatabase.watch();
     }
 
-    getStatus() {
-        return this.horizon.status();
+    addTask(task: Task) {
+        return this.tasksDatabase.store(task);
     }
 
     getUserID(): Promise<string> {
-
         var documentsFolder: fs.Folder = fs.knownFolders.documents();
-
-        if (documentsFolder.contains("userID.txt")) {            
+        if (documentsFolder.contains("userID.txt")) {
             var userIDFile = documentsFolder.getFile("userID.txt");
-
             return userIDFile.readText();
-
         } else {
             console.log("+++++++++++++++++++++++User ID does not exist");
             var userIDFile = documentsFolder.getFile("userID.txt");
@@ -87,5 +66,4 @@ export class HorizonService {
         console.log("!!!!!!!!!!!!!!!!!making a new user ID. This should only happen once per phone");
         return '_id' + (new Date()).getTime(); //will be unique unless we make them directly one after another
     }
-
 }

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router-deprecated';
-import {HorizonService} from "../../services/chatServices/horizon.service";
+import {HorizonChatService} from "../../services/chatServices/horizonChat.service";
 import {FromNowPipe} from '../../pipes/fromnow.pipe';
 import {Message} from "../../services/chatServices/message";
 
 @Component({
     selector: 'chat',
     templateUrl: 'pages/chat/chat.html',
-    providers: [HorizonService],
+    providers: [HorizonChatService],
     pipes: [FromNowPipe]
 })
 export class ChatComponent {
-    constructor(private _router: Router, private horizon: HorizonService) { }
+    constructor(private _router: Router, private horizon: HorizonChatService) { }
 
     messages: Message[] = new Array<Message>();
     newMessage: string;

@@ -1,0 +1,22 @@
+<ActionBar>
+    <NavigationButton text='Go Back' android.systemIcon='ic_menu_back' (tap)='onNavBtnTap()'> </NavigationButton>
+</ActionBar>
+
+<GridLayout rows="*,auto">
+    <GridLayout>
+        <ListView [items]="myTasks">
+            <template let-item="item">
+            <GridLayout columns="50,*,auto">
+                <Label textWrap="true" verticalAlignment="center" col="1" [text]="item.requesterID" minHeight="50"></Label>
+                <Label verticalAlignment="top" horizontalAlignment="right" col="2" [text]="item.timeOfRequest | fromNow"></Label>
+                <Label verticalAlignment="bottom" horizontalAlignment="center" col="0" [text]="item.description"></Label>
+            </GridLayout>
+            </template>
+        </ListView>
+    </GridLayout>
+    
+    <GridLayout row="1" columns="*,auto">
+        <TextField hint="Enter task Description ..." row="1" [(ngModel)]="newDescription"></TextField>
+        <Button row="1" col="1" text="Add" (tap)="addTask(newDescription)"></Button>
+    </GridLayout>
+</GridLayout>
