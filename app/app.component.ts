@@ -13,6 +13,7 @@ import {CalendarComponent} from "./pages/calendar/calendar.component";
 import {RestaurantsComponent} from "./pages/restaurants/restaurants.component";
 import {MenuComponent} from "./pages/menu/menu.component";
 import {ChatComponent} from "./pages/chat/chat.component";
+import {RequestsComponent} from "./pages/requests/requests.component";
 
 @Component({
   selector: 'app',
@@ -37,6 +38,7 @@ import {ChatComponent} from "./pages/chat/chat.component";
   { path: '/Restaurants', component: RestaurantsComponent, name: 'Restaurants'},
   { path: '/Chat', component: ChatComponent, name: 'Chat'},
    { path: '/Menu', component: MenuComponent, name: 'Menu'},
+   { path: '/Requests', component: RequestsComponent, name: 'Requests'},
 ])
 
 

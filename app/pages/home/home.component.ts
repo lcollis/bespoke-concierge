@@ -38,13 +38,20 @@ export class HomeComponent implements OnInit {
     calendar() {
         this._router.navigate(["Calendar"]);
     }
+    
     restaurants() {
         this._router.navigate(["Restaurants"]);
     }
+
     menu() {
         this._router.navigate(["Menu"]);
     }
+
     chat() {
         this._router.navigate(["Chat"]);
+    }
+
+    requests() {
+        this._router.navigate(["Requests"]);
     }
 }
