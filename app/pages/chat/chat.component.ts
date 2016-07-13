@@ -16,6 +16,7 @@ export class ChatComponent {
     messages: Message[] = new Array<Message>();
     newMessage: string;
     userID: string;
+    loading: boolean = true;
 
     ngOnInit() {
         var that = this;
@@ -25,6 +26,7 @@ export class ChatComponent {
             that.userID = content;
             that.horizon.getMessages().subscribe((messageData) => {
                 console.log('updating');
+                that.loading = false;
                 if (messageData) {
                     var messages = messageData.messages;
                     //sort messages by time stamp
@@ -33,7 +35,11 @@ export class ChatComponent {
                     console.log("Messages Empty")
                 }
             },
-                error => { console.log(error) });
+                error => {
+                    console.log("Couldn't Connect to Chat Server with error: " + error);
+                    alert("Could not connect to chat server. Please connect to the internet or try again later.");
+                    that._router.navigate(['Home']);
+                });
         }, function (error) {
             console.log(error);
         });
@@ -41,11 +47,12 @@ export class ChatComponent {
 
     addMessage(message) {
         this.messages.push({ text: message, timeStamp: new Date(), sender: this.userID });
-        this.horizon.sendMessages(this.messages).subscribe((res) => {}, error => { console.log(error) })
+        this.horizon.sendMessages(this.messages).subscribe((res) => { }, error => { console.log(error) })
         this.newMessage = '';
     }
 
     onNavBtnTap() {
         this._router.navigate(['Home']);
+        this.horizon.disconnect();
     }
 }

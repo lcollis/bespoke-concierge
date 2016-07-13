@@ -44,6 +44,10 @@ export class HorizonTaskService {
         return this.tasksDatabase.store(task);
     }
 
+    disconnect() {
+        this.horizon.disconnect();
+    }
+
     getUserID(): Promise<string> {
         var documentsFolder: fs.Folder = fs.knownFolders.documents();
         if (documentsFolder.contains("userID.txt")) {

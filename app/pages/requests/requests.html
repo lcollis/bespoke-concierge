@@ -16,7 +16,9 @@
     </GridLayout>
     
     <GridLayout row="1" columns="*,auto">
-        <TextField hint="Enter task Description ..." row="1" [(ngModel)]="newDescription"></TextField>
-        <Button row="1" col="1" text="Add" (tap)="addTask(newDescription)"></Button>
+        <TextField hint="Enter Task Description ..." row="1" [(ngModel)]="newDescription" [isEnabled]="!loading"></TextField>
+        <Button row="1" col="1" text="Add" (tap)="addTask(newDescription)" [isEnabled]="!loading"></Button>
     </GridLayout>
 </GridLayout>
+
+<ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>

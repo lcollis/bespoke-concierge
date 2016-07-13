@@ -14,6 +14,7 @@ export class RequestsComponent {
     myTasks: Task[];
     newDescription: string;
     userID: string;
+    loading: boolean = true;
 
     constructor(private _router: Router, private hzTaskService: HorizonTaskService) {
         //get the user ID
@@ -28,12 +29,15 @@ export class RequestsComponent {
     getUserTasks() {
         var that = this;
         this.hzTaskService.getUsersTasks(this.userID).subscribe((taskData) => {
+            that.loading = false;
             if (taskData) {
                 that.myTasks = taskData;
                 that.myTasks = that.myTasks.sort(function (a, b) { return a.timeOfRequest.getTime() - b.timeOfRequest.getTime() });
             }
         }, (error: any) => {
-            console.log(error);
+            console.log("Couldn't Connect to requests server with error: " + error);
+            alert("Could not connect to requests server. Please connect to the internet or try again later.");
+            that._router.navigate(['Home']);
         })
     }
 
@@ -45,5 +49,6 @@ export class RequestsComponent {
 
     onNavBtnTap() {
         this._router.navigate(['Home']);
+        this.hzTaskService.disconnect();
     }
 }
