@@ -6,14 +6,18 @@
     <GridLayout>
         <ListView [items]="messages" #listview>
             <template let-item="item">
-            <GridLayout columns="50,*,auto">
-                <Label textWrap="true" verticalAlignment="center" col="1" [text]="item.text" minHeight="50"></Label>
-                <Label verticalAlignment="top" horizontalAlignment="right" col="2" [text]="item.timeStamp | fromNow"></Label>
-            </GridLayout>
+                <GridLayout columns="auto,*" rows="auto">
+                    <Border col="1" class="message-border" horizontalAlignment="right">
+                        <StackLayout class="message-stack-layout" horizontalAlignment="right">
+                            <Label [text]="item.timeStamp | fromNow" horizontalAlignment="right" class="message-timestamp"></Label>
+                            <Label [text]="item.text" textWrap="true" horizontalAlignment="right" class="message-text"></Label>
+                        </StackLayout>
+                    </Border>
+                </GridLayout>
             </template>
         </ListView>
     </GridLayout>
-    
+
     <GridLayout row="1" columns="*,auto">
         <TextField hint="Enter message ...." row="1" [(ngModel)]="newMessage" [isEnabled]="!loading"></TextField>
         <Button row="1" col="1" text="Send" (tap)="addMessage(newMessage)" [isEnabled]="!loading"></Button>

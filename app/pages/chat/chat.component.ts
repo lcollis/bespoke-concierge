@@ -9,6 +9,7 @@ import {EventData} from "data/observable";
 @Component({
     selector: 'chat',
     templateUrl: 'pages/chat/chat.html',
+    styleUrls: ['pages/chat/chat.css'],
     providers: [HorizonService],
     pipes: [FromNowPipe]
 })
