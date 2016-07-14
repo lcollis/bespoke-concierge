@@ -4,7 +4,7 @@
 
 <GridLayout rows="*,auto">
     <GridLayout>
-        <ListView [items]="messages">
+        <ListView [items]="messages" #listview>
             <template let-item="item">
             <GridLayout columns="50,*,auto">
                 <Label textWrap="true" verticalAlignment="center" col="1" [text]="item.text" minHeight="50"></Label>
