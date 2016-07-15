@@ -1,9 +1,11 @@
+bind = ["localhost" , "THE.SERVER.IP.ADDRESS"]
+
 secure = false
 project_name = "chat_server"
 token_secret = "2WwcJ0iDzjoTc2FZl1yrd7tjY1NzC5MYC/y89WpiuRI6RS+lJume3dCz8SWhrj2pmVNn5rNhAI0u9OI3v/M2hw=="
 allow_unauthenticated = true
 permissions = false
 serve_static = "dist"
-
+port = 8181
 connect = "localhost:28015"
 start_rethinkdb = false

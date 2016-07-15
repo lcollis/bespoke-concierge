@@ -20,7 +20,6 @@ export class AdminHorizonService {
 
     connect() {
         //show server status
-        console.log("+++++++++ADMIN HORIZON CONSTRUCTOR");
         this.horizon = new Horizon({ host: SERVER_URL });
 
         this.horizon.onReady()

@@ -6,7 +6,7 @@
     <GridLayout>
         <ListView [items]="messages" separatorColor="white" #listview>
             <template let-item="item">
-                <GridLayout columns="auto,*,auto" rows="auto">
+                <GridLayout columns="auto,*" rows="auto">
                     <Border col="1" [className]="'message-border' + (isMessageFromMe(item) ? '-right' : '-left')">
                         <StackLayout class="message-stack-layout" horizontalAlignment="right">
                             <Label [text]="item.timeStamp | fromNow" horizontalAlignment="right" class="message-timestamp"></Label>
