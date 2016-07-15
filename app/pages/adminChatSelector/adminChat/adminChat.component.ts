@@ -66,6 +66,6 @@ export class AdminChatComponent {
     }
 
     isMessageFromMe(message: Message): boolean {
-        return message.sender === this.userID;
+        return message.sender !== this.adminHz.otherUserID;
     }
 }

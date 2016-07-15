@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router-deprecated';
 import {AdminHorizonService} from "../../services/chatServices/adminHorizon.service";
 import {Chat} from "../../services/chatServices/chat";
+import {FromNowPipe} from "../../pipes/fromnow.pipe";
 
 @Component({
     selector: 'adminChatSelector',
-    templateUrl: 'pages/adminChatSelector/adminChatSelector.html'
+    templateUrl: 'pages/adminChatSelector/adminChatSelector.html',
+    pipes: [FromNowPipe]
 })
 export class AdminChatSelectorComponent {
 

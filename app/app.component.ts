@@ -16,6 +16,7 @@ import {ChatComponent} from "./pages/chat/chat.component";
 import {RequestsComponent} from "./pages/requests/requests.component";
 import {AdminChatSelectorComponent} from "./pages/adminChatSelector/adminChatSelector.component";
 import {AdminChatComponent} from "./pages/adminChatSelector/adminChat/adminChat.component";
+import {AdminHomeComponent} from "./pages/adminHome/adminHome.component";
 
 @Component({
   selector: 'app',
@@ -43,6 +44,7 @@ import {AdminChatComponent} from "./pages/adminChatSelector/adminChat/adminChat.
   { path: '/Requests', component: RequestsComponent, name: 'Requests' },
   { path: '/AdminChatSelector', component: AdminChatSelectorComponent, name: 'AdminChatSelector' },
   { path: '/AdminChat', component: AdminChatComponent, name: 'AdminChat'},
+  { path: '/AdminHome', component: AdminHomeComponent, name: 'AdminHome'},
 ])
 
 

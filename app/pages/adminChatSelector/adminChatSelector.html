@@ -5,7 +5,11 @@
 <ListView [items]="chats" (itemTap)="onItemTap($event)">
     <template let-item="item">
         <StackLayout>
-            <Label [text]='item.id' minHeight="50"></Label>
+            <GridLayout rows="auto" columns="2*,*" width="100%">
+                <Label [text]="'Guest: ' + item.id"></Label>
+                <Label [text]="item.lastMessageTime | fromNow" col='1'></Label>
+            </GridLayout>
+            <Label [text]="item.messages[item.messages.length-1].text"></Label>
         </StackLayout>
     </template>
 </ListView>
