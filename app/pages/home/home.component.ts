@@ -54,4 +54,8 @@ export class HomeComponent implements OnInit {
     requests() {
         this._router.navigate(["Requests"]);
     }
+
+    adminChatSelect() {
+        this._router.navigate(["AdminChatSelector"]);
+    }
 }

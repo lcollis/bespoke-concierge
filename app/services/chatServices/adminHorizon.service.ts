@@ -7,13 +7,20 @@ var Horizon = require('@horizon/client/dist/horizon-dev');
 const SERVER_URL = "10.0.3.2:8181";
 
 @Injectable()
-export class HorizonService {
+export class AdminHorizonService {
     private horizon;
     chats;
     userID: string; //id for every user so we can tell who is who
 
+    otherUserID: string; //id of the user we are talking to
+
     constructor() {
+        this.connect();
+    }
+
+    connect() {
         //show server status
+        console.log("+++++++++ADMIN HORIZON CONSTRUCTOR");
         this.horizon = new Horizon({ host: SERVER_URL });
 
         this.horizon.onReady()
@@ -47,15 +54,15 @@ export class HorizonService {
     }
 
     getMessages(): Observable<Chat> {
-        var id = this.userID;
+        console.log("++++++++++++ getting chats for userID: " + this.otherUserID);
+        var id = this.otherUserID;
         return this.chats.find({ id: id }).watch();
     }
 
     sendMessages(messages: Message[]) {
-        var id = this.userID;
         return this.chats
             .upsert({
-                id: id,
+                id: this.otherUserID,
                 messages: messages,
                 lastMessageTime: new Date()
             } as Chat);
@@ -73,7 +80,7 @@ export class HorizonService {
 
         var documentsFolder: fs.Folder = fs.knownFolders.documents();
 
-        if (documentsFolder.contains("userID.txt")) {            
+        if (documentsFolder.contains("userID.txt")) {
             var userIDFile = documentsFolder.getFile("userID.txt");
 
             return userIDFile.readText();

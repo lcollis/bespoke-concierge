@@ -1,0 +1,11 @@
+<ActionBar>
+    <NavigationButton text='Go Back' android.systemIcon='ic_menu_back' (tap)='onNavBtnTap()'> </NavigationButton>
+</ActionBar>
+
+<ListView [items]="chats" (itemTap)="onItemTap($event)">
+    <template let-item="item">
+        <StackLayout>
+            <Label [text]='item.id' minHeight="50"></Label>
+        </StackLayout>
+    </template>
+</ListView>

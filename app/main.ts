@@ -7,5 +7,6 @@ import {WeatherService} from "./services/weather.service";
 import {OfferService} from "./services/offer.service";
 import {RestaurantsService} from  "./services/restaurants.service";
 import {MenuService} from "./services/menu.service";
+import {AdminHorizonService} from "./services/chatServices/adminHorizon.service";
 
-nativeScriptBootstrap(AppComponent,[HTTP_PROVIDERS, WeatherService,OfferService,RestaurantsService,MenuService]);
+nativeScriptBootstrap(AppComponent,[HTTP_PROVIDERS, WeatherService,OfferService,RestaurantsService,MenuService, AdminHorizonService]);

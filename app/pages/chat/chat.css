@@ -1,7 +1,17 @@
-.message-border {
+.message-border-right {
     border-radius: 8;
+    margin: 3;
+
     background-color: #00b863;
-    margin: 8;
+    horizontal-align: right;
+}
+
+.message-border-left {
+    border-radius: 8;
+    margin: 3;
+
+    background-color: #888888;
+    horizontal-align: left;
 }
 
 .message-timestamp {
@@ -16,5 +26,5 @@
 
 .message-stack-layout {
     color: white;
-    margin: 12,16,12,16;
+    margin: 12, 16, 12, 16;
 }

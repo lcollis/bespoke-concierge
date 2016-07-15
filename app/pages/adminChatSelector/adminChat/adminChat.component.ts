@@ -1,20 +1,19 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {Router} from '@angular/router-deprecated';
-import {HorizonService} from "../../services/chatServices/horizon.service";
-import {FromNowPipe} from '../../pipes/fromnow.pipe';
-import {Message} from "../../services/chatServices/message";
+import {AdminHorizonService} from "../../../services/chatServices/adminHorizon.service";
+import {FromNowPipe} from '../../../pipes/fromnow.pipe';
+import {Message} from "../../../services/chatServices/message";
 import {ListView} from "ui/list-view";
 import {EventData} from "data/observable";
 
 @Component({
-    selector: 'chat',
+    selector: 'adminChat',
     templateUrl: 'pages/chat/chat.html',
-    styleUrls: ['pages/chat/chat.css'],
-    providers: [HorizonService],
+    styleUrls: ["pages/chat/chat.css"],
     pipes: [FromNowPipe]
 })
-export class ChatComponent {
-    constructor(private _router: Router, private horizon: HorizonService) { }
+export class AdminChatComponent {
+    constructor(private _router: Router, private adminHz: AdminHorizonService) { }
 
     messages: Message[] = new Array<Message>();
     newMessage: string;
@@ -27,9 +26,9 @@ export class ChatComponent {
         var that = this;
 
         //get the userID and then after that get the messages for that userID
-        this.horizon.getUserID().then(function (content) {
-            that.userID = content;
-            that.horizon.getMessages().subscribe(function (messageData) {
+        this.adminHz.getUserID().then(function (content) {
+            that.userID = content + '_admin';
+            that.adminHz.getMessages().subscribe(function (messageData) {
                 console.log('updating');
                 that.loading = false;
                 if (messageData) {
@@ -54,13 +53,12 @@ export class ChatComponent {
 
     addMessage(message) {
         this.messages.push({ text: message, timeStamp: new Date(), sender: this.userID });
-        this.horizon.sendMessages(this.messages).subscribe((res) => { }, error => { console.log(error) })
+        this.adminHz.sendMessages(this.messages).subscribe((res) => { }, error => { console.log(error) })
         this.newMessage = '';
     }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
-        this.horizon.disconnect();
+        this._router.navigate(['AdminChatSelector']);
     }
 
     scrollToBottom(event: EventData) {
