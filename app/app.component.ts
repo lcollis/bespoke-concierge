@@ -18,36 +18,64 @@ import {AdminChatSelectorComponent} from "./pages/adminChatSelector/adminChatSel
 import {AdminChatComponent} from "./pages/adminChatSelector/adminChat/adminChat.component";
 import {AdminHomeComponent} from "./pages/adminHome/adminHome.component";
 
+
+import firebase = require("nativescript-plugin-firebase");
+
 @Component({
-  selector: 'app',
-  template: `
+    selector: 'app',
+    template: `
         <page-router-outlet></page-router-outlet>
     `,
-  directives: [NS_ROUTER_DIRECTIVES],
-  providers: [NS_ROUTER_PROVIDERS]
+    directives: [NS_ROUTER_DIRECTIVES],
+    providers: [NS_ROUTER_PROVIDERS]
 })
 
 
 @RouteConfig([
-  { path: '/Home', component: HomeComponent, name: "Home", useAsDefault: true },
-  { path: '/Offers', component: OffersComponent, name: "Offers" },
-  { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail" },
-  { path: '/HotelInfo', component: HotelInfoComponent, name: "HotelInfo" },
-  { path: '/Faq', component: FaqComponent, name: 'Faq' },
-  { path: '/Weather', component: WeatherComponent, name: 'Weather' },
-  { path: '/TripAdvisor', component: TripAdvisorComponent, name: 'TripAdvisor' },
-  { path: '/SocialMedia', component: SocialMediaComponent, name: 'SocialMedia' },
-  { path: '/Calendar', component: CalendarComponent, name: 'Calendar' },
-  { path: '/Restaurants', component: RestaurantsComponent, name: 'Restaurants' },
-  { path: '/Chat', component: ChatComponent, name: 'Chat' },
-  { path: '/Menu', component: MenuComponent, name: 'Menu' },
-  { path: '/Requests', component: RequestsComponent, name: 'Requests' },
-  { path: '/AdminChatSelector', component: AdminChatSelectorComponent, name: 'AdminChatSelector' },
-  { path: '/AdminChat', component: AdminChatComponent, name: 'AdminChat'},
-  { path: '/AdminHome', component: AdminHomeComponent, name: 'AdminHome'},
+    { path: '/Home', component: HomeComponent, name: "Home", useAsDefault: true },
+    { path: '/Offers', component: OffersComponent, name: "Offers" },
+    { path: '/OfferDetail', component: OfferDetailComponent, name: "OfferDetail" },
+    { path: '/HotelInfo', component: HotelInfoComponent, name: "HotelInfo" },
+    { path: '/Faq', component: FaqComponent, name: 'Faq' },
+    { path: '/Weather', component: WeatherComponent, name: 'Weather' },
+    { path: '/TripAdvisor', component: TripAdvisorComponent, name: 'TripAdvisor' },
+    { path: '/SocialMedia', component: SocialMediaComponent, name: 'SocialMedia' },
+    { path: '/Calendar', component: CalendarComponent, name: 'Calendar' },
+    { path: '/Restaurants', component: RestaurantsComponent, name: 'Restaurants' },
+    { path: '/Chat', component: ChatComponent, name: 'Chat' },
+    { path: '/Menu', component: MenuComponent, name: 'Menu' },
+    { path: '/Requests', component: RequestsComponent, name: 'Requests' },
+    { path: '/AdminChatSelector', component: AdminChatSelectorComponent, name: 'AdminChatSelector' },
+    { path: '/AdminChat', component: AdminChatComponent, name: 'AdminChat' },
+    { path: '/AdminHome', component: AdminHomeComponent, name: 'AdminHome' },
 ])
 
 
 export class AppComponent {
-  ngOnInit() { }
+    ngOnInit() {
+        console.log("Trying to load firebase");
+        firebase.init({
+            // Optionally pass in properties for database, authentication and cloud messaging,
+            // see their respective docs.
+        }).then(
+            (instance) => {
+                console.log("firebase.init done");
+            },
+            (error) => {
+                console.log("firebase.init error: " + error);
+            });
+
+        firebase.addOnPushTokenReceivedCallback(
+            function (token) {
+                console.log("Firebase push token: " + token);
+            }
+        );
+
+        firebase.addOnMessageReceivedCallback(
+            function (message) {
+                console.log("Title: " + message.title);
+                console.log("Body: " + message.body);
+            }
+        );
+    }
 }
