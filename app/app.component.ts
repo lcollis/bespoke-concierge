@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import {RouteConfig} from "@angular/router-deprecated";
 import {NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS} from "nativescript-angular/router";
+import {HorizonService} from "./services/chatServices/horizon.service";
+var Horizon = require('@horizon/client/dist/horizon-dev');
+const SERVER_URL = require("./services/chatServerUrl").url;
+
 import {HomeComponent} from "./pages/home/home.component";
 import {OffersComponent} from "./pages/offers/offers.component";
 import {OfferDetailComponent} from "./pages/offers/offerDetail/offerDetail.component";
@@ -27,7 +31,7 @@ import firebase = require("nativescript-plugin-firebase");
         <page-router-outlet></page-router-outlet>
     `,
     directives: [NS_ROUTER_DIRECTIVES],
-    providers: [NS_ROUTER_PROVIDERS]
+    providers: [NS_ROUTER_PROVIDERS, HorizonService]
 })
 
 
@@ -52,7 +56,13 @@ import firebase = require("nativescript-plugin-firebase");
 
 
 export class AppComponent {
+
+    constructor(private hzService: HorizonService) { }
+
     ngOnInit() {
+        var horizon = new Horizon({ host: SERVER_URL });
+        var userList = horizon('userPushID');
+
         console.log("Trying to load firebase");
         firebase.init({
             // Optionally pass in properties for database, authentication and cloud messaging,
@@ -65,9 +75,18 @@ export class AppComponent {
                 console.log("firebase.init error: " + error);
             });
 
+        var that = this;
+
         firebase.addOnPushTokenReceivedCallback(
             function (token) {
                 console.log("Firebase push token: " + token);
+
+                that.hzService.getUserID().then(function (content) {
+                    var userID = content;
+                    userList.upsert({ id: userID, pushToken: token });
+                }, function (error) {
+                    console.log(error);
+                });
             }
         );
 

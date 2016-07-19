@@ -4,7 +4,7 @@ import fs = require("file-system");
 import {Message} from "./message";
 import {Chat} from "./chat";
 var Horizon = require('@horizon/client/dist/horizon-dev');
-const SERVER_URL = "10.0.3.2:8181";
+const SERVER_URL = require("../chatServerUrl").url;
 
 @Injectable()
 export class HorizonService {

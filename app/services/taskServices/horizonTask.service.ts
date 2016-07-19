@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {Task} from "./task";
 import fs = require("file-system");
 var Horizon = require('@horizon/client/dist/horizon-dev');
-const SERVER_URL = "10.0.3.2:8181";
+const SERVER_URL = require("../chatServerUrl").url;
 
 @Injectable()
 export class HorizonTaskService {
