@@ -31,6 +31,7 @@ export class HorizonService {
             .then(function (content) {
                 that.userID = content;
             }, function (error) {
+                console.log("Error getting user ID in horizon.service.ts")
                 console.log(error);
             });
 

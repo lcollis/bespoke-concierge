@@ -71,6 +71,30 @@ export class AdminHorizonService {
         return this.horizon.status();
     }
 
+    registerAsAdmin() {
+        var that = this;
+        var userPushTokenFile = fs.knownFolders.documents().getFile("userPushToken.txt");
+        userPushTokenFile.readText().then(function(pushToken) {
+            that.getUserID().then(function(userID) {
+                var adminList = that.horizon("adminList");
+                adminList.fetch().subscribe(function(list) {
+                    adminList.upsert({id: userID, pushToken: pushToken});
+                    alert("Sucessfully subscribed to admin notifications.");
+                }, function(error) {
+                    alert("Error accessing server. Please try again later");
+                    console.log("Error accessing adminList");
+                    console.log(error);
+                })
+            }).catch(function(error) {
+                console.log("Error getting user ID from phone storage");
+                console.log(error);
+            })
+        }, function(error) {
+            console.log("error getting push token from device storage");
+            console.log(error);
+        })
+    }
+
     disconnect() {
         this.horizon.disconnect();
     }

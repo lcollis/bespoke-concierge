@@ -53,7 +53,7 @@ export class AdminChatSelectorComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
+        this._router.navigate(['AdminHome']);
         this.adminHz.disconnect();
     }
 }
