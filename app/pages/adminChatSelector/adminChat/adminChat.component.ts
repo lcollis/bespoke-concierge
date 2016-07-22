@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {AdminHorizonService} from "../../../services/chatServices/adminHorizon.service";
 import {FromNowPipe} from '../../../pipes/fromnow.pipe';
 import {Message} from "../../../services/chatServices/message";

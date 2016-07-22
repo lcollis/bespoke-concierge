@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {AdminHorizonService} from "../../services/chatServices/adminHorizon.service";
 import {Chat} from "../../services/chatServices/chat";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
@@ -49,11 +49,11 @@ export class AdminChatSelectorComponent {
     onItemTap(args) {
         var selectedChat: Chat = this.chats[args.index];
         this.adminHz.otherUserID = selectedChat.id;
-        this._router.navigate(["AdminChat"]);
+        this._router.navigate(["/AdminChat"]);
     }
 
     onNavBtnTap() {
-        this._router.navigate(['AdminHome']);
+        this._router.navigate(['/AdminHome']);
         this.adminHz.disconnect();
     }
 }

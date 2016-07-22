@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {openUrl} from "utils/utils";
 
 @Component({
@@ -13,7 +13,7 @@ export class SocialMediaComponent implements OnInit {
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     facebook() {

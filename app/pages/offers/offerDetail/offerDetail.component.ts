@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Offer } from "../../../services/offer"
-import { RouteParams, Router } from "@angular/router-deprecated";
+import { Router } from "@angular/router";
 import { OfferService } from "../../../services/offer.service"
 
 @Component({
@@ -12,7 +12,7 @@ export class OfferDetailComponent implements OnInit {
 
     offer: any;
 
-    constructor(params: RouteParams, _offerService: OfferService, private _router: Router) {
+    constructor(_offerService: OfferService, private _router: Router) {
         this.offer = _offerService.selectedOffer;
     }
 

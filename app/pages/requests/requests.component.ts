@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {Task} from "../../services/taskServices/task";
 import {HorizonTaskService} from "../../services/taskServices/horizonTask.service";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
@@ -37,7 +37,7 @@ export class RequestsComponent {
         }, (error: any) => {
             console.log("Couldn't Connect to requests server with error: " + error);
             alert("Could not connect to requests server. Please connect to the internet or try again later.");
-            that._router.navigate(['Home']);
+            that._router.navigate(['/Home']);
         })
     }
 
@@ -48,7 +48,7 @@ export class RequestsComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
+        this._router.navigate(['/Home']);
         this.hzTaskService.disconnect();
     }
 }

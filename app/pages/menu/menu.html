@@ -2,12 +2,14 @@
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
-<ListView [items]="menu" (itemTap)="onItemTap($event)" *ngIf="!loading">
-    <template let-item="item">
-        <StackLayout>
-            <Label [text]='item.MenuName' class="title"></Label>
-            <Label [text]='item.Description' class="detail" textWrap="true"></Label>
-            <Label [text]='item.Price' class="detail" textWrap="true"></Label>
-        </StackLayout>
-    </template>
-</ListView>
+<StackLayout>
+    <ListView [items]="menu" *ngIf="!loading" height="100%">
+        <template let-item="item">
+            <StackLayout>
+                <Label [text]='item.MenuName' class="title"></Label>
+                <Label [text]='item.Description' class="detail" textWrap="true"></Label>
+                <Label [text]='item.Price' class="detail" textWrap="true"></Label>
+            </StackLayout>
+        </template>
+    </ListView>
+</StackLayout>

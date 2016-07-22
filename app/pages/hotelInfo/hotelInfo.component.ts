@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  Router } from "@angular/router-deprecated";
+import {  Router } from "@angular/router";
 import { HotelInformationService } from "../../services/hotelInformation.service";
 
 @Component({
@@ -21,6 +21,6 @@ export class HotelInfoComponent implements OnInit {
     }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 }

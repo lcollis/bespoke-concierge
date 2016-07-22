@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {WeatherService} from "../../services/weather.service";
 
 @Component({
@@ -27,7 +27,7 @@ export class WeatherComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     gotWeather(response: any) {
@@ -45,7 +45,7 @@ export class WeatherComponent {
     weatherError(error:any) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     handleImage() {        

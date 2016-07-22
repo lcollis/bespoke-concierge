@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {AdminHorizonService} from "../../services/chatServices/adminHorizon.service";
 import fs = require("file-system");
 
@@ -16,7 +16,7 @@ export class AdminHomeComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
+        this._router.navigate(['/Home']);
     }
 
     registerAdmin() {

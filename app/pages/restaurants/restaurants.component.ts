@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestaurantsService} from "../../services/restaurants.service";
 import {Restaurants} from "../../services/restaurants";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import appModule = require("application");
 
 @Component({
@@ -29,11 +29,11 @@ export class RestaurantsComponent implements OnInit {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     ngOnInit() { }

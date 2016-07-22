@@ -2,22 +2,23 @@
     <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
 </ActionBar>
 
-<ListView [items]="restaurant" (itemTap)="onItemTap($event)" *ngIf="!loading">
-    <template let-item="item">
-        <StackLayout>
-            <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
-            <Label [text]='item.Street1' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.Street2' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.City' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.PostalCode' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.State' class="restaurantDetail" textWrap="true"></Label>
-            <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
-            <Label [text]='item.Fax' class="restaurantPhone" textWrap="true"></Label>
-            <Label [text]='item.Websites' class="restaurantPhone" textWrap="true"></Label>
-            <Label [text]='item.PhotoURL' class="restaurantLink" textWrap="true"></Label>
-             
-        </StackLayout>
-    </template>
-</ListView>
+<StackLayout>
+    <ListView [items]="restaurant" *ngIf="!loading" height="100%">
+        <template let-item="item">
+            <StackLayout>
+                <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
+                <Label [text]='item.Street1' class="restaurantDetail" textWrap="true"></Label>
+                <Label [text]='item.Street2' class="restaurantDetail" textWrap="true"></Label>
+                <Label [text]='item.City' class="restaurantDetail" textWrap="true"></Label>
+                <Label [text]='item.PostalCode' class="restaurantDetail" textWrap="true"></Label>
+                <Label [text]='item.State' class="restaurantDetail" textWrap="true"></Label>
+                <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
+                <Label [text]='item.Fax' class="restaurantPhone" textWrap="true"></Label>
+                <Label [text]='item.Websites' class="restaurantPhone" textWrap="true"></Label>
+                <Label [text]='item.PhotoURL' class="restaurantLink" textWrap="true"></Label>
 
-<ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
+            </StackLayout>
+        </template>
+    </ListView>
+    <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
+</StackLayout>

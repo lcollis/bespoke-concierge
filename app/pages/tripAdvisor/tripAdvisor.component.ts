@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'tripAdvisor',
@@ -14,7 +14,7 @@ export class TripAdvisorComponent implements OnInit {
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     pageLoaded() {

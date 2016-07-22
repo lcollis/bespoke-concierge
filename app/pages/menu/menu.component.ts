@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {MenuService} from "../../services/menu.service";
 import {Menu} from "../../services/menu";
 import appModule = require("application");
@@ -29,11 +29,11 @@ export class MenuComponent implements OnInit {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 }

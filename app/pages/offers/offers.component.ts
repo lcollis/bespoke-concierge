@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OfferService } from "../../services/offer.service";
 import { Offer } from "../../services/offer";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'offers',
@@ -26,13 +26,13 @@ export class OffersComponent implements OnInit {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     onItemTap(args) {
         var selectedOffer: Offer = this.offers[args.index];
         this._offer.selectedOffer = selectedOffer;
-        this._router.navigate(["OfferDetail"]);
+        this._router.navigate(["/OfferDetail"]);
     }
 
     onNavBtnTap() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {HorizonService} from "../../services/chatServices/horizon.service";
 import {FromNowPipe} from '../../pipes/fromnow.pipe';
 import {Message} from "../../services/chatServices/message";
@@ -59,7 +59,7 @@ export class ChatComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
+        this._router.navigate(['/Home']);
         this.horizon.disconnect();
     }
 

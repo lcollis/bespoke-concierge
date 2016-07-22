@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {Event} from "../../services/event";
 import {EventService} from "../../services/event.service";
 
@@ -17,7 +17,7 @@ export class CalendarComponent {
      }
 
     onNavBtnTap() {
-        this._router.navigate(['Home']);
+        this._router.navigate(['/Home']);
     }
 
     onItemTap(args) {

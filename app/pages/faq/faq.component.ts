@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {FaqService} from "../../services/faq.service";
 import { Faq } from "../../services/Faq";
 import appModule = require("application");
@@ -29,11 +29,11 @@ export class FaqComponent implements OnInit {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 }
