@@ -1,7 +1,6 @@
 import {Message} from "./message";
 
 export class Chat {
-    id: string;
-    messages: Message[];
+    room: string;
     lastMessageTime: Date;
 }

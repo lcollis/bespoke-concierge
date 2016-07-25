@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AdminHorizonService} from "../../services/chatServices/adminHorizon.service";
 import fs = require("file-system");
 
 @Component({
@@ -9,7 +8,7 @@ import fs = require("file-system");
     styleUrls: ['pages/home/home.css']
 })
 export class AdminHomeComponent {
-    constructor(private _router: Router, private adminHz: AdminHorizonService) { }
+    constructor(private _router: Router) { }
 
     chat() {
         this._router.navigate(['AdminChatSelector']);
@@ -20,6 +19,6 @@ export class AdminHomeComponent {
     }
 
     registerAdmin() {
-        this.adminHz.registerAsAdmin();
+        //this.adminHz.registerAsAdmin();
     }
 }

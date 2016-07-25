@@ -17,6 +17,7 @@ export class SocialMediaComponent implements OnInit {
     }
 
     facebook() {
+        console.log("pressing facebook");
         openUrl("https://www.facebook.com/anchorage1770/");
     }
 
