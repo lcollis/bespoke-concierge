@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferService } from "../../services/offer.service";
-import { Offer } from "../../services/offer";
 import {Router} from "@angular/router";
+import {DatabaseService} from "../../services/database.service";
+import { Offer } from "../../services/offer";
 
 @Component({
     selector: 'offers',
@@ -12,8 +12,8 @@ export class OffersComponent implements OnInit {
     offers: Offer[];
     loading: boolean = true;
 
-    constructor(private _offer: OfferService, private _router: Router) {
-        _offer.loadOffers().subscribe(
+    constructor(private _router: Router, private _databaseService: DatabaseService) {
+        _databaseService.getApiData("Offer").subscribe(
             offers => this.gotOffers(offers),
             error => this.receivingError(error));
     }
@@ -31,12 +31,12 @@ export class OffersComponent implements OnInit {
 
     onItemTap(args) {
         var selectedOffer: Offer = this.offers[args.index];
-        this._offer.selectedOffer = selectedOffer;
+        this._databaseService.setSelectedObject("Offer", selectedOffer);
         this._router.navigate(["/OfferDetail"]);
     }
 
     onNavBtnTap() {
-        this._router.navigate(["Home"]);
+        this._router.navigate(["/Home"]);
     }
 
     ngOnInit() { }

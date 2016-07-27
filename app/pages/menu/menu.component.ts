@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {MenuService} from "../../services/menu.service";
+import {DatabaseService} from "../../services/database.service";
 import {Menu} from "../../services/menu";
-import appModule = require("application");
 
 @Component({
     selector: 'menu',
     templateUrl: 'pages/menu/menu.html',
-    styleUrls: ['pages/menu/menu.css'],
-    providers: [MenuService]
+    styleUrls: ['pages/menu/menu.css']
 })
 
 export class MenuComponent implements OnInit {
@@ -16,8 +14,8 @@ export class MenuComponent implements OnInit {
    
     loading: boolean = true;
 
-    constructor(private _router: Router, private _menu:MenuService) {
-        _menu.loadMenu().subscribe(
+    constructor(private _router: Router, private _databaseService: DatabaseService) {
+        _databaseService.getApiData("Menu").subscribe(
             menu => this.getMenu(menu),
             error => this.receivingError(error));
     }

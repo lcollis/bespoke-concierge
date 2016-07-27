@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Offer } from "../../../services/offer"
 import { Router } from "@angular/router";
-import { OfferService } from "../../../services/offer.service"
+import { Offer } from "../../../services/offer"
+import {DatabaseService} from "../../../services/database.service";
 
 @Component({
     selector: 'offerDetail',
@@ -12,14 +12,14 @@ export class OfferDetailComponent implements OnInit {
 
     offer: any;
 
-    constructor(_offerService: OfferService, private _router: Router) {
-        this.offer = _offerService.selectedOffer;
+    constructor(private _router: Router, private _databaseService: DatabaseService) {
+        this.offer = _databaseService.getSelectedObject("Offer");;
     }
 
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["Offers"]);
+        this._router.navigate(["/Offers"]);
     }
 
 }

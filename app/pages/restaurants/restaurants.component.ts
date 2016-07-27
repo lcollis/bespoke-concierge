@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {RestaurantsService} from "../../services/restaurants.service";
-import {Restaurants} from "../../services/restaurants";
 import {Router} from "@angular/router";
-import appModule = require("application");
+import {DatabaseService} from "../../services/database.service";
+import {Restaurants} from "../../services/restaurants";
 
 @Component({
     selector: 'restaurants',
@@ -14,8 +13,8 @@ export class RestaurantsComponent implements OnInit {
     restaurant: Restaurants[];
     loading: boolean = true;
 
-    constructor(private _router: Router, private _restaurant:RestaurantsService) {
-        _restaurant.loadRestaurant().subscribe(
+    constructor(private _router: Router, private _databaseService: DatabaseService) {
+        _databaseService.getApiData("Restaurant").subscribe(
             restaurant => this.getRestaurant(restaurant),
             error => this.receivingError(error));
     }

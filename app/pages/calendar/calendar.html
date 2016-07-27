@@ -6,8 +6,9 @@
     <ListView [items]="events" height="100%">
         <template let-item="item">
             <StackLayout>
-                <Label [text]='item.title' class="offerTitle"></Label>
-                <Label [text]='item.description' class="offerDetail" textWrap="true"></Label>
+                <Label [text]='item.Subject' class="offerTitle"></Label>
+                <Label [text]='item.Description' class="offerDetail" textWrap="true"></Label>
+                <Button text="add to Itinerary" (tap)="addToItinerary(item)"> </Button>
             </StackLayout>
         </template>
     </ListView>

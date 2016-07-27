@@ -11,7 +11,9 @@ export class AdminHomeComponent {
     constructor(private _router: Router) { }
 
     chat() {
-        this._router.navigate(['AdminChatSelector']);
+        console.log("chat selector");
+        
+        this._router.navigate(['/AdminChatSelector']);
     }
 
     onNavBtnTap() {

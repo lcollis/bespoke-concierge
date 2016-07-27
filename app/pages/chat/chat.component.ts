@@ -61,12 +61,6 @@ export class ChatComponent {
             });
     }
 
-
-
-    ngOnInit() {
-
-    }
-
     addMessage(message) {
         console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
         this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });

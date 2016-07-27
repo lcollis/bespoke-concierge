@@ -43,7 +43,7 @@ export class AdminChatComponent {
         //         error => {
         //             console.log("Couldn't Connect to Chat Server with error: " + error);
         //             alert("Could not connect to chat server. Please connect to the internet or try again later.");
-        //             that._router.navigate(['Home']);
+        //             that._router.navigate(['/Home']);
         //         });
         // }, function (error) {
         //     console.log(error);

@@ -13,7 +13,7 @@ export class ChatService {
 
         console.log("+++++++++++++++++++++ sending message: " + JSON.stringify(message));
         
-        var chat: Chat = { room: room, lastMessageTime: message.timeStamp };
+        var chat: Chat = { room: room, lastMessageTime: message.timeStamp, guestID: senderID };
         var chatsUrl = "/chats/" + senderID + "/" + room;
 
         firebase.setValue(chatsUrl, chat);
@@ -25,5 +25,10 @@ export class ChatService {
         firebase.addValueEventListener(callBack, messagesUrl);
 
         console.log("Subscribed to messages at url: " + messagesUrl);
+    }
+
+    getListOfChats(callBack: (data:FBData) => any) {
+        var chatsUrl = "/chats";
+        firebase.addValueEventListener(callBack, chatsUrl);
     }
 }

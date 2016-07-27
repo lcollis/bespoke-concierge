@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {ChatService} from "../../services/chatServices/chat.service";
+import {FBData} from "nativescript-plugin-firebase";
 import {Chat} from "../../services/chatServices/chat";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
 
@@ -13,36 +15,23 @@ export class AdminChatSelectorComponent {
     chats: Chat[];
     userID: string;
 
-    constructor(private _router: Router) { }
+    constructor(private _router: Router, private _chatService: ChatService) { }
 
     ngOnInit() {
         var that = this;
 
-       // this.adminHz.connect();
-        
-        // console.log("Connecting");
-        // //get the userID and then after that get the messages for that userID
-        // this.adminHz.getUserID().then(function (content) {
-        //     console.log("Got UserID");
-        //     that.userID = content;
-        //     that.adminHz.getAllChats().subscribe(function (chatData) {
-        //         console.log('updating');
-        //         if (chatData) {
-        //             //sort messages by time stamp
-        //             that.chats = chatData.sort(function (a, b) { return b.lastMessageTime.getTime() - a.lastMessageTime.getTime() });
-        //         } else {
-        //             console.log("No Chats")
-        //         }
-        //     },
-        //         error => {
-        //             console.log("Couldn't Connect to Chat Server with error: " + error);
-        //             alert("Could not connect to chat server. Please connect to the internet or try again later.");
-        //             that._router.navigate(['Home']);
-        //         });
-        // }, function (error) {
-        //     console.log(error);
-        // });
-        // console.log("Post Connecting");
+        this._chatService.getListOfChats((data: FBData) => {
+            console.log("got Firebase data: " + JSON.stringify(data));
+
+            if(data.value) {
+                that.chats = new Array<Chat>();
+                Object.keys(data.value).forEach(function(key) {
+                    var chat: Chat = data.value[key].default;
+                    console.log("Got chat: " + JSON.stringify(chat));
+                    that.chats.unshift(chat);
+                })
+            }
+        });
     }
 
     onItemTap(args) {

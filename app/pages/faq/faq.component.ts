@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {FaqService} from "../../services/faq.service";
+import {DatabaseService} from "../../services/database.service";
 import { Faq } from "../../services/Faq";
-import appModule = require("application");
 
 @Component({
     selector: 'faq',
     templateUrl: 'pages/faq/faq.html',
-    styleUrls: ['pages/faq/faq.css'],
-    providers: [FaqService]
+    styleUrls: ['pages/faq/faq.css']
 })
 
 export class FaqComponent implements OnInit {
@@ -16,8 +14,8 @@ export class FaqComponent implements OnInit {
    
     loading: boolean = true;
 
-    constructor(private _router: Router, private faqService:FaqService) {
-        faqService.loadFaq().subscribe(
+    constructor(private _router: Router, private _databaseService: DatabaseService) {
+        _databaseService.getApiData("Faq").subscribe(
             faq => this.getFaq(faq),
             error => this.receivingError(error));
     }
@@ -26,11 +24,13 @@ export class FaqComponent implements OnInit {
         this.faq = faq._body;
         this.loading = false;
     }
+    
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
         this._router.navigate(["/Home"]);
     }
+
     ngOnInit() { }
 
     onNavBtnTap() {

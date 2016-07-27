@@ -1,1 +1,0 @@
-rethinkdb --config-file rethinkdb.conf

@@ -28,13 +28,13 @@ export class UserIdService {
 
     private storeId() {
         var file = fs.knownFolders.documents().getFile("userID.txt");
-        file.writeText(this.userId)
+        file.writeText(this.userId.toString())
             .then((value: any) => console.log("userID stored on phone"))
             .catch((error: any) => console.log("Error storing userID on phone: " + error));
     }
 
     private makeNewId(): string {
         console.log("Making a new user ID. This should only happen once per install");
-        return '_id' + (new Date()).getTime(); //will be unique unless we make them directly one after another
+        return (new Date()).getTime() + ""; //will be unique unless we make them directly one after another
     }
 }

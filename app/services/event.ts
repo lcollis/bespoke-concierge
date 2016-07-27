@@ -1,6 +1,42 @@
 export class Event {
-    title: string;
-    description: string;
-    startTime: Date;
-    endTime: Date;
+    EventID: number;
+    SubEventID: number;
+    CalendarID: number;
+    Subject: string;
+    Description: string;
+    ShortDescription: string;
+    StartTime: string;
+    EndTime: string;
+    ContactName: string;
+    ContactPhone: string;
+    ContactEmail: string;
+    RequiresRSVP: boolean;
+    IsRecurrentEvent: boolean;
+    IsFeaturedEvent: boolean;
+    EventImageID: number;
+    EventThumbnailImageID: number;
+    EventImageUrl: string;
+    EventThumbnailImageUrl: string;
+}
+
+export class ItineraryEvent {
+    BookTimeStamp: Date;
+    EventID: number;
+    IsCancled: boolean;
+    IsCompleted: boolean;
+    PersonID: number;
+    SubEventID: number;
+
+    EventItenaryID: number;
+
+    constructor(event: Event, userID: number) {
+        this.BookTimeStamp = new Date();
+        this.EventID = event.EventID;
+        this.IsCancled = true;
+        this.IsCompleted = false;
+        this.PersonID = userID;
+        this.SubEventID = event.SubEventID;
+
+        this.EventItenaryID = 2;
+    }
 }
