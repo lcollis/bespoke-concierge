@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'tripAdvisor',
-    templateUrl: '/pages/tripAdvisor/tripAdvisor.html'
+    templateUrl: 'pages/tripAdvisor/tripAdvisor.html'
 })
 export class TripAdvisorComponent implements OnInit {
 
