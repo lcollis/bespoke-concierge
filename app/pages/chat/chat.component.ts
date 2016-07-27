@@ -38,9 +38,20 @@ export class ChatComponent {
                     (data: FBData) => {
                         //use ngZone run because this method gets called outside of angular's zone so you gotta nudge it to update the screen
                         ngZone.run(() => {
+                            console.log("got Firebase data: " + JSON.stringify(data.value));
                             that.loading = false;
-                            if(data.value)
-                            that.messages = data.value;
+                            if (data.value) {
+                                // data.value.array.forEach(element => {
+                                //     console.log("Message: " + JSON.stringify(element));
+                                //     this.messages.push(element);
+                                // });
+                                that.messages = new Array<Message>();
+                                Object.keys(data.value).forEach(function(key) {
+                                    var message: Message = data.value[key];
+                                    console.log("Got Message: " + JSON.stringify(message));
+                                    that.messages.unshift(message);
+                                });
+                            }
                         });
                     });
             })
@@ -50,15 +61,15 @@ export class ChatComponent {
             });
     }
 
-    
+
 
     ngOnInit() {
 
     }
 
     addMessage(message) {
-        console.log("+++++++++++ message: " + message + "  sender: "  + this.userID);
-        this.messages.push({ text: message, timeStamp: new Date(), sender: this.userID });
+        console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
+        this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });
         this._chatService.sendMessage(this.newMessage, this.userID, this.room)
             .catch((error: any) => {
                 console.log(error);

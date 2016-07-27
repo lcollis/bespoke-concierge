@@ -4,7 +4,6 @@ import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS } from "nativescript-angular/
 
 import fs = require("file-system");
 import firebase = require("nativescript-plugin-firebase");
-const SERVER_URL = require("./services/chatServerUrl").url;
 
 @Component({
     selector: 'app',

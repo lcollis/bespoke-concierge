@@ -2,5 +2,5 @@ import {Message} from "./message";
 
 export class Chat {
     room: string;
-    lastMessageTime: Date;
+    lastMessageTime: number;
 }

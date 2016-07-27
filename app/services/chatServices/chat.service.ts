@@ -8,7 +8,7 @@ import firebase = require("nativescript-plugin-firebase");
 export class ChatService {
 
     sendMessage(text: string, senderID: string, room: string): Promise<PushResult> {
-        var message: Message = { text: text, sender: senderID, timeStamp: new Date() };
+        var message: Message = { text: text, sender: senderID, timeStamp: Date.now() };
         var messagesUrl = "/messages/" + senderID + "/" + room;
 
         console.log("+++++++++++++++++++++ sending message: " + JSON.stringify(message));
@@ -16,7 +16,7 @@ export class ChatService {
         var chat: Chat = { room: room, lastMessageTime: message.timeStamp };
         var chatsUrl = "/chats/" + senderID + "/" + room;
 
-        firebase.push(chatsUrl, chat);
+        firebase.setValue(chatsUrl, chat);
         return firebase.push(messagesUrl, message);
     }
 

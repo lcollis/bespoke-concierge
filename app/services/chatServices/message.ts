@@ -1,5 +1,5 @@
 export class Message {
     text: string;
-    timeStamp: Date;
+    timeStamp: number;
     sender: string;
 }
