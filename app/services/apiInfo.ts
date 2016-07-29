@@ -9,10 +9,12 @@ export class ApiInfo {
     data: any;
     selectedObject: any;
 
-    constructor(name: string, url: string) {
+    constructor(name: string, url: string, data: any = null) {
         this.name = name;
         this.url = url;
         this.lastUpdate = new Date(0);
         this.updateDelay = defaultUpdateDelay;
+
+        this.data = data;
     }
 }

@@ -1,14 +1,23 @@
-<GridLayout columns="auto, auto" rows="auto,auto,auto,auto,auto,auto" horizontalAlign="center">
-    <Button text="Special Offers" (tap)="specialOffers()" class="menu-button"></Button>
-    <Button text="Hotel Information" (tap)="hotelInformation()" col="1" class="menu-button"></Button>
-    <Button text="FAQ" (tap)="faq()" row="1" class="menu-button"></Button>
-    <Button text="Weather" (tap)="weather()" row="1" col="1" class="menu-button"></Button>
-    <Button text="Tripadvisor Review" (tap)="tripAdvisor()" row="2" class="menu-button"></Button>
-    <Button text="Find us On Social Media" (tap)="socialMedia()" row="2" col="1" class="menu-button"></Button>
-    <Button text="Our Calendar of Events" (tap)="calendar()" row="3" class="menu-button"></Button>
-    <Button text="Nearby Restaurants" (tap)="restaurants()" row="3" col="1" class="menu-button"></Button>
-    <Button text="Chat with the front desk" (tap)="chat()" row="4" class="menu-button"></Button>
-    <Button text="Food Menu" (tap)="menu()" row="4" col="1" class="menu-button"></Button>
-    <Button text="Make a request" (tap)="requests()" row="5" class="menu-button"></Button>
-    <Button text="Admin" (tap)="admin()" row="5" col="1" class="menu-button"></Button>
-</GridLayout>
+<!--<DockLayout stretchLastChild="false">
+    <StackLayout dock="top" orientation="horizontal" class="menu-top" height="90">
+        <Button text="My itinerary" (tap)="itinerary()" class="menu-button-top"></Button>
+        <Button text="My requests" (tap)="requests()" class="menu-button-top"></Button>
+    </StackLayout>-->
+    <GridLayout columns="auto, auto" rows="auto,auto,auto,auto,auto" horizontalAlign="center">
+        <Button text="Message us!" (tap)="tripAdvisor()" row="0" col="0" class="menu-button-bold"></Button>
+        <Button text="Got questions?" (tap)="tripAdvisor()" row="0" col="1" class="menu-button-bold"></Button>
+        <Button text="Any requests?" (tap)="tripAdvisor()" row="1" col="0" class="menu-button"></Button>
+        <Button text="Hotel info" (tap)="info()" row="1" col="1" class="menu-button"></Button>
+        <Button text="Forgot something?" (tap)="tripAdvisor()" row="2" col="0" class="menu-button"></Button>
+        <Button text="Restaurants" (tap)="tripAdvisor()" row="2" col="1" class="menu-button"></Button>
+        <Button text="Tidy up?" (tap)="tripAdvisor()" row="3" col="0" class="menu-button"></Button>
+        <Button text="Calendar" (tap)="tripAdvisor()" row="3" col="1" class="menu-button"></Button>
+        <Button text="Maintenance" (tap)="tripAdvisor()" row="4" col="0" class="menu-button"></Button>
+        <Button text="Trip Advisor" (tap)="tripAdvisor()" row="4" col="1" class="menu-button"></Button>
+    </GridLayout>
+    
+    <!--<StackLayout dock="bottom" orientation="horizontal" class="menu-bottom" height="90">
+        <Button text="Home" (tap)="home()" class="menu-button-bottom"></Button>
+        <Button text="Messages" (tap)="messages()" class="menu-button-bottom"></Button>
+    </StackLayout>
+</DockLayout>-->

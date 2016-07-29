@@ -1,61 +1,62 @@
 import { Component, OnInit } from '@angular/core';
+import { NS_ROUTER_DIRECTIVES } from "nativescript-angular/router";
 import {Router} from "@angular/router";
+import {Page} from "ui/page";
 
 @Component({
     selector: 'home',
     templateUrl: 'pages/home/home.html',
-    styleUrls: ['pages/home/home.css']
+    styleUrls: ['pages/home/home.css'],
+    directives: [NS_ROUTER_DIRECTIVES]
 })
 export class HomeComponent implements OnInit {
-    constructor(private _router: Router) { }
+    constructor(private _router: Router, page: Page) {
+        page.actionBarHidden = true;
+    }
 
     ngOnInit() { }
 
-    specialOffers() {
-        this._router.navigate(["/Offers"]);
+    tap() {
+        console.log("tap");
     }
-    
-    hotelInformation() {
+
+    message() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    question() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    request() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    info() {
         this._router.navigate(["/HotelInfo"]);
     }
 
-    faq() {
-        this._router.navigate(["/Faq"]);
+    forgot() {
+        this._router.navigate(["/TripAdvisor"]);
     }
 
-    weather() {
-        this._router.navigate(["/Weather"]);
+    restaurants() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    tidy() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    calendar() {
+        this._router.navigate(["/TripAdvisor"]);
+    }
+
+    maintenance() {
+        this._router.navigate(["/TripAdvisor"]);
     }
 
     tripAdvisor() {
         this._router.navigate(["/TripAdvisor"]);
-    }
-
-    socialMedia() {
-        this._router.navigate(["/SocialMedia"]);
-    }
-
-    calendar() {
-        this._router.navigate(["/Calendar"]);
-    }
-    
-    restaurants() {
-        this._router.navigate(["/Restaurants"]);
-    }
-
-    menu() {
-        this._router.navigate(["/Menu"]);
-    }
-
-    chat() {
-        this._router.navigate(["/Chat"]);
-    }
-
-    requests() {
-        this._router.navigate(["/Requests"]);
-    }
-
-    admin() {
-        this._router.navigate(["/AdminHome"]);
     }
 }

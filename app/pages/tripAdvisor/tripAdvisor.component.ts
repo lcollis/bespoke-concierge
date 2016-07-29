@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
+import {Page} from "ui/page";
 
 @Component({
     selector: 'tripAdvisor',
-    templateUrl: 'pages/tripAdvisor/tripAdvisor.html'
+    templateUrl: 'pages/tripAdvisor/tripAdvisor.html',
+    styleUrls: ['pages/tripAdvisor/tripAdvisor.css']
 })
-export class TripAdvisorComponent implements OnInit {
+export class TripAdvisorComponent {
 
     loading: boolean = true;
 
-    constructor(private _router: Router) { }
+    inviteText: string = "Consequat mollit sit incididunt sint do aute aute et velit labore deserunt.";
 
-    ngOnInit() { }
-
-    onNavBtnTap() {
-        this._router.navigate(["/Home"]);
-    }
+    constructor(page: Page) {
+        page.actionBarHidden = true;
+     }
 
     pageLoaded() {
         this.loading = false;

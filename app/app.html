@@ -1,0 +1,13 @@
+<GridLayout columns="*" rows="90,*,90">
+    <StackLayout row="0" orientation="horizontal" class="menu-top" height="90">
+        <Button text="My itinerary" (tap)="itinerary()" class="menu-button-top"></Button>
+        <Button text="My requests" (tap)="requests()" class="menu-button-top"></Button>
+    </StackLayout>
+    <StackLayout row="1">
+        <router-outlet></router-outlet>
+    </StackLayout>
+    <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="90">
+        <Button text="Home" [nsRouterLink]="['/Home']" class="menu-button-bottom"></Button>
+        <Button text="Messages" (tap)="messages()" class="menu-button-bottom"></Button>
+    </StackLayout>
+</GridLayout>

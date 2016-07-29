@@ -1,5 +1,7 @@
-﻿button, label, stack-layout {
-    horizontal-align: center;    
+﻿button,
+label,
+stack-layout {
+    horizontal-align: center;
 }
 
 button {
@@ -16,4 +18,33 @@ button {
     color: #284848;
     text-align: center;
     margin: 0 20;
-} 
+}
+
+.menu-button-top {
+    width: 50%;
+    height: 100%;
+    horizontal-align: center;
+    font-size: 22;
+    background-color: lightblue;
+    border-width: 0.1;
+}
+
+.menu-button-bottom {
+    width: 50%;
+    height: 100%;
+    horizontal-align: center;
+    font-size: 22;
+    background-color: #132020;
+    border-width: 0.1;
+}
+
+.menu-top {
+    background-color: lightblue;
+    height: "90";
+}
+
+.menu-bottom {
+    background-color: #132020;
+    color: white;
+    height: "9";
+}

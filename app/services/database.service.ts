@@ -23,7 +23,8 @@ export class DatabaseService {
         new ApiInfo("Menu", "http://bespokeapi.dev.bespoke.house/api/FoodMenu"),
         new ApiInfo("Offer", "http://bespokeapi.dev.bespoke.house/api/Offer"),
         new ApiInfo("Restaurant", "http://bespokeapi.dev.bespoke.house/api/Restaurant"),
-        new ApiInfo("Itinerary", "http://bespokeapi.dev.bespoke.house/api/EventItenary")
+        new ApiInfo("Itinerary", "http://bespokeapi.dev.bespoke.house/api/EventItenary"),
+        new ApiInfo("Info", "", "Veniam proident ex excepteur nisi aliquip magna. Pariatur ea id id proident enim commodo ut. Irure ut qui minim tempor incididunt excepteur ullamco do irure in culpa veniam non. Ullamco Lorem et ut id Lorem eiusmod ad nostrud irure. Ullamco quis magna adipisicing tempor quis incididunt reprehenderit sunt ut enim labore est exercitation. Pariatur mollit incididunt non ullamco tempor eu sunt sunt. Ipsum proident Lorem nulla aliqua.")
     ];
 
     constructor(private _http: Http) { }
@@ -106,7 +107,7 @@ export class DatabaseService {
     }
 
     putObject(apiName: string, object: any, putId: number) {
-         var requestedApi: ApiInfo = null;
+        var requestedApi: ApiInfo = null;
 
         for (var i = 0; i < this.apiInformation.length; i++) {
             if (this.apiInformation[i].name === apiName) {
@@ -132,8 +133,16 @@ export class DatabaseService {
         var timeSinceLastUpdate = Date.now() - api.lastUpdate.getTime();
         if (timeSinceLastUpdate > api.updateDelay || api.data === null) {
             api.lastUpdate = new Date();
-            return this._http.get(api.url)
-                .map(response => api.data = response);
+            if (api.url !== "") {
+                return this._http.get(api.url)
+                    .map(response => api.data = response);
+            } else {
+                console.log("No url given for api: " + api.name)
+                return new Observable(observer => {
+                    observer.next(api.data);
+                    observer.complete();
+                });
+            }
         } else {
             return new Observable(observer => {
                 observer.next(api.data);

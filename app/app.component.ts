@@ -1,19 +1,35 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from "@angular/router";
-import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS } from "nativescript-angular/router";
-
+import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
+import {Page} from "ui/page";
 import fs = require("file-system");
 import firebase = require("nativescript-plugin-firebase");
 
+var application = require("application");
+
 @Component({
     selector: 'app',
-    template: `
-        <page-router-outlet></page-router-outlet>
-    `,
-    directives: [NS_ROUTER_DIRECTIVES]
+    templateUrl: "app.html",
+    directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 
 export class AppComponent {
+
+    constructor(page: Page, _routerExtensions: RouterExtensions) {
+        page.actionBarHidden = true;
+
+        //fix the android back button just quitting everything
+        if (application.android) {
+            application.android.on(application.AndroidApplication.activityBackPressedEvent,
+                (args) => {
+                    console.log("router url: " + _routerExtensions.router.url);
+                    if (_routerExtensions.router.url !== "/Home" && _routerExtensions.router.url !== "/") {
+                        _routerExtensions.back();
+                        args.cancel = true;
+                    }
+                })
+        }
+    }
 
     ngOnInit() {
         console.log("Trying to load firebase");

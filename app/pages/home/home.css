@@ -1,6 +1,15 @@
 .menu-button {
     width: 50%;
-    height: 16%;
+    height: 20%;
     horizontal-align: center;
     font-size: 22;
+}
+
+.menu-button-bold {
+    width: 50%;
+    height: 20%;
+    horizontal-align: center;
+    font-size: 22;
+
+    font-weight: bold;
 }
