@@ -1,7 +1,3 @@
-<ActionBar>
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"> </NavigationButton>
-</ActionBar>
-
 <StackLayout>
     <ListView [items]="restaurant" *ngIf="!loading" height="100%">
         <template let-item="item">

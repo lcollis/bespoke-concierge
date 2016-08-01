@@ -13,12 +13,23 @@ export class HomeComponent {
     }
 
     chat() {
-        console.log("chat");
         this._router.navigate(["/Chat"]);
+    }
+
+    faq() {
+        this._router.navigate(["/Faq"]);
     }
 
     info() {
         this._router.navigate(["/HotelInfo"]);
+    }
+    
+    restaurants() {
+        this._router.navigate(["/Restaurants"]);
+    }
+
+    calendar() {
+        this._router.navigate(["/Calendar"]);
     }
 
     tripAdvisor() {

@@ -24,7 +24,7 @@ export class AppComponent {
                 (args) => {
                     console.log("router url: " + _routerExtensions.router.url);
                     if (_routerExtensions.router.url !== "/Home" && _routerExtensions.router.url !== "/") {
-                        _routerExtensions.back();
+                        _routerExtensions.navigate(["/Home"]);
                         args.cancel = true;
                     }
                 })

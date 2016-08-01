@@ -6,11 +6,13 @@ import {UserIdService} from "../../services/userId.service";
 
 @Component({
     selector: 'calendar',
-    templateUrl: 'pages/calendar/calendar.html'
+    templateUrl: 'pages/calendar/calendar.html',
+    styleUrls: ['pages/calendar/calendar.css']
 })
 export class CalendarComponent {
 
     events: Event[];
+    loading:boolean = true;
 
     constructor(private _router: Router, private _userIdService: UserIdService, private _databaseService: DatabaseService) {
         _databaseService.getApiData("Calendar").subscribe(
@@ -19,6 +21,7 @@ export class CalendarComponent {
     }
 
     gotEvents(events: any) {
+        this.loading = false;
         this.events = events._body;
     }
 
@@ -31,9 +34,5 @@ export class CalendarComponent {
     addToItinerary(event: Event) {
         var itineraryEvent: ItineraryEvent = new ItineraryEvent(event, 1234);
         this._databaseService.pushObject("Itinerary", itineraryEvent);
-    }
-
-    onNavBtnTap() {
-        this._router.navigate(['/Home']);
     }
 }

@@ -1,0 +1,19 @@
+.subject {
+    font-size: 20;
+    horizontal-align: center;
+}
+
+.description {
+    font-size: 16;
+    horizontal-align: center;
+    text-align: center;
+}
+
+.title {
+    font-size: 24;
+    font-weight: bold;
+}
+
+.reserve-button {
+    font-size: 20;
+}

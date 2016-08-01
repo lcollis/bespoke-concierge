@@ -64,7 +64,6 @@ export class ChatComponent {
 
     ngOnInit() {
         //scroll to bottom with a new message
-        console.log("DELETE ME~!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~~")
         var that = this;
         this.listView._elementRef.nativeElement.addEventListener(ListView.propertyChangeEvent,
             () => {
@@ -74,8 +73,6 @@ export class ChatComponent {
                     if (that.messages) {
                         console.log("trying to scroll to bottton messages length: " + that.messages.length);
                         that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
-                    } else {
-                        console.log("no messasge");
                     }
                 }, 0)
             });

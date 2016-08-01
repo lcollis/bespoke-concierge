@@ -1,15 +1,15 @@
-<ActionBar>
-    <NavigationButton text='Go Back' android.systemIcon='ic_menu_back' (tap)='onNavBtnTap()'> </NavigationButton>
-</ActionBar>
-
-<StackLayout>
-    <ListView [items]="events" height="100%">
+<StackLayout width="100%">
+    <Label text="Upcoming events" class="title"></Label>
+    <ListView [items]="events" *ngIf="!loading">
         <template let-item="item">
-            <StackLayout>
-                <Label [text]='item.Subject' class="offerTitle"></Label>
-                <Label [text]='item.Description' class="offerDetail" textWrap="true"></Label>
-                <Button text="add to Itinerary" (tap)="addToItinerary(item)"> </Button>
-            </StackLayout>
+            <GridLayout rows="auto" columns="7*, 3*">
+                <StackLayout>
+                    <Label [text]='item.Subject' class="subject"></Label>
+                    <Label [text]='item.Description' class="description" textWrap="true"></Label>
+                </StackLayout>
+                <Button col="2" text="Reserve" class="reserve-button"></Button>
+            </GridLayout>
         </template>
     </ListView>
+    <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
 </StackLayout>

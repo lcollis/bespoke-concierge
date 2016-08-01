@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database.service";
 import { Faq } from "../../services/Faq";
@@ -9,31 +9,26 @@ import { Faq } from "../../services/Faq";
     styleUrls: ['pages/faq/faq.css']
 })
 
-export class FaqComponent implements OnInit {
+export class FaqComponent  {
     faq: Faq[];
    
     loading: boolean = true;
 
     constructor(private _router: Router, private _databaseService: DatabaseService) {
-        _databaseService.getApiData("Faq").subscribe(
-            faq => this.getFaq(faq),
-            error => this.receivingError(error));
+        _databaseService.getApiData("Faq").subscribe( 
+            (data) => this.gotFaq(data),
+            (error) => this.gotError(error)
+        );
     }
   
-    getFaq(faq) {
+    gotFaq(faq) {  
         this.faq = faq._body;
         this.loading = false;
     }
     
-    receivingError(error) {
+    gotError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["/Home"]);
-    }
-
-    ngOnInit() { }
-
-    onNavBtnTap() {
         this._router.navigate(["/Home"]);
     }
 }

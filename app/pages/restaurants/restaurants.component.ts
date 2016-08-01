@@ -9,7 +9,7 @@ import {Restaurants} from "../../services/restaurants";
     styleUrls: ['pages/restaurants/restaurants.css']
 })
 
-export class RestaurantsComponent implements OnInit {
+export class RestaurantsComponent {
     restaurant: Restaurants[];
     loading: boolean = true;
 
@@ -30,10 +30,4 @@ export class RestaurantsComponent implements OnInit {
         alert("No Internet Connection");
         this._router.navigate(["/Home"]);
     }
-
-    onNavBtnTap() {
-        this._router.navigate(["/Home"]);
-    }
-
-    ngOnInit() { }
 }
