@@ -2,10 +2,14 @@ import { Component, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FBData, PushResult } from "nativescript-plugin-firebase";
 import { ListView } from "ui/list-view";
+import {  } from "ui/list-view.ios"
 import { FromNowPipe } from '../../pipes/fromnow.pipe';
 import { ChatService } from "../../services/chatServices/chat.service";
 import { UserIdService } from "../../services/userId.service";
 import { Message } from "../../services/chatServices/message";
+
+//for ios listview styling fix
+declare var UITableViewSelectionStyle;
 
 @Component({
     selector: 'chat',
@@ -13,6 +17,8 @@ import { Message } from "../../services/chatServices/message";
     styleUrls: ['pages/chat/chat.css'],
     pipes: [FromNowPipe]
 })
+
+
 export class ChatComponent {
 
     messages: Message[] = new Array<Message>();
@@ -20,6 +26,8 @@ export class ChatComponent {
     userID: string;
     room: string = "default";
     loading: boolean = true;
+
+    
 
     @ViewChild("listview") listView;
 
@@ -65,17 +73,17 @@ export class ChatComponent {
     ngOnInit() {
         //scroll to bottom with a new message
         var that = this;
-        this.listView._elementRef.nativeElement.addEventListener(ListView.propertyChangeEvent,
-            () => {
+        // this.listView._elementRef.nativeElement.addEventListener(ListView.propertyChangeEvent,
+        //     () => {
 
-                //gotta have the little delay or else the list view doesn't listen on anything but the initial load.
-                setTimeout(function () {
-                    if (that.messages) {
-                        console.log("trying to scroll to bottton messages length: " + that.messages.length);
-                        that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
-                    }
-                }, 0)
-            });
+        //         //gotta have the little delay or else the list view doesn't listen on anything but the initial load.
+        //         setTimeout(function () {
+        //             if (that.messages) {
+        //                 console.log("trying to scroll to bottton messages length: " + that.messages.length);
+        //                 that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
+        //             }
+        //         }, 0)
+        //     });
     }
 
     addMessage(message) {
@@ -91,5 +99,13 @@ export class ChatComponent {
 
     isMessageFromMe(message: Message): boolean {
         return message.sender === this.userID;
+    }
+
+    listViewItemLoading(args) {
+
+        if(args.ios) {
+            console.log("yup");
+            args.ios.selectionStyle = UITableViewSelectionStyle.UITableViewSelectionStyleNone;
+        }
     }
 }

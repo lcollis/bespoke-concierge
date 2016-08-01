@@ -1,6 +1,6 @@
 <GridLayout rows="*,auto">
     <GridLayout>
-        <ListView [items]="messages" separatorColor="white" #listview>
+        <ListView [items]="messages" separatorColor="white" itemLoading="listViewItemLoading" #listview>
             <template let-item="item">
                 <GridLayout columns="auto,*" rows="auto">
                     <Border col="1" [className]="'message-border' + (isMessageFromMe(item) ? '-right' : '-left')">
