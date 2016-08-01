@@ -1,15 +1,22 @@
 export class Task {
-    requesterID: string;
-    timeOfRequest: Date; //time the request was made
-    completed: boolean = false;
-    assignedToID: string = ""; //ID of the assignee
-    description: string;
-
-    constructor(requesterID: string, timeOfRequest: Date, description: string) {
-        this.requesterID = requesterID;
-        this.timeOfRequest = timeOfRequest;
-        this.description = description;
-        this.completed = false;
-        this.assignedToID = "";
-    }
+    TaskID: number;
+    UserID: number;
+    Description: string;
+    CreatedTimestamp: Date;
+    Priority: string;
+    StartTimestamp: Date;
+    EndTimestamp: Date;
+    PersonID: number;
+    TaskCompletedTimestamp: Date;
+    TaskCanceledTimestamp: Date;
+    FollowupNotes: string;
+    ScheduledTime: string;
+    Completed: boolean;
+    Canceled: boolean;
+    ShortDescription: string;
+    ScheduledTimestamp: Date;
+    RemindDayOfTask: boolean;
+    RemindIfDayLate: boolean;
+    PrivateTask: boolean;
+    AutomatedFollowUpTask: boolean;
 }

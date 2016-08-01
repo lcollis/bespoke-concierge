@@ -8,6 +8,6 @@
     </StackLayout>
     <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="90">
         <Button text="Home" [nsRouterLink]="['/Home']" class="menu-button-bottom"></Button>
-        <Button text="Messages" (tap)="messages()" class="menu-button-bottom"></Button>
+        <Button text="Messages" [nsRouterLink]="['/Chat']" class="menu-button-bottom"></Button>
     </StackLayout>
 </GridLayout>

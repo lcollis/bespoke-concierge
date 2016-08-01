@@ -33,7 +33,9 @@ export class AppComponent {
 
     ngOnInit() {
         console.log("Trying to load firebase");
-        firebase.init({}).then(
+        firebase.init({
+            persist: false
+        }).then(
             (instance) => {
                 console.log("firebase.init done");
             },

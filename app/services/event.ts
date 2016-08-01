@@ -36,7 +36,5 @@ export class ItineraryEvent {
         this.IsCompleted = false;
         this.PersonID = userID;
         this.SubEventID = event.SubEventID;
-
-        this.EventItenaryID = 2;
     }
 }

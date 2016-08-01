@@ -41,6 +41,7 @@ button {
 .menu-top {
     background-color: lightblue;
     height: "90";
+    color: black;
 }
 
 .menu-bottom {
