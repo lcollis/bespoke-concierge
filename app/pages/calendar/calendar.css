@@ -1,4 +1,6 @@
 .subject {
+    color: black;
+    font-weight: 600;
     font-size: 20;
     horizontal-align: center;
 }
@@ -12,8 +14,10 @@
 .title {
     font-size: 24;
     font-weight: bold;
+    color: black;
 }
 
 .reserve-button {
-    font-size: 20;
+    font-size: 16;
+    font-weight: bold;
 }

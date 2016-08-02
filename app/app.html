@@ -1,7 +1,9 @@
+<StatusBar ios:barStyle="light" android:barStyle="lightblue"></StatusBar>
+
 <GridLayout columns="*" rows="70,*,70">
     <StackLayout row="0" orientation="horizontal" class="menu-top" height="70">
-        <Button text="My itinerary" (tap)="itinerary()" class="menu-button-top"></Button>
-        <Button text="My requests" (tap)="requests()" class="menu-button-top"></Button>
+        <Button text="My itinerary" [nsRouterLink]="['/itinerary']" class="menu-button-top"></Button>
+        <Button text="My requests" [nsRouterLink]="['/requests']" class="menu-button-top"></Button>
     </StackLayout>
     <StackLayout row="1">
         <router-outlet></router-outlet>

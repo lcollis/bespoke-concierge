@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from "@angular/router";
 import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
+import {registerElement} from "nativescript-angular/element-registry";
 import {Page} from "ui/page";
 import fs = require("file-system");
 import firebase = require("nativescript-plugin-firebase");
@@ -29,6 +30,10 @@ export class AppComponent {
                     }
                 })
         }
+
+        //allows for ios statusbar coloring
+        page.backgroundSpanUnderStatusBar = true;
+        registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
     }
 
     ngOnInit() {

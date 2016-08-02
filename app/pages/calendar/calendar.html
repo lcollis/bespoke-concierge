@@ -6,6 +6,8 @@
                 <StackLayout>
                     <Label [text]='item.Subject' class="subject"></Label>
                     <Label [text]='item.Description' class="description" textWrap="true"></Label>
+                    <Lable [text]="item.ContactPhone" class="phone" *ngIf="item.ContactPhone"></Lable>
+                    <Label text= '{{item.StartTime}} - {{item.EndTime | date:"shortTime"}}'></Label>
                 </StackLayout>
                 <Button col="2" text="Reserve" class="reserve-button"></Button>
             </GridLayout>
