@@ -5,6 +5,7 @@ import {registerElement} from "nativescript-angular/element-registry";
 import {Page} from "ui/page";
 import fs = require("file-system");
 import firebase = require("nativescript-plugin-firebase");
+import { Color } from "color";
 
 var application = require("application");
 
@@ -33,6 +34,7 @@ export class AppComponent {
 
         //allows for ios statusbar coloring
         page.backgroundSpanUnderStatusBar = true;
+        page.backgroundColor = new Color("lightblue");
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
         } catch (error) {}

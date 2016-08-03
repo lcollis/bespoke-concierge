@@ -4,6 +4,10 @@ stack-layout {
     horizontal-align: center;
 }
 
+.content {
+    background-color: white;
+}
+
 button {
     font-size: 36;
 }
