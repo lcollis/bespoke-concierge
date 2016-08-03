@@ -1,0 +1,30 @@
+<ScrollView>
+<StackLayout width="100%">
+    <Label text="Reservation" class="title"></Label>
+    <GridLayout columns="auto, *" rows="auto" width="100%">
+        <Label text="Date: " class="detail"></Label>
+        <DatePicker [date]="date" col="2"></DatePicker>
+    </GridLayout>
+    <GridLayout columns="auto, *" rows="auto" width="100%">
+        <Label text="Time: " class="detail"></Label>
+        <TimePicker col="2"></TimePicker>
+    </GridLayout>
+    <GridLayout columns="auto, *" rows="auto" width="100%">
+        <Label text="Party Size: " class="detail"></Label>
+        <TextField class="detail-text-field" [text]="party" hint="party size" col="2"></TextField>
+    </GridLayout>
+    <GridLayout columns="auto, *" rows="auto" width="100%">
+        <Label text="Special Occasion: " class="detail"></Label>
+        <TextField class="detail-text-field" [text]="specialOccasion" hint="special occasion" col="2"></TextField>
+    </GridLayout>
+    <GridLayout columns="auto, *" rows="auto" width="100%">
+        <Label text="Other Details:" class="detail"></Label>
+        <TextView [text]="details" hint="details" col="2"></TextView>
+    </GridLayout>
+
+    <StackLayout orientation="horizontal" width="100%">
+        <Button text="Cancel" (tap)="cancel()"></Button>
+        <Button text="Reserve" (tap)="reserve()"></Button>
+    </StackLayout>
+</StackLayout>
+</ScrollView>

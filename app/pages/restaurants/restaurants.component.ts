@@ -30,4 +30,9 @@ export class RestaurantsComponent {
         alert("No Internet Connection");
         this._router.navigate(["/Home"]);
     }
+
+    reserve(restaurant: Restaurants) {
+        this._databaseService.setSelectedObject("Restaurant", restaurant);
+        this._router.navigate(["/Reservation"]);
+    }
 }

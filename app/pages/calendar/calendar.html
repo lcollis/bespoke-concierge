@@ -2,15 +2,17 @@
     <Label text="Upcoming events" class="title"></Label>
     <ListView [items]="events" *ngIf="!loading">
         <template let-item="item">
-            <GridLayout rows="auto" columns="7*, 3*">
-                <StackLayout>
-                    <Label [text]='item.Subject' class="subject"></Label>
-                    <Label [text]='item.Description' class="description" textWrap="true"></Label>
-                    <Lable [text]="item.ContactPhone" class="phone" *ngIf="item.ContactPhone"></Lable>
-                    <Label text= '{{item.StartTime}} - {{item.EndTime | date:"shortTime"}}'></Label>
-                </StackLayout>
-                <Button col="2" text="Reserve" class="reserve-button"></Button>
-            </GridLayout>
+            <StackLayout>
+                <Label [text]='item.Subject' class="subject"></Label>
+                <GridLayout rows="auto" columns="7*, 3*">
+                    <StackLayout>
+                        <Label [text]='item.Description' class="description" textWrap="true"></Label>
+                        <Lable [text]="item.ContactPhone" class="phone" *ngIf="item.ContactPhone"></Lable>
+                        <Label text= '{{item.StartTime}} - {{item.EndTime | date:"shortTime"}}'></Label>
+                    </StackLayout>
+                    <Button col="2" text="Reserve" class="reserve-button"></Button>
+                </GridLayout>
+            </StackLayout>
         </template>
     </ListView>
     <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>

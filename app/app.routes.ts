@@ -18,6 +18,7 @@ import {RequestsComponent} from "./pages/requests/requests.component";
 import {AdminChatSelectorComponent} from "./pages/adminChatSelector/adminChatSelector.component";
 import {AdminChatComponent} from "./pages/adminChatSelector/adminChat/adminChat.component";
 import {AdminHomeComponent} from "./pages/adminHome/adminHome.component";
+import { ReservationComponent } from "./pages/restaurants/reservation/reservation.component";
 
 
 export const routes: RouterConfig = [
@@ -38,6 +39,7 @@ export const routes: RouterConfig = [
     { path: 'AdminChatSelector', component: AdminChatSelectorComponent },
     { path: 'AdminChat', component: AdminChatComponent },
     { path: 'AdminHome', component: AdminHomeComponent },
+    { path: 'Reservation', component: ReservationComponent},
 ];
 
 export const APP_ROUTER_PROVIDERS = [

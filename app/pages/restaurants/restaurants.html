@@ -1,18 +1,17 @@
 <StackLayout>
+    <Label text="We highly reccomend the following restaurants." class="header" textWrap="true" horizontalAlignment="left" width="100%"></Label>
+    <Label text="Let us make reservations for you." class="header" textWrap="true" horizontalAlignment="left"></Label>
     <ListView [items]="restaurant" *ngIf="!loading" height="100%">
         <template let-item="item">
             <StackLayout>
                 <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
-                <Label [text]='item.Street1' class="restaurantDetail" textWrap="true"></Label>
-                <Label [text]='item.Street2' class="restaurantDetail" textWrap="true"></Label>
-                <Label [text]='item.City' class="restaurantDetail" textWrap="true"></Label>
-                <Label [text]='item.PostalCode' class="restaurantDetail" textWrap="true"></Label>
-                <Label [text]='item.State' class="restaurantDetail" textWrap="true"></Label>
-                <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
-                <Label [text]='item.Fax' class="restaurantPhone" textWrap="true"></Label>
-                <Label [text]='item.Websites' class="restaurantPhone" textWrap="true"></Label>
-                <Label [text]='item.PhotoURL' class="restaurantLink" textWrap="true"></Label>
-
+                <GridLayout rows="auto" columns="7*, 3*">
+                    <StackLayout>
+                        <Label [text]='item.Street1 + " " + item.Street2 + ", " + item.City' class="restaurantDetail" textWrap="true"></Label>
+                        <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
+                    </StackLayout>
+                    <Button text="Reserve" (tap)="reserve(item)" col="2" class="reserve-button"></Button>
+                </GridLayout>
             </StackLayout>
         </template>
     </ListView>

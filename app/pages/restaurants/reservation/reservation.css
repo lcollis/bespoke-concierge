@@ -1,0 +1,16 @@
+.title {
+    color: black;
+    font-size: 24;
+    width: "100%";
+}
+
+.detail {
+    font-size: 16;
+    vertical-align: center;
+    horizontal-align: left;
+    color: black;
+}
+
+.detail-text-field {
+    width: "50%";
+}

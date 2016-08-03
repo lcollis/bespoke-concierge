@@ -1,22 +1,24 @@
 export class Task {
-    TaskID: number;
-    UserID: number;
-    Description: string;
-    CreatedTimestamp: Date;
-    Priority: string;
-    StartTimestamp: Date;
-    EndTimestamp: Date;
-    PersonID: number;
-    TaskCompletedTimestamp: Date;
-    TaskCanceledTimestamp: Date;
-    FollowupNotes: string;
-    ScheduledTime: string;
-    Completed: boolean;
+    AutomatedFollowUpTask: boolean;
     Canceled: boolean;
-    ShortDescription: string;
-    ScheduledTimestamp: Date;
+    Completed: boolean;
+    CreatedTimestamp: Date;
+    Description: string;
+    EndTimestamp: Date;
+    FollowupNotes: string;
+    PersonID: number;
+    Priority: string;
+    PrivateTask: boolean;
     RemindDayOfTask: boolean;
     RemindIfDayLate: boolean;
-    PrivateTask: boolean;
-    AutomatedFollowUpTask: boolean;
+    ScheduledTime: string;
+    ScheduledTimestamp: Date;
+    ShortDescription: string;
+    StartTimestamp: Date;
+    TaskCanceledTimestamp: Date;
+    TaskCompletedTimestamp: Date;
+    TaskID: number;
+    UserID: number;
+
+   // constructor(description: string, priority: string, )
 }

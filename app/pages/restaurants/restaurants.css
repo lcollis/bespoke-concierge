@@ -1,17 +1,29 @@
+.header {
+    color: black;
+    font-size: 16;
+}
+
 .restaurantTitle {
     font-size: 24;
     color: black;
 }
+
 .restaurantDetail {
     font-size: 14;
     width: 100%;
 }
-.restaurantLink{
+
+.restaurantLink {
     color: darkblue;
     font-size: 14;
 }
 
-.restaurantPhone{
-font-size: 14;
+.restaurantPhone {
+    font-size: 14;
     width: 100%;
+}
+
+.reserve-button {
+    font-size: 16;
+    font-weight: bold;
 }

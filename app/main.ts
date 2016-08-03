@@ -8,5 +8,6 @@ import {WeatherService} from "./services/weather.service";
 import {ChatService} from "./services/chatServices/chat.service";
 import {UserIdService} from "./services/userId.service";
 import {DatabaseService} from "./services/database.service";
+import {TaskService} from "./services/taskServices/task.service";
 
-nativeScriptBootstrap(AppComponent, [NS_HTTP_PROVIDERS, APP_ROUTER_PROVIDERS, WeatherService, ChatService, UserIdService, DatabaseService]);
+nativeScriptBootstrap(AppComponent, [NS_HTTP_PROVIDERS, APP_ROUTER_PROVIDERS, WeatherService, ChatService, UserIdService, DatabaseService, TaskService]);
