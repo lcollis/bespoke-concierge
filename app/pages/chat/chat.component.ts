@@ -27,7 +27,7 @@ export class ChatComponent {
     room: string = "default";
     loading: boolean = true;
 
-    
+
 
     @ViewChild("listview") listView;
 
@@ -75,14 +75,16 @@ export class ChatComponent {
     }
 
     addMessage(message) {
-        console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
-        this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });
-        this._chatService.sendMessage(this.newMessage, this.userID, this.room)
-            .catch((error: any) => {
-                console.log(error);
-                alert("Error sending message. Please try again later");
-            });
-        this.newMessage = '';
+        if (message) {
+            console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
+            this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });
+            this._chatService.sendMessage(this.newMessage, this.userID, this.room)
+                .catch((error: any) => {
+                    console.log(error);
+                    alert("Error sending message. Please try again later");
+                });
+            this.newMessage = '';
+        }
     }
 
     isMessageFromMe(message: Message): boolean {
@@ -91,7 +93,7 @@ export class ChatComponent {
 
     listViewItemLoading(args) {
 
-        if(args.ios) {
+        if (args.ios) {
             console.log("yup");
             args.ios.selectionStyle = UITableViewSelectionStyle.UITableViewSelectionStyleNone;
         }
