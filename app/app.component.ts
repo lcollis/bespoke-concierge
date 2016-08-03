@@ -33,7 +33,9 @@ export class AppComponent {
 
         //allows for ios statusbar coloring
         page.backgroundSpanUnderStatusBar = true;
-        registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
+        try {
+            registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
+        } catch (error) {}
     }
 
     ngOnInit() {

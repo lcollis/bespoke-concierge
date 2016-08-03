@@ -60,6 +60,10 @@ export class ChatComponent {
                                     var d = new Date(b.timeStamp);
                                     return c > d ? 1 : c < d ? -1 : 0;
                                 });
+
+                                setTimeout(function () {
+                                    that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
+                                }, 0);
                             }
                         });
                     });
@@ -68,22 +72,6 @@ export class ChatComponent {
                 console.log("Error getting userID");
                 console.log(error);
             });
-    }
-
-    ngOnInit() {
-        //scroll to bottom with a new message
-        var that = this;
-        // this.listView._elementRef.nativeElement.addEventListener(ListView.propertyChangeEvent,
-        //     () => {
-
-        //         //gotta have the little delay or else the list view doesn't listen on anything but the initial load.
-        //         setTimeout(function () {
-        //             if (that.messages) {
-        //                 console.log("trying to scroll to bottton messages length: " + that.messages.length);
-        //                 that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
-        //             }
-        //         }, 0)
-        //     });
     }
 
     addMessage(message) {

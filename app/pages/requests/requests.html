@@ -1,23 +1,13 @@
-<ActionBar>
-    <NavigationButton text='Go Back' android.systemIcon='ic_menu_back' (tap)='onNavBtnTap()'> </NavigationButton>
-</ActionBar>
-
 <GridLayout rows="*,auto">
-    <GridLayout>
-        <ListView [items]="myTasks">
-            <template let-item="item">
-            <GridLayout columns="50,*,auto">
-                <Label textWrap="true" verticalAlignment="center" col="1" [text]="item.requesterID" minHeight="50"></Label>
-                <Label verticalAlignment="top" horizontalAlignment="right" col="2" [text]="item.timeOfRequest | fromNow"></Label>
-                <Label verticalAlignment="bottom" horizontalAlignment="center" col="0" [text]="item.description"></Label>
+    <ListView [items]="tasks" *ngIf="!loading">
+        <template let-item="item">
+            <GridLayout rows="auto,auto" columns="*,*,*">
+                <Label row="0" col="1" textWrap="true" [text]="item.ShortDescription"></Label>
+                <Label row="0" col="2" col="2" [text]="item.CreatedTimestamp | fromNow"></Label>
+                <Label row="1" colSpan="3" [text]="item.Description" textWrap="true"></Label>
             </GridLayout>
             </template>
-        </ListView>
-    </GridLayout>
-    
-    <GridLayout row="1" columns="*,auto">
-        <TextField hint="Enter Task Description ..." row="1" [(ngModel)]="newDescription" [isEnabled]="!loading"></TextField>
-        <Button row="1" col="1" text="Add" (tap)="addTask(newDescription)" [isEnabled]="!loading"></Button>
-    </GridLayout>
-<ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
+    </ListView>
+    <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
+    <Label *ngIf="noTasks" text="You have no tasks requested. Check out the other sections of this app to make requests!" textWrap="true" class="no-tasks-label"></Label>
 </GridLayout>

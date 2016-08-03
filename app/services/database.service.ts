@@ -23,7 +23,8 @@ export class DatabaseService {
         new ApiInfo("Menu", "http://bespokeapi.dev.bespoke.house/api/FoodMenu"),
         new ApiInfo("Offer", "http://bespokeapi.dev.bespoke.house/api/Offer"),
         new ApiInfo("Restaurant", "http://bespokeapi.dev.bespoke.house/api/Restaurant"),
-        new ApiInfo("Itinerary", "http://bespokeapi.dev.bespoke.house/api/EventItenary"),
+        new ApiInfo("Itinerary", "http://bespokeapi.dev.bespoke.house/api/EventItenary", null, 0),
+        new ApiInfo("Tasks", "http://bespokeapi.dev.bespoke.house/api/AgentTask", null, 0),
         new ApiInfo("Info", "", "Veniam proident ex excepteur nisi aliquip magna. Pariatur ea id id proident enim commodo ut. Irure ut qui minim tempor incididunt excepteur ullamco do irure in culpa veniam non. Ullamco Lorem et ut id Lorem eiusmod ad nostrud irure. Ullamco quis magna adipisicing tempor quis incididunt reprehenderit sunt ut enim labore est exercitation. Pariatur mollit incididunt non ullamco tempor eu sunt sunt. Ipsum proident Lorem nulla aliqua.")
     ];
 
@@ -83,7 +84,7 @@ export class DatabaseService {
         }
     }
 
-    pushObject(apiName: string, object: any) {
+    postObject(apiName: string, object: any): Observable<any> {
         var requestedApi: ApiInfo = null;
 
         for (var i = 0; i < this.apiInformation.length; i++) {
@@ -97,16 +98,14 @@ export class DatabaseService {
             var url = requestedApi.url;
             console.log("posting object: " + JSON.stringify(object));
             console.log("posting to url: " + url);
-            this._http.post(url, object)
-                .subscribe((response) => console.log(response),
-                (error) => console.log(error));
+            return this._http.post(url, object);
         } else {
             console.log("Error: no api with that name is in apiInformation");
             return null;
         }
     }
 
-    putObject(apiName: string, object: any, putId: number) {
+    putObject(apiName: string, object: any, putId: number): Observable<any> {
         var requestedApi: ApiInfo = null;
 
         for (var i = 0; i < this.apiInformation.length; i++) {
@@ -120,9 +119,7 @@ export class DatabaseService {
             var url = requestedApi.url + "/" + putId;
             console.log("putting object: " + JSON.stringify(object));
             console.log("putting to url: " + url);
-            this._http.put(url, object)
-                .subscribe((response) => console.log(response),
-                (error) => console.log(error));
+            return this._http.put(url, object);
         } else {
             console.log("Error: no api with that name is in apiInformation");
             return null;

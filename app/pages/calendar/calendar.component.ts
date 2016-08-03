@@ -33,6 +33,6 @@ export class CalendarComponent {
 
     addToItinerary(event: Event) {
         var itineraryEvent: ItineraryEvent = new ItineraryEvent(event, 1234);
-        this._databaseService.pushObject("Itinerary", itineraryEvent);
+        this._databaseService.postObject("Itinerary", itineraryEvent);
     }
 }

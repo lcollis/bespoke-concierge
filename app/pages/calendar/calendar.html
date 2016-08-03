@@ -1,6 +1,6 @@
-<StackLayout width="100%">
+<StackLayout width="100%" heigh="100%">
     <Label text="Upcoming events" class="title"></Label>
-    <ListView [items]="events" *ngIf="!loading">
+    <ListView [items]="events" *ngIf="!loading" height="100%">
         <template let-item="item">
             <StackLayout>
                 <Label [text]='item.Subject' class="subject"></Label>
@@ -10,7 +10,7 @@
                         <Lable [text]="item.ContactPhone" class="phone" *ngIf="item.ContactPhone"></Lable>
                         <Label text= '{{item.StartTime}} - {{item.EndTime | date:"shortTime"}}'></Label>
                     </StackLayout>
-                    <Button col="2" text="Reserve" class="reserve-button"></Button>
+                    <Button col="2" text="Reserve" (tap)="addToItinerary(item)" class="reserve-button"></Button>
                 </GridLayout>
             </StackLayout>
         </template>

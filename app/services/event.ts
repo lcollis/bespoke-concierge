@@ -22,12 +22,11 @@ export class Event {
 export class ItineraryEvent {
     BookTimeStamp: Date;
     EventID: number;
+    EventItenaryID: number;
     IsCancled: boolean;
     IsCompleted: boolean;
     PersonID: number;
     SubEventID: number;
-
-    EventItenaryID: number;
 
     constructor(event: Event, userID: number) {
         this.BookTimeStamp = new Date();

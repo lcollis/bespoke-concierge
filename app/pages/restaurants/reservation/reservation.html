@@ -3,11 +3,11 @@
     <Label text="Reservation" class="title"></Label>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Date: " class="detail"></Label>
-        <DatePicker [date]="date" col="2"></DatePicker>
+        <DatePicker [(ngModel)]="date" col="2"></DatePicker>
     </GridLayout>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Time: " class="detail"></Label>
-        <TimePicker col="2"></TimePicker>
+        <TimePicker [(ngModel)]="time" col="2"></TimePicker>
     </GridLayout>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Party Size: " class="detail"></Label>
