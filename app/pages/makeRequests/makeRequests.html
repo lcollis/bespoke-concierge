@@ -1,0 +1,9 @@
+<StackLayout>
+    <ListView [items]="requests" *ngIf="!loading" height="100%" width="100%" (itemTap)="onItemTap($event)">
+        <template let-item="item">
+            <StackLayout width="100%" horizontalAlignment="center" class="request-layout">
+                <Label [text]='item.title' class="request-item-title" textWrap="true" width="100%"></Label>
+            </StackLayout>
+        </template>
+    </ListView>
+</StackLayout>

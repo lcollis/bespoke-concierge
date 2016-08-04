@@ -1,0 +1,21 @@
+<ScrollView>
+    <StackLayout>
+        <Label text="Request" class="title"></Label>
+        <StackLayout *ngIf="requestDetails.hasDate">
+            <Label [text]="requestDetails.dateLabel" textWrap="true"></Label>
+            <DatePicker [(ngModel)]="dateInput"></DatePicker>
+        </StackLayout>
+        <StackLayout *ngIf="requestDetails.hasTime">
+            <Label [text]="requestDetails.timeLabel" textWrap="true"></Label>
+            <TimePicker [(ngModel)]="timeInput"></TimePicker>
+        </StackLayout>
+        <GridLayout columns="*, 2*" *ngIf="requestDetails.hasText">
+            <Label [text]="requestDetails.textLabel" textWrap="true"></Label>
+            <TextField [(ngModel)]="textInput" col="2"></TextField>
+        </GridLayout>
+        <StackLayout orientation="horizontal">
+            <Button text="Cancel" (tap)="cancel()"></Button>
+            <Button text="Send" (tap)="send()"></Button>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

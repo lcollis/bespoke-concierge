@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+var dialogs = require("ui/dialogs");
 import {Event,ItineraryEvent} from "../../services/event";
 import {DatabaseService} from "../../services/database.service";
 import {UserIdService} from "../../services/userId.service";
@@ -33,6 +34,16 @@ export class CalendarComponent {
 
     addToItinerary(event: Event) {
         var itineraryEvent: ItineraryEvent = new ItineraryEvent(event, 1234);
-        this._databaseService.postObject("Itinerary", itineraryEvent);
+        this._databaseService.postObject("Itinerary", itineraryEvent)
+            .subscribe(() => {
+                dialogs.alert({
+                        title: "Reserve",
+                        message: "Successfully reserved! You can find your reserved events in the Itinerary",
+                        okButtonText: "OK"
+                    });
+                    this._router.navigate(["/Home"]);
+            }, (error) => {
+                alert("Could not connect to the server. Please try again later.");
+            });
     }
 }

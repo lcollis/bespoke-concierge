@@ -1,6 +1,6 @@
 <GridLayout>
     <ListView [items]="faq" *ngIf="!loading" height="100%" width="100%">
-        <template let-item="item" width="10%">
+        <template let-item="item">
             <StackLayout width="100%" horizontalAlignment="center">
                 <Label [text]='item.DisplayText' class="title"></Label>
                 <Label [text]='item.ShortSummaryText' class="detail" textWrap="true"></Label>

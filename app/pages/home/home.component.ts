@@ -20,8 +20,16 @@ export class HomeComponent {
         this._router.navigate(["/Faq"]);
     }
 
+    requests() {
+        this._router.navigate(["/MakeRequests"]);
+    }
+
     info() {
         this._router.navigate(["/HotelInfo"]);
+    }
+
+    forgot() {
+        this._router.navigate(["/ForgotSomething"]);
     }
     
     restaurants() {
