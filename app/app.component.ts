@@ -8,6 +8,7 @@ import firebase = require("nativescript-plugin-firebase");
 import { Color } from "color";
 
 var application = require("application");
+var orientationModule = require("nativescript-screen-orientation");
 
 @Component({
     selector: 'app',
@@ -37,10 +38,15 @@ export class AppComponent {
         page.backgroundColor = new Color("lightblue");
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
-        } catch (error) {}
+        } catch (error) { }
     }
 
     ngOnInit() {
+        //lock screen orientation
+        orientationModule.setCurrentOrientation("portrait", function () {
+            console.log("portrait orientation set");
+        });
+        //config firebase
         console.log("Trying to load firebase");
         firebase.init({
             persist: false
