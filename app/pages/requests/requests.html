@@ -3,7 +3,7 @@
         <template let-item="item">
             <GridLayout rows="auto,auto" columns="*,*,*">
                 <Label row="0" col="1" textWrap="true" [text]="item.ShortDescription"></Label>
-                <Label row="0" col="2" col="2" [text]="item.CreatedTimestamp | fromNow"></Label>
+                <Label row="0" col="2" [text]="item.CreatedTimestamp | toLocalTime | fromNow"></Label>
                 <Label row="1" colSpan="3" [text]="item.Description" textWrap="true"></Label>
             </GridLayout>
             </template>

@@ -4,12 +4,13 @@ import { UserIdService } from "../../services/userId.service";
 import { TaskService } from "../../services/taskServices/task.service";
 import {Task} from "../../services/taskServices/task";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
+import { ToLocalTimePipe } from "../../pipes/ToLocalTime.pipe";
 
 @Component({
     selector: 'requests',
     templateUrl: 'pages/requests/requests.html',
     styleUrls: ["pages/requests/requests.css"],
-    pipes: [FromNowPipe]
+    pipes: [FromNowPipe, ToLocalTimePipe]
 })
 export class RequestsComponent {
 

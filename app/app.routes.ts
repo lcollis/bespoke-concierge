@@ -22,6 +22,9 @@ import { ReservationComponent } from "./pages/restaurants/reservation/reservatio
 import { MakeRequestsComponent } from "./pages/makeRequests/makeRequests.component";
 import { RequestDetailsComponent } from "./pages/requestDetails/requestDetails.component";
 import { ForgotSomethingComponent } from "./pages/forgotSomething/forgotSomething.component";
+import { TidyUpComponent } from "./pages/tidyUp/tidyUp.component";
+import { MaintenanceComponent } from "./pages/maintenance/maintenance.component";
+import { ItineraryComponent } from "./pages/itinerary/itinerary.component";
 
 export const routes: RouterConfig = [
     { path: "", component: HomeComponent },
@@ -45,6 +48,9 @@ export const routes: RouterConfig = [
     { path: 'MakeRequests', component: MakeRequestsComponent },
     { path: 'RequestDetails', component: RequestDetailsComponent },
     { path: 'ForgotSomething', component: ForgotSomethingComponent },
+    { path: 'TidyUp', component: TidyUpComponent },
+    { path: 'Maintenance', component: MaintenanceComponent },
+    { path: 'Itinerary', component: ItineraryComponent},
 ];
 
 export const APP_ROUTER_PROVIDERS = [

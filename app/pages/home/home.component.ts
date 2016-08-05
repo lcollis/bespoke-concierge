@@ -36,6 +36,14 @@ export class HomeComponent {
         this._router.navigate(["/Restaurants"]);
     }
 
+    tidyUp() {
+        this._router.navigate(["/TidyUp"]);
+    }
+
+    maintenance() {
+        this._router.navigate(["/Maintenance"]);
+    }
+
     calendar() {
         this._router.navigate(["/Calendar"]);
     }

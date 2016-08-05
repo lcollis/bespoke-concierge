@@ -3,15 +3,15 @@ import {Router} from '@angular/router';
 import { RequestPickerService, RequestDetails } from "../../services/requestPicker.service";
 
 @Component({
-    selector: 'forgotSomething',
-    templateUrl: 'pages/forgotSomething/forgotSomething.html',
-    styleUrls: ['pages/forgotSomething/forgotSomething.css']
+    selector: 'maintenance',
+    templateUrl: 'pages/maintenance/maintenance.html',
+    styleUrls: ['pages/maintenance/maintenance.css']
 })
-export class ForgotSomethingComponent {
+export class MaintenanceComponent {
 
     requests: RequestDetails[] = [
         {
-            title: "Toothbrush",
+            title: "Toilet not working",
             hasDate: false,
             dateLabel: "",
             hasTime: false,
@@ -20,7 +20,7 @@ export class ForgotSomethingComponent {
             textLabel: "Details (optional): "
         },
         {
-            title: "Toothpaste",
+            title: "Heating not working",
             hasDate: false,
             dateLabel: "",
             hasTime: false,
@@ -29,16 +29,7 @@ export class ForgotSomethingComponent {
             textLabel: "Details (optional): "
         },
         {
-            title: "Phone Charger",
-            hasDate: false,
-            dateLabel: "",
-            hasTime: false,
-            timeLabel: "",
-            hasText: true,
-            textLabel: "Charger plug type: "
-        },
-        {
-            title: "Toothbrush",
+            title: "Cooling not working",
             hasDate: false,
             dateLabel: "",
             hasTime: false,
@@ -46,9 +37,26 @@ export class ForgotSomethingComponent {
             hasText: true,
             textLabel: "Details (optional): "
         },
-    ];
+        {
+            title: "TV not working",
+            hasDate: false,
+            dateLabel: "",
+            hasTime: false,
+            timeLabel: "",
+            hasText: true,
+            textLabel: "Details (optional): "
+        },
+        {
+            title: "Internet not working",
+            hasDate: false,
+            dateLabel: "",
+            hasTime: false,
+            timeLabel: "",
+            hasText: true,
+            textLabel: "Details (optional): "
+        }];
 
-    constructor(private _router: Router, private _requestPickerService: RequestPickerService) {}
+    constructor(private _router: Router, private _requestPickerService: RequestPickerService) { }
 
     onItemTap(args) {
         var selectedRequest: RequestDetails = this.requests[args.index];
