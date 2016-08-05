@@ -23,6 +23,7 @@
     "@angular/router": "3.0.0-beta.2",
     "moment": "^2.14.1",
     "nativescript-angular": "next",
+    "nativescript-iqkeyboardmanager": "^1.0.1",
     "nativescript-plugin-firebase": "^3.4.4",
     "nativescript-screen-orientation": "^1.0.2",
     "nativescript-statusbar": "^1.0.0",
