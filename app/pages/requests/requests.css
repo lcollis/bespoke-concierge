@@ -5,3 +5,11 @@
     font-size: 20;
     color: black;
 }
+
+.separator {
+    font-size: 18;
+    color: black;
+    font-weight: bold;
+    horizontal-align: center;
+    text-align: center;
+}
