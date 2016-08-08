@@ -7,6 +7,7 @@ import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
 import { Restaurants } from "../../../services/restaurants";
 import { Task } from "../../../services/taskServices/task";
+import { ItineraryEvent } from "../../../services/event";
 
 
 @Component({
@@ -36,16 +37,21 @@ export class ReservationComponent {
         this._userIdService.getUserId().then((userID: string) => {
             var dateString: string = moment(this.date).format('MMMM Do YYYY, ') + moment(this.time).format("hh:mm a");
             var description: string = "Make reservation for " + userID + " at " + this.restaurant.RestaurantName + " on " + dateString + ".\nSpecial Occasion: " + this.specialOccasion + "\nDetails: " + this.details + "\nParty Size: " + this.party; 
+            //DONT CHANGE THE SHORT DESCRIPTION it is used by the itinerary to pull in dinner reservations
             var shortDescription: string = "Dinner Reservation";
             var priority: string = "normal";
+	        var scheduledTime: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 
+               this.time.getHours(), this.time.getMinutes(), this.time.getSeconds());
 
             var task: Task = new Task(
                 description,
                 shortDescription,
-                this.date,
+                scheduledTime,
                 priority,
                 parseInt(userID)
             );
+
+            //send reservation task
             this._taskService.sendTask(task)
                 .subscribe(() => {
                     dialogs.alert({
@@ -58,7 +64,6 @@ export class ReservationComponent {
                     console.log(error);
                     alert("No connection to the internet. Reservation information not sent.");
                 });
-
         });
     }
 }

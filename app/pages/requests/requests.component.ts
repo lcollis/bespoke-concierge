@@ -4,7 +4,7 @@ import { UserIdService } from "../../services/userId.service";
 import { TaskService } from "../../services/taskServices/task.service";
 import {Task} from "../../services/taskServices/task";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
-import { ToLocalTimePipe } from "../../pipes/ToLocalTime.pipe";
+import { ToLocalTimePipe } from "../../pipes/toLocalTime.pipe";
 
 @Component({
     selector: 'requests',

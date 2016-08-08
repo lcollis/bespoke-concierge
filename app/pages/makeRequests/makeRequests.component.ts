@@ -47,7 +47,8 @@ export class MakeRequestsComponent {
             textLabel: "Where would you like to go?"
         },
         {
-            title: "Dinner reservations",
+            //DONT CHANGE THIS TITLE. The itinerary uses the title to pull dinner reservations into the itinerary
+            title: "Dinner reservation",
             hasDate: true,
             dateLabel: "Day of reservation: ",
             hasTime: true,

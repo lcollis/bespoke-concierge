@@ -17,6 +17,12 @@ export class Event {
     EventThumbnailImageID: number;
     EventImageUrl: string;
     EventThumbnailImageUrl: string;
+
+    constructor(subject: string, description: string, startTime: Date) {
+        this.Subject = subject;
+        this.Description = description;
+        this.StartTime = startTime.toString();
+    }
 }
 
 export class ItineraryEvent {
