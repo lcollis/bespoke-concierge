@@ -32,7 +32,8 @@ export class RequestDetailsComponent {
 
             var description: string = RequestDetails.getTaskLongDescription(this.requestDetails, userID, this.textInput, this.dateInput, this.timeInput);
             var priority: string = "normal";
-            var date = this.dateInput || new Date();
+            var date = new Date(this.dateInput.getFullYear(), this.dateInput.getMonth(), this.dateInput.getDate(), 
+               this.timeInput.getHours(), this.timeInput.getMinutes(), this.timeInput.getSeconds()) || new Date();
 
             console.log("description: " + description);
             console.log("short description: " + this.requestDetails.title);
