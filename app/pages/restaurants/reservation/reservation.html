@@ -11,15 +11,15 @@
     </GridLayout>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Party Size: " class="detail"></Label>
-        <TextField class="detail-text-field" [(ngModel)]="party" hint="party size" col="2"></TextField>
+        <TextField class="detail-text-field" [(ngModel)]="party" hint="party size" col="2" returnKeyType="next" (returnPress)="focusSpecialOccasion()"></TextField>
     </GridLayout>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Special Occasion: " class="detail"></Label>
-        <TextField class="detail-text-field" [(ngModel)]="specialOccasion" hint="special occasion" col="2"></TextField>
+        <TextField class="detail-text-field" [(ngModel)]="specialOccasion" hint="special occasion" col="2" returnKeyType="next" (returnPress)="focusDetails()" #specialoccasion></TextField>
     </GridLayout>
     <GridLayout columns="auto, *" rows="auto" width="100%">
         <Label text="Other Details:" class="detail"></Label>
-        <TextView [(ngModel)]="details" hint="details" col="2"></TextView>
+        <TextField [(ngModel)]="details" hint="details" col="2" returnKeyType="done" #detail></TextField>
     </GridLayout>
 
     <StackLayout orientation="horizontal" width="100%">

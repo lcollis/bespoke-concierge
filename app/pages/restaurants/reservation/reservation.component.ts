@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 var dialogs = require("ui/dialogs");
+var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 import * as moment from 'moment';
 import { DatabaseService } from "../../../services/database.service";
 import { TaskService } from "../../../services/taskServices/task.service";
@@ -17,6 +18,9 @@ import { ItineraryEvent } from "../../../services/event";
 })
 export class ReservationComponent {
 
+    @ViewChild("specialoccasion") specialOccasionTextField;
+    @ViewChild("detail") detailsTextField;
+    
     restaurant: Restaurants;
 
     date: Date = new Date();
@@ -34,14 +38,18 @@ export class ReservationComponent {
     }
 
     reserve() {
+        //start the loading animation
+        var loader = new LoadingIndicator();
+        loader.show();
+
         this._userIdService.getUserId().then((userID: string) => {
             var dateString: string = moment(this.date).format('MMMM Do YYYY, ') + moment(this.time).format("hh:mm a");
-            var description: string = "Make reservation for " + userID + " at " + this.restaurant.RestaurantName + " on " + dateString + ".\nSpecial Occasion: " + this.specialOccasion + "\nDetails: " + this.details + "\nParty Size: " + this.party; 
+            var description: string = "Make reservation for " + userID + " at " + this.restaurant.RestaurantName + " on " + dateString + ".\nSpecial Occasion: " + this.specialOccasion + "\nDetails: " + this.details + "\nParty Size: " + this.party;
             //DONT CHANGE THE SHORT DESCRIPTION it is used by the itinerary to pull in dinner reservations
             var shortDescription: string = "Dinner Reservation";
             var priority: string = "normal";
-	        var scheduledTime: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 
-               this.time.getHours(), this.time.getMinutes(), this.time.getSeconds());
+            var scheduledTime: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
+                this.time.getHours(), this.time.getMinutes(), this.time.getSeconds());
 
             var task: Task = new Task(
                 description,
@@ -54,6 +62,9 @@ export class ReservationComponent {
             //send reservation task
             this._taskService.sendTask(task)
                 .subscribe(() => {
+                    //stop loading animation
+                    loader.hide();
+
                     dialogs.alert({
                         title: "Complete",
                         message: "We are making your reservation! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
@@ -61,9 +72,20 @@ export class ReservationComponent {
                     });
                     this._router.navigate(["/Home"]);
                 }, (error: any) => {
+                    //stop loading animation
+                    loader.hide();
+
                     console.log(error);
                     alert("No connection to the internet. Reservation information not sent.");
                 });
         });
+    }
+
+    focusSpecialOccasion() {
+        this.specialOccasionTextField.nativeElement.focus();
+    }
+
+    focusDetails() {
+        this.detailsTextField.nativeElement.focus();
     }
 }
