@@ -6,6 +6,8 @@ import { Task } from "./task";
 @Injectable()
 export class TaskService {
 
+    selectedTask: Task;
+
     constructor(private _databaseService: DatabaseService) { }
 
     sendTask(task: Task): Observable<any> {
@@ -13,10 +15,7 @@ export class TaskService {
     }
 
     getTasks(userID: number): Observable<Task[]> {
-        return this._databaseService.getApiData("Tasks")
-            .map((data) => {
-                return data._body;
-            })
+        return this.getAllTasks()
             .map((data: Task[]) => {
                 var output: Task[] = new Array();
 
@@ -30,4 +29,10 @@ export class TaskService {
         });
     }
 
+    getAllTasks(): Observable<Task[]> {
+        return this._databaseService.getApiData("Tasks")
+            .map((data) => {
+                return data._body;
+            });
+    }
 }

@@ -13,42 +13,42 @@ export class HomeComponent {
     }
 
     chat() {
-        this._router.navigate(["/Chat"]);
+        this._router.navigate(["/GuestScreen/Chat"]);
     }
 
     faq() {
-        this._router.navigate(["/Faq"]);
+        this._router.navigate(["/GuestScreen/Faq"]);
     }
 
     requests() {
-        this._router.navigate(["/MakeRequests"]);
+        this._router.navigate(["/GuestScreen/MakeRequests"]);
     }
 
     info() {
-        this._router.navigate(["/HotelInfo"]);
+        this._router.navigate(["/GuestScreen/HotelInfo"]);
     }
 
     forgot() {
-        this._router.navigate(["/ForgotSomething"]);
+        this._router.navigate(["/GuestScreen/ForgotSomething"]);
     }
     
     restaurants() {
-        this._router.navigate(["/Restaurants"]);
+        this._router.navigate(["/GuestScreen/Restaurants"]);
     }
 
     tidyUp() {
-        this._router.navigate(["/TidyUp"]);
+        this._router.navigate(["/GuestScreen/TidyUp"]);
     }
 
     maintenance() {
-        this._router.navigate(["/Maintenance"]);
+        this._router.navigate(["/GuestScreen/Maintenance"]);
     }
 
     calendar() {
-        this._router.navigate(["/Calendar"]);
+        this._router.navigate(["/GuestScreen/Calendar"]);
     }
 
     tripAdvisor() {
-        this._router.navigate(["/TripAdvisor"]);
+        this._router.navigate(["/GuestScreen/TripAdvisor"]);
     }
 }

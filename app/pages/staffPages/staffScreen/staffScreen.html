@@ -1,0 +1,15 @@
+<StatusBar ios:barStyle="light" android:barStyle="lightblue"></StatusBar>
+
+<GridLayout columns="*" rows="70,*,70" class="content">
+    <StackLayout row="0" orientation="horizontal" class="menu-top" height="70">
+        <Button text="On call/off duty" (tap)="duty()" class="menu-button-top"></Button>
+        <Button text="Guest lookup" (tap)="lookup()" class="menu-button-top"></Button>
+    </StackLayout>
+    <StackLayout row="1">
+        <router-outlet></router-outlet>
+    </StackLayout>
+    <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="70">
+        <Button text="Home" [nsRouterLink]="['/StaffScreen/Home']" class="menu-button-bottom"></Button>
+        <Button text="Messages" [nsRouterLink]="['/StaffScreen/Chat']" class="menu-button-bottom"></Button>
+    </StackLayout>
+</GridLayout>

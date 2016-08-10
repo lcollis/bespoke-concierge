@@ -25,32 +25,46 @@ import { ForgotSomethingComponent } from "./pages/forgotSomething/forgotSomethin
 import { TidyUpComponent } from "./pages/tidyUp/tidyUp.component";
 import { MaintenanceComponent } from "./pages/maintenance/maintenance.component";
 import { ItineraryComponent } from "./pages/itinerary/itinerary.component";
+import { GuestScreenComponent } from "./pages/guestScreen/guestScreen.component";
+import { LoginComponent } from "./pages/login/login.component";
+import { StaffScreenComponent } from "./pages/staffPages/staffScreen/staffScreen.component";
+import { StaffHomeComponent } from "./pages/staffPages/staffHome/staffHome.component";
+import { StaffTaskDetailComponent } from "./pages/staffPages/staffTaskDetail/staffTaskDetail.component";
 
 export const routes: RouterConfig = [
-    { path: "", component: HomeComponent },
-    { path: "Home", component: HomeComponent, },
-    { path: 'Offers', component: OffersComponent },
-    { path: 'OfferDetail', component: OfferDetailComponent },
-    { path: 'HotelInfo', component: HotelInfoComponent },
-    { path: 'Faq', component: FaqComponent },
-    { path: 'Weather', component: WeatherComponent },
-    { path: 'TripAdvisor', component: TripAdvisorComponent },
-    { path: 'SocialMedia', component: SocialMediaComponent },
-    { path: 'Calendar', component: CalendarComponent },
-    { path: 'Restaurants', component: RestaurantsComponent },
-    { path: 'Chat', component: ChatComponent },
-    { path: 'Menu', component: MenuComponent },
-    { path: 'Requests', component: RequestsComponent },
-    { path: 'AdminChatSelector', component: AdminChatSelectorComponent },
-    { path: 'AdminChat', component: AdminChatComponent },
-    { path: 'AdminHome', component: AdminHomeComponent },
-    { path: 'Reservation', component: ReservationComponent },
-    { path: 'MakeRequests', component: MakeRequestsComponent },
-    { path: 'RequestDetails', component: RequestDetailsComponent },
-    { path: 'ForgotSomething', component: ForgotSomethingComponent },
-    { path: 'TidyUp', component: TidyUpComponent },
-    { path: 'Maintenance', component: MaintenanceComponent },
-    { path: 'Itinerary', component: ItineraryComponent},
+    { path: "", redirectTo: "/Login", pathMatch: "full"},
+    { path: "Login", component: LoginComponent },
+    { path: "StaffScreen", component: StaffScreenComponent, children: [
+            { path: "", component: StaffHomeComponent },   
+            { path: "Home", component: StaffHomeComponent },
+            { path: "TaskDetail", component: StaffTaskDetailComponent },
+    ]},
+    { path: "GuestScreen", component: GuestScreenComponent, children: [
+            { path: "", component: HomeComponent },    
+            { path: "Home", component: HomeComponent, },
+            { path: 'Offers', component: OffersComponent },
+            { path: 'OfferDetail', component: OfferDetailComponent },
+            { path: 'HotelInfo', component: HotelInfoComponent },
+            { path: 'Faq', component: FaqComponent },
+            { path: 'Weather', component: WeatherComponent },
+            { path: 'TripAdvisor', component: TripAdvisorComponent },
+            { path: 'SocialMedia', component: SocialMediaComponent },
+            { path: 'Calendar', component: CalendarComponent },
+            { path: 'Restaurants', component: RestaurantsComponent },
+            { path: 'Chat', component: ChatComponent },
+            { path: 'Menu', component: MenuComponent },
+            { path: 'Requests', component: RequestsComponent },
+            { path: 'AdminChatSelector', component: AdminChatSelectorComponent },
+            { path: 'AdminChat', component: AdminChatComponent },
+            { path: 'AdminHome', component: AdminHomeComponent },
+            { path: 'Reservation', component: ReservationComponent },
+            { path: 'MakeRequests', component: MakeRequestsComponent },
+            { path: 'RequestDetails', component: RequestDetailsComponent },
+            { path: 'ForgotSomething', component: ForgotSomethingComponent },
+            { path: 'TidyUp', component: TidyUpComponent },
+            { path: 'Maintenance', component: MaintenanceComponent },
+            { path: 'Itinerary', component: ItineraryComponent }
+        ]}
 ];
 
 export const APP_ROUTER_PROVIDERS = [

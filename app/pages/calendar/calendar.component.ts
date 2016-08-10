@@ -29,7 +29,7 @@ export class CalendarComponent {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     addToItinerary(event: Event) {
@@ -41,7 +41,7 @@ export class CalendarComponent {
                         message: "Successfully reserved! You can find your reserved events in the Itinerary",
                         okButtonText: "OK"
                     });
-                    this._router.navigate(["/Home"]);
+                    this._router.navigate(["/GuestScreen/Home"]);
             }, (error) => {
                 alert("Could not connect to the server. Please try again later.");
             });

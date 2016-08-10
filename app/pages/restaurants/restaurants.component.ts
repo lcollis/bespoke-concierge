@@ -28,11 +28,11 @@ export class RestaurantsComponent {
     receivingError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     reserve(restaurant: Restaurants) {
         this._databaseService.setSelectedObject("Restaurant", restaurant);
-        this._router.navigate(["/Reservation"]);
+        this._router.navigate(["/GuestScreen/Reservation"]);
     }
 }

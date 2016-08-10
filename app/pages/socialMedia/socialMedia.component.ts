@@ -13,7 +13,7 @@ export class SocialMediaComponent implements OnInit {
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     facebook() {

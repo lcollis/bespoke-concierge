@@ -12,22 +12,22 @@ var orientationModule = require("nativescript-screen-orientation");
 
 @Component({
     selector: 'app',
-    templateUrl: "app.html",
+    template: "<page-router-outlet></page-router-outlet>",
     directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 
 export class AppComponent {
 
     constructor(page: Page, _routerExtensions: RouterExtensions) {
-        page.actionBarHidden = true;
+       page.actionBarHidden = true;
 
         //fix the android back button just quitting everything
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent,
                 (args) => {
                     console.log("router url: " + _routerExtensions.router.url);
-                    if (_routerExtensions.router.url !== "/Home" && _routerExtensions.router.url !== "/") {
-                        _routerExtensions.navigate(["/Home"]);
+                    if (_routerExtensions.router.url !== "/GuestScreen/Home" && _routerExtensions.router.url !== "/") {
+                        _routerExtensions.navigate(["/GuestScreen/Home"]);
                         args.cancel = true;
                     }
                 })

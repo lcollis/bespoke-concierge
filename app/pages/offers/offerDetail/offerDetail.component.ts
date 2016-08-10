@@ -19,7 +19,7 @@ export class OfferDetailComponent implements OnInit {
     ngOnInit() { }
 
     onNavBtnTap() {
-        this._router.navigate(["/Offers"]);
+        this._router.navigate(["/GuestScreen/Offers"]);
     }
 
 }

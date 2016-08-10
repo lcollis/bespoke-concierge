@@ -27,7 +27,7 @@ export class WeatherComponent {
     }
 
     onNavBtnTap() {
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     gotWeather(response: any) {
@@ -45,7 +45,7 @@ export class WeatherComponent {
     weatherError(error:any) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     handleImage() {        

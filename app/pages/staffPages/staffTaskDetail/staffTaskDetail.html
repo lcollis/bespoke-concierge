@@ -1,0 +1,14 @@
+<StackLayout>
+    
+    <Label [text]="task.UserID" class="title"></Label>
+    <Label [text]="task.ShortDescription" class="title"></Label>
+
+    <Label [text]="task.Priority" class="detail"></Label>
+    <Label [text]="task.scheduledTime" class="detail"></Label>
+    <Label [text]="task.Description" textWrap="true" class="detail"></Label>
+
+    <StackLayout orientation="horizontal">
+        <Button text="Unassign" (tap)="unassign()"></Button>
+        <Button text="Complete" (tap)="complete()"></Button>
+    </StackLayout>
+</StackLayout>

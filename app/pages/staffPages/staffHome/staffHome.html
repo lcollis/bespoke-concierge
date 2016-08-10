@@ -1,0 +1,14 @@
+<StackLayout>
+	<ListView [items]="tasks" (itemTap)="onItemTap($event)" *ngIf="!loading">
+		<template let-item="item">
+			<GridLayout rows="auto" columns="3*,1,*" width="100%" class="list">
+				<Label [text]="formatRequestInfo(item)" col="0" class="request-details"></Label>
+				<StackLayout col="1" class="seperator"></StackLayout>
+				<Label [text]="item.CreatedTimestamp | toLocalTime" col="2" class="request-time" textWrap="true"></Label>
+			</GridLayout>
+		</template>
+	</ListView>
+
+	<ActivityIndicator *ngIf="loading" busy="true"></ActivityIndicator>
+
+</StackLayout>

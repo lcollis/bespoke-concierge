@@ -32,11 +32,11 @@ export class OffersComponent implements OnInit {
     onItemTap(args) {
         var selectedOffer: Offer = this.offers[args.index];
         this._databaseService.setSelectedObject("Offer", selectedOffer);
-        this._router.navigate(["/OfferDetail"]);
+        this._router.navigate(["/GuestScreen/OfferDetail"]);
     }
 
     onNavBtnTap() {
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 
     ngOnInit() { }

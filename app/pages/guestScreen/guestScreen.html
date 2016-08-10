@@ -1,0 +1,15 @@
+<StatusBar ios:barStyle="light" android:barStyle="lightblue"></StatusBar>
+
+<GridLayout columns="*" rows="70,*,70" class="content">
+    <StackLayout row="0" orientation="horizontal" class="menu-top" height="70">
+        <Button text="My itinerary" [nsRouterLink]="['/GuestScreen/Itinerary']" class="menu-button-top"></Button>
+        <Button text="My requests" [nsRouterLink]="['/GuestScreen/Requests']" class="menu-button-top"></Button>
+    </StackLayout>
+    <StackLayout row="1">
+        <router-outlet></router-outlet>
+    </StackLayout>
+    <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="70">
+        <Button text="Home" [nsRouterLink]="['/GuestScreen/Home']" class="menu-button-bottom"></Button>
+        <Button text="Messages" [nsRouterLink]="['/GuestScreen/Chat']" class="menu-button-bottom"></Button>
+    </StackLayout>
+</GridLayout>

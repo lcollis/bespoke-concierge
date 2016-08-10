@@ -29,6 +29,6 @@ export class FaqComponent  {
     gotError(error) {
         console.error(error.status);
         alert("No Internet Connection");
-        this._router.navigate(["/Home"]);
+        this._router.navigate(["/GuestScreen/Home"]);
     }
 }

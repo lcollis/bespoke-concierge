@@ -77,7 +77,7 @@ export class RequestDetailsComponent {
                         message: "Request Sent! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
                         okButtonText: "OK"
                     });
-                    this._routerExtensions.router.navigate(["/Home"]);
+                    this._routerExtensions.router.navigate(["/GuestScreen/Home"]);
                 }, (error: any) => {
                     //stop loading animation
                     loader.hide();

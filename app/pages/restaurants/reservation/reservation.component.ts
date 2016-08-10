@@ -34,7 +34,7 @@ export class ReservationComponent {
     }
 
     cancel() {
-        this._router.navigate(["/Restaurants"]);
+        this._router.navigate(["/GuestScreen/Restaurants"]);
     }
 
     reserve() {
@@ -70,7 +70,7 @@ export class ReservationComponent {
                         message: "We are making your reservation! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
                         okButtonText: "OK"
                     });
-                    this._router.navigate(["/Home"]);
+                    this._router.navigate(["/GuestScreen/Home"]);
                 }, (error: any) => {
                     //stop loading animation
                     loader.hide();

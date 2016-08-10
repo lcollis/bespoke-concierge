@@ -29,7 +29,7 @@ export class RequestsComponent {
                 }, (error: any) => {
                     console.log(error);
                     alert("No internet access. Could not get requests");
-                    _router.navigate(["/Home"]);
+                    _router.navigate(["/GuestScreen/Home"]);
                 }, () => {
                     this.loading = false;
 

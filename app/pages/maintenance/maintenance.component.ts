@@ -61,6 +61,6 @@ export class MaintenanceComponent {
     onItemTap(args) {
         var selectedRequest: RequestDetails = this.requests[args.index];
         this._requestPickerService.requestDetails = selectedRequest;
-        this._router.navigate(["/RequestDetails"]);
+        this._router.navigate(["/GuestScreen/RequestDetails"]);
     }
 }
