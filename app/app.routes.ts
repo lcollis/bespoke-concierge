@@ -32,15 +32,18 @@ import { StaffHomeComponent } from "./pages/staffPages/staffHome/staffHome.compo
 import { StaffTaskDetailComponent } from "./pages/staffPages/staffTaskDetail/staffTaskDetail.component";
 
 export const routes: RouterConfig = [
-    { path: "", redirectTo: "/Login", pathMatch: "full"},
+    { path: "", redirectTo: "/Login", pathMatch: "full" },
     { path: "Login", component: LoginComponent },
-    { path: "StaffScreen", component: StaffScreenComponent, children: [
-            { path: "", component: StaffHomeComponent },   
+    {
+        path: "StaffScreen", component: StaffScreenComponent, children: [
+            { path: "", redirectTo: "/StaffScreen/Home", pathMatch: "full" },
             { path: "Home", component: StaffHomeComponent },
             { path: "TaskDetail", component: StaffTaskDetailComponent },
-    ]},
-    { path: "GuestScreen", component: GuestScreenComponent, children: [
-            { path: "", component: HomeComponent },    
+        ]
+    },
+    {
+        path: "GuestScreen", component: GuestScreenComponent, children: [
+            { path: "", redirectTo: "/GuestScreen/Home", pathMatch: "full" },
             { path: "Home", component: HomeComponent, },
             { path: 'Offers', component: OffersComponent },
             { path: 'OfferDetail', component: OfferDetailComponent },
@@ -64,7 +67,8 @@ export const routes: RouterConfig = [
             { path: 'TidyUp', component: TidyUpComponent },
             { path: 'Maintenance', component: MaintenanceComponent },
             { path: 'Itinerary', component: ItineraryComponent }
-        ]}
+        ]
+    }
 ];
 
 export const APP_ROUTER_PROVIDERS = [
