@@ -39,7 +39,7 @@ export class Task {
         this.StartTimestamp = new Date(0);
         this.TaskCanceledTimestamp = new Date(0);
         this.TaskCompletedTimestamp = new Date(0);
-        this.TaskID = 2;
+        this.TaskID = 1;
         this.UserID = userID;
     }
 }

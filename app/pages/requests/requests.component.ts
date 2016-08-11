@@ -47,13 +47,13 @@ export class RequestsComponent {
         var notCompleted = tasks.filter((task) => { return !task.Completed });
 
         //sort each by time requested        
-        var completed = completed.sort(function (c, d) {
+        completed = completed.sort(function (c, d) {
             var a = c.CreatedTimestamp;
             var b = d.CreatedTimestamp;
             return a > b ? 1 : a < b ? -1 : 0;
         });
 
-        var notCompleted = notCompleted.sort(function (c, d) {
+        notCompleted = notCompleted.sort(function (c, d) {
             var a = c.CreatedTimestamp;
             var b = d.CreatedTimestamp;
             return a > b ? 1 : a < b ? -1 : 0;

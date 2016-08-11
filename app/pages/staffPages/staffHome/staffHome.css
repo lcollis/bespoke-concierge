@@ -1,20 +1,32 @@
 .request-details {
     color: black;
     font-size: 16;
-    font-weight: 500;
 }
 
 .list {
-    background-color: #bbb;
+    background-color: #ccc;
+    padding: 10;
 }
 
 .request-time {
-    width: 100%;
+    color: black;
+    font-size: 16;
     text-align: center;
 }
 
 .seperator {
     background-color: white;
-    width: 100%;
+    width: 1; 
     height: 100%;
+}
+
+.list-separator-title {
+    color: black;
+    font-size: 16;
+    font-weight: bold; 
+}
+
+.list-separator {
+    background-color: lightblue;
+    padding: 10;
 }

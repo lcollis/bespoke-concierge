@@ -5,7 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class ToLocalTimePipe implements PipeTransform {
-    transform(value: string) {
+    transform(value: string): Date {
+            console.log("to local time: " + value);
         if (value) {
             var date = new Date(value);
             var localOffset = new Date().getTimezoneOffset() * 60000;

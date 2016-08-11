@@ -7,8 +7,15 @@
     <Label [text]="task.scheduledTime" class="detail"></Label>
     <Label [text]="task.Description" textWrap="true" class="detail"></Label>
 
+    <StackLayout>
+        <Label text="Notes:"></Label>
+        <TextField hint="Note" [(ngModel)]="task.FollowupNotes"></TextField>
+        <Button text="Update" (tap)="updateNote(note)"></Button>
+    </StackLayout>
+
     <StackLayout orientation="horizontal">
-        <Button text="Unassign" (tap)="unassign()"></Button>
+        <Button [text]="isTaskAssignedToMe? 'Unassign' : 'Take'" (tap)="isTaskAssignedToMe? unassign() : take()"></Button>
         <Button text="Complete" (tap)="complete()"></Button>
+        <Button text="Message" (tap)="message()"></Button>
     </StackLayout>
 </StackLayout>

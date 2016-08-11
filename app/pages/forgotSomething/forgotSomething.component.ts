@@ -37,15 +37,6 @@ export class ForgotSomethingComponent {
             hasText: true,
             textLabel: "Charger plug type: "
         },
-        {
-            title: "Toothbrush",
-            hasDate: false,
-            dateLabel: "",
-            hasTime: false,
-            timeLabel: "",
-            hasText: true,
-            textLabel: "Details (optional): "
-        },
     ];
 
     constructor(private _router: Router, private _requestPickerService: RequestPickerService) {}

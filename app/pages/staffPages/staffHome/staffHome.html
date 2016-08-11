@@ -1,14 +1,33 @@
 <StackLayout>
 	<ListView [items]="tasks" (itemTap)="onItemTap($event)" *ngIf="!loading">
 		<template let-item="item">
-			<GridLayout rows="auto" columns="3*,1,*" width="100%" class="list">
-				<Label [text]="formatRequestInfo(item)" col="0" class="request-details"></Label>
-				<StackLayout col="1" class="seperator"></StackLayout>
-				<Label [text]="item.CreatedTimestamp | toLocalTime" col="2" class="request-time" textWrap="true"></Label>
-			</GridLayout>
+			<StackLayout>
+				<!--task-->
+				<GridLayout rows="auto" columns="3*,1,*" class="list" *ngIf="item.Description">
+					<StackLayout col="0">
+						<Label [text]="formatRequestInfo(item)" class="request-details"></Label>
+						<Label [text]="item.ShortDescription" class="request-details"></Label>
+					</StackLayout>
+					<StackLayout col="1" class="seperator"></StackLayout>
+					<StackLayout col="2">
+						<Label [text]="formatDate(item) | toLocalTime | moment:'MMM D[\n]h:mm a'" class="request-time" textWrap="true"></Label>
+					</StackLayout>
+				</GridLayout>
+
+				<!--Separators-->
+				<GridLayout rows="auto" columns="3*,1,*" class="list-separator" *ngIf="!item.Description">
+					<Label col="0" text="My Working Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'my working requests'"> </Label>
+					<Label col="0" text="Unassigned Open Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'unassigned uncompleted requests'"> </Label>
+					<Label col="0" text="My Completed Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'my completed requests'"> </Label>
+
+					<StackLayout col="1" class="seperator"></StackLayout>
+
+					<Label col="3" [text]=" item.ShortDescription === 'my completed requests' ? 'Completed' :'Made'" class="list-separator-title"></Label>
+				</GridLayout>
+			</StackLayout>
 		</template>
 	</ListView>
 
 	<ActivityIndicator *ngIf="loading" busy="true"></ActivityIndicator>
-
+	<Label text="No requests" *ngIf="noTasks"></Label>
 </StackLayout>

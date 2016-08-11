@@ -7,6 +7,7 @@ import { Task } from "./task";
 export class TaskService {
 
     selectedTask: Task;
+    isSelectedTaskAssignedToMe: boolean;
 
     constructor(private _databaseService: DatabaseService) { }
 
@@ -34,5 +35,10 @@ export class TaskService {
             .map((data) => {
                 return data._body;
             });
+    }
+
+
+    updateTask(task: Task): Observable<any> {
+        return this._databaseService.putObject("Tasks", task, task.TaskID);
     }
 }

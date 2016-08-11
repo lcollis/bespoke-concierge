@@ -30,6 +30,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { StaffScreenComponent } from "./pages/staffPages/staffScreen/staffScreen.component";
 import { StaffHomeComponent } from "./pages/staffPages/staffHome/staffHome.component";
 import { StaffTaskDetailComponent } from "./pages/staffPages/staffTaskDetail/staffTaskDetail.component";
+import { StaffChatSelectorComponent } from "./pages/staffPages/staffChatSelector/staffChatSelector.component";
 
 export const routes: RouterConfig = [
     { path: "", redirectTo: "/Login", pathMatch: "full" },
@@ -39,6 +40,7 @@ export const routes: RouterConfig = [
             { path: "", redirectTo: "/StaffScreen/Home", pathMatch: "full" },
             { path: "Home", component: StaffHomeComponent },
             { path: "TaskDetail", component: StaffTaskDetailComponent },
+            { path: "ChatSelector", component: StaffChatSelectorComponent },
         ]
     },
     {
