@@ -2,28 +2,26 @@ import { Component, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FBData, PushResult } from "nativescript-plugin-firebase";
 import { ListView } from "ui/list-view";
-import { FromNowPipe } from '../../pipes/fromnow.pipe';
-import { ChatService } from "../../services/chatServices/chat.service";
-import { UserIdService } from "../../services/userId.service";
-import { Message } from "../../services/chatServices/message";
+import { FromNowPipe } from '../../../pipes/fromnow.pipe';
+import { ChatService } from "../../../services/chatServices/chat.service";
+import { UserIdService } from "../../../services/userId.service";
+import { Message } from "../../../services/chatServices/message";
+
 
 @Component({
-    selector: 'chat',
+    selector: 'staffChat',
     templateUrl: 'pages/chat/chat.html',
     styleUrls: ['pages/chat/chat.css'],
     pipes: [FromNowPipe]
 })
-
-
-export class ChatComponent {
+export class StaffChatComponent {
 
     messages: Message[] = new Array<Message>();
     newMessage: string;
+    guestID: string;
     userID: string;
     room: string = "default";
     loading: boolean = true;
-
-
 
     @ViewChild("listview") listView;
 
@@ -31,13 +29,14 @@ export class ChatComponent {
         var that = this;
 
         this.messages = new Array<Message>();
+        this.guestID = this._chatService.selectedChatUserID;
 
-        //get userId and then get messages for that userID from the server
+        //get messages for guestID
         that._userIdService.getUserId()
             .then((userID: string) => {
                 that.userID = userID;
 
-                that._chatService.subscribeToMessages(that.userID, that.room,
+                that._chatService.subscribeToMessages(that.guestID, that.room,
                     (data: FBData) => {
                         //use ngZone run because this method gets called outside of angular's zone so you gotta nudge it to update the screen
                         ngZone.run(() => {

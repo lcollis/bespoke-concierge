@@ -15,9 +15,6 @@ import { RestaurantsComponent } from "./pages/restaurants/restaurants.component"
 import { MenuComponent } from "./pages/menu/menu.component";
 import { ChatComponent } from "./pages/chat/chat.component";
 import { RequestsComponent } from "./pages/requests/requests.component";
-import { AdminChatSelectorComponent } from "./pages/adminChatSelector/adminChatSelector.component";
-import { AdminChatComponent } from "./pages/adminChatSelector/adminChat/adminChat.component";
-import { AdminHomeComponent } from "./pages/adminHome/adminHome.component";
 import { ReservationComponent } from "./pages/restaurants/reservation/reservation.component";
 import { MakeRequestsComponent } from "./pages/makeRequests/makeRequests.component";
 import { RequestDetailsComponent } from "./pages/requestDetails/requestDetails.component";
@@ -31,6 +28,7 @@ import { StaffScreenComponent } from "./pages/staffPages/staffScreen/staffScreen
 import { StaffHomeComponent } from "./pages/staffPages/staffHome/staffHome.component";
 import { StaffTaskDetailComponent } from "./pages/staffPages/staffTaskDetail/staffTaskDetail.component";
 import { StaffChatSelectorComponent } from "./pages/staffPages/staffChatSelector/staffChatSelector.component";
+import { StaffChatComponent } from "./pages/staffPages/staffChat/staffChat.component";
 
 export const routes: RouterConfig = [
     { path: "", redirectTo: "/Login", pathMatch: "full" },
@@ -41,6 +39,7 @@ export const routes: RouterConfig = [
             { path: "Home", component: StaffHomeComponent },
             { path: "TaskDetail", component: StaffTaskDetailComponent },
             { path: "ChatSelector", component: StaffChatSelectorComponent },
+            { path: "Chat", component: StaffChatComponent },
         ]
     },
     {
@@ -59,9 +58,6 @@ export const routes: RouterConfig = [
             { path: 'Chat', component: ChatComponent },
             { path: 'Menu', component: MenuComponent },
             { path: 'Requests', component: RequestsComponent },
-            { path: 'AdminChatSelector', component: AdminChatSelectorComponent },
-            { path: 'AdminChat', component: AdminChatComponent },
-            { path: 'AdminHome', component: AdminHomeComponent },
             { path: 'Reservation', component: ReservationComponent },
             { path: 'MakeRequests', component: MakeRequestsComponent },
             { path: 'RequestDetails', component: RequestDetailsComponent },

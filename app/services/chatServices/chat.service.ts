@@ -7,6 +7,8 @@ import firebase = require("nativescript-plugin-firebase");
 @Injectable()
 export class ChatService {
 
+    selectedChatUserID: string;
+
     sendMessage(text: string, senderID: string, room: string): Promise<PushResult> {
         var message: Message = { text: text, sender: senderID, timeStamp: Date.now() };
         var messagesUrl = "/messages/" + senderID + "/" + room;

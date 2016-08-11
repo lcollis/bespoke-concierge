@@ -106,7 +106,6 @@ export class StaffHomeComponent {
             if (task.Description) {
                 //if completed
                 if (task.Completed === true) {
-                    console.log("got to a completed event: " + JSON.stringify(task));
                     tasks.splice(i, 0, new Task(null, "my completed requests", null, null, null));
                     break;
                 }
@@ -133,10 +132,8 @@ export class StaffHomeComponent {
         var task: Task = this.tasks[index];
         //dont go if its a separator
         if (task.Description) {
-            console.log("got here");
             this._taskService.selectedTask = task;
             this._taskService.isSelectedTaskAssignedToMe = task.PersonID === parseInt(this.userID);
-            console.log("task service selected task: " + JSON.stringify(this._taskService.selectedTask))
             this._router.navigate(['/StaffScreen/TaskDetail']);
         }
     }
