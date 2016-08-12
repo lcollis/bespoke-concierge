@@ -73,7 +73,7 @@ export class StaffChatComponent {
         if (message) {
             console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
             this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });
-            this._chatService.sendMessage(this.newMessage, this.userID, this.room)
+            this._chatService.sendMessage(this.newMessage, this.guestID, this.room)
                 .catch((error: any) => {
                     console.log(error);
                     alert("Error sending message. Please try again later");

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
+import { ChatService } from "../../../services/chatServices/chat.service";
 import { Task } from '../../../services/taskServices/task';
 
 @Component({
@@ -14,7 +15,7 @@ export class StaffTaskDetailComponent {
     task: Task;
     isTaskAssignedToMe: boolean;
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService) {
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService) {
         this.task = _taskService.selectedTask;
         this.isTaskAssignedToMe = _taskService.isSelectedTaskAssignedToMe;
     }
@@ -44,6 +45,17 @@ export class StaffTaskDetailComponent {
         this.task.Completed = true;
         this.task.TaskCompletedTimestamp = new Date();
         this.updateTask();
+    }
+
+    uncomplete() {
+        this.task.Completed = false;
+        this.task.TaskCompletedTimestamp = new Date();
+        this.updateTask();
+    }
+
+    message() {
+        this._chatService.selectedChatUserID = this.task.UserID.toString();
+        this._router.navigate(['/StaffScreen/Chat']);
     }
 
     private updateTask() {
