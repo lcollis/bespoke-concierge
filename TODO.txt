@@ -1,0 +1,16 @@
+home button refresh tasks on owner and staff home
+
+push almost all text to the server (confirmation pop up especially)
+
+details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
+
+pull hotel info page text from server
+
+FAQ expand from title on tap
+
+staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
+
+=================  kinda sorta want ==============
+
+pop ups like the confirming of tasks sending to remove themselves after a bit
+
