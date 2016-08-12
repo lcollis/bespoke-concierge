@@ -37,8 +37,11 @@ export class ItineraryComponent {
                             that.events = that.events.concat(that.getEvents(that.itineraryEvents, data._body));
                             that.gotItinerary = true;
                             if (that.gotReservations === true) {
+                                console.log("a");
                                 that.sortEvents();
+                                console.log("b");
                                 that.loading = false;
+                                console.log("c");
                             }
                         }, (error: any) => {
                             console.log(error);
@@ -51,23 +54,24 @@ export class ItineraryComponent {
             that._dbService.getApiData("Tasks")
                 .subscribe((data) => {
                     var tasks: Task[] = data._body;
-
                     //find tasks with title: 'Dinner Reservation'
                     var dinnerReservations: Task[] = tasks.filter((t: Task) => {
                         return t.ShortDescription === 'Dinner Reservation';
                     });
-
-                    if (dinnerReservations) {
+                    if (dinnerReservations.length > 0) {
                         //convert the tasks to events and add them to the list
                         dinnerReservations.forEach((res: Task) => {
                             var resEvent: Event = new Event(res.ShortDescription, res.Description, res.ScheduledTimestamp);
                             that.events.push(resEvent);
                             that.gotReservations = true;
-                        })
-                        if (that.gotItinerary === true) {
-                            that.sortEvents();
-                            that.loading = false;
-                        }
+                        });
+                    } else {
+                        //no dinner reservations
+                        that.gotReservations = true;
+                    }
+                    if (that.gotItinerary === true) {
+                        that.sortEvents();
+                        that.loading = false;
                     }
 
                 }, (error) => {
@@ -128,6 +132,16 @@ export class ItineraryComponent {
             var b = new Date(d.StartTime);
             return a > b ? 1 : a < b ? -1 : 0;
         });
+
+        //remove duplicates
+        this.events = this.events.filter((value, index, array) => {
+            if(index > 0) {
+                if(value === array[index - 1]) {
+                    return false;
+                }
+            }
+            return true;
+        })
     }
 
 }
