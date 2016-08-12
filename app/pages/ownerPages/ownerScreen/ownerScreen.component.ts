@@ -6,12 +6,12 @@ import { Color } from "color";
 import {registerElement} from "nativescript-angular/element-registry";
 
 @Component({
-    selector: 'staffScreen',
-    templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',    
+    selector: 'ownerScreen',
+    templateUrl: 'pages/ownerPages/ownerScreen/ownerScreen.html',    
     directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
 
 })
-export class StaffScreenComponent {
+export class OwnerScreenComponent {
     constructor(page: Page) {
         page.actionBarHidden = true;
 

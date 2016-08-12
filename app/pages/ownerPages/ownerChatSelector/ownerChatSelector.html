@@ -1,0 +1,13 @@
+<StackLayout>
+    <ListView [items]="chats" (itemTap)="onItemTap($event)" *ngIf="!loading">
+        <template let-item="item">
+            <StackLayout>
+                <GridLayout rows="auto" columns="2*,*" width="100%" class="list-item">
+                    <Label [text]="'Guest: ' + item.guestID"></Label>
+                    <Label [text]="item.lastMessageTime | fromNow" col='1'></Label>
+                </GridLayout>
+            </StackLayout>
+        </template>
+    </ListView>
+	<ActivityIndicator *ngIf="loading" busy="true"></ActivityIndicator>
+</StackLayout>

@@ -1,0 +1,23 @@
+.task-button {
+    width: 33%;
+    font-size: 14;
+}
+
+.note-view {
+    width: 100%;
+    padding: 10;
+    background-color: #bbb;
+}
+
+.note-label {
+    width: 100%;
+}
+
+.note-text-field {
+    width: 100%;
+}
+
+.note-update-button {
+    font-size: 14;
+    width: 100%;
+}

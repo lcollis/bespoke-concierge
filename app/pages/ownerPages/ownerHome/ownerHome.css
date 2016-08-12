@@ -1,0 +1,43 @@
+.request-details {
+    color: black;
+    font-size: 16;
+}
+
+.list {
+    background-color: #ccc;
+    padding: 10;
+}
+
+.request-time {
+    color: black;
+    font-size: 16;
+    text-align: center;
+}
+
+.seperator {
+    background-color: white;
+    width: 1; 
+    height: 100%;
+}
+
+.list-separator-title {
+    color: black;
+    font-size: 16;
+    font-weight: bold; 
+    text-align: center;
+    width: 100%;
+}
+
+.list-separator-detail {
+    color: black;
+    font-size: 14;
+    font-weight: bold; 
+    text-align: center;
+    width: 100%;
+    margin-right: -10;
+}
+
+.list-separator {
+    background-color: lightblue;
+    padding: 10;
+}

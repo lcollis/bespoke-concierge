@@ -29,6 +29,11 @@ import { StaffHomeComponent } from "./pages/staffPages/staffHome/staffHome.compo
 import { StaffTaskDetailComponent } from "./pages/staffPages/staffTaskDetail/staffTaskDetail.component";
 import { StaffChatSelectorComponent } from "./pages/staffPages/staffChatSelector/staffChatSelector.component";
 import { StaffChatComponent } from "./pages/staffPages/staffChat/staffChat.component";
+import { OwnerScreenComponent } from "./pages/ownerPages/ownerScreen/ownerScreen.component";
+import { OwnerHomeComponent } from "./pages/ownerPages/ownerHome/ownerHome.component";
+import { OwnerTaskDetailComponent } from "./pages/ownerPages/ownerTaskDetail/ownerTaskDetail.component";
+import { OwnerChatSelectorComponent } from "./pages/ownerPages/ownerChatSelector/ownerChatSelector.component";
+import { OwnerChatComponent } from "./pages/ownerPages/ownerChat/ownerChat.component";
 
 export const routes: RouterConfig = [
     { path: "", redirectTo: "/Login", pathMatch: "full" },
@@ -40,6 +45,15 @@ export const routes: RouterConfig = [
             { path: "TaskDetail", component: StaffTaskDetailComponent },
             { path: "ChatSelector", component: StaffChatSelectorComponent },
             { path: "Chat", component: StaffChatComponent },
+        ]
+    },
+    {
+        path: "OwnerScreen", component: OwnerScreenComponent, children: [
+            { path: "", redirectTo: "/OwnerScreen/Home", pathMatch: "full" },
+            { path: "Home", component: OwnerHomeComponent },
+            { path: "TaskDetail", component: OwnerTaskDetailComponent },
+            { path: "ChatSelector", component: OwnerChatSelectorComponent },
+            { path: "Chat", component: OwnerChatComponent },
         ]
     },
     {

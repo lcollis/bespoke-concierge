@@ -19,6 +19,6 @@ export class LoginComponent {
     }
 
     owner() {
-        console.log("owner");
+        this._routerExtensions.navigate(["/OwnerScreen"], { clearHistory: true});
     }
 }
