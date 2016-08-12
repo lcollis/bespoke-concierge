@@ -1,5 +1,5 @@
-<StackLayout>
-	<ListView [items]="tasks" (itemTap)="onItemTap($event)" *ngIf="!loading">
+<StackLayout height="100%">
+	<ListView [items]="tasks" (itemTap)="onItemTap($event)" *ngIf="!loading" height="100%">
 		<template let-item="item">
 			<StackLayout>
 				<!--task-->
