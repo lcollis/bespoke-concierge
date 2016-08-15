@@ -3,7 +3,9 @@
         <template let-item="item">
             <GridLayout rows="auto,auto" columns="*, 4*">
                 <Label [text]="item.Subject" row="0" col="1"></Label>
-                <Label [text]="item.StartTime" row="0" col="0" textWrap="true"></Label>
+                <Label [text]="item.Description" row="1" col="1"></Label>
+                <Label [text]="item.StartTime | date: 'medium'" row="0" col="0" textWrap="true"></Label>
+                <Label [text]="item.EndTime | date: 'medium'" row="1" col="0" textWrap="true"></Label>
             </GridLayout>
         </template>
     </ListView>

@@ -4,6 +4,7 @@ import { DatabaseService } from "../../services/database.service";
 import { UserIdService } from "../../services/userId.service";
 import { Event, ItineraryEvent } from "../../services/event";
 import { Task } from "../../services/taskServices/task";
+import { MomentPipe } from "../../pipes/moment.pipe";
 
 @Component({
     selector: 'itinerary',
@@ -56,13 +57,17 @@ export class ItineraryComponent {
                         return t.ShortDescription === 'Dinner Reservation';
                     });
                     if (dinnerReservations.length > 0) {
-                        console.log("Got dinner reservations: " + JSON.stringify(dinnerReservations));
                         //convert the tasks to events and add them to the list
                         dinnerReservations.forEach((res: Task) => {
-                            var resEvent: Event = new Event(res.ShortDescription, res.Description, res.ScheduledTimestamp);
+                            var toLocalTimePipe = new ToLocalTimePipe();
+
+                            var startDate: Date = toLocalTimePipe.transform(res.ScheduledTimestamp.toString());
+                            var endDate: Date = new Date(startDate.getTime() + 90 * 60 * 1000); //end date 90 minutes after start date
+
+                            var resEvent: Event = new Event(res.ShortDescription, res.Description, startDate, endDate);
                             that.events.push(resEvent);
-                            that.gotReservations = true;
                         });
+                        that.gotReservations = true;
                     } else {
                         //no dinner reservations
                         that.gotReservations = true;
@@ -110,13 +115,6 @@ export class ItineraryComponent {
     private sortEvents() {
 
         var now = new Date();
-        var toLocalTimePipe = new ToLocalTimePipe();
-
-        //first format all the dates to be local time
-        this.events = this.events.map((event) => {
-            event.StartTime = toLocalTimePipe.transform(event.StartTime).toString();
-            return event;
-        });
 
         //remove events that have already happened 
         this.events = this.events.filter((event: Event) => {
@@ -133,12 +131,18 @@ export class ItineraryComponent {
 
         //remove duplicates
         this.events = this.events.filter((value, index, array) => {
-            if(index > 0) {
-                if(value === array[index - 1]) {
+            if (index > 0) {
+                if (value === array[index - 1]) {
                     return false;
                 }
             }
             return true;
+        });
+
+        this.events.forEach((event) => {
+            console.log("Event: " + event.Subject);
+            console.log("start Date: " + event.StartTime);
+            console.log("end Date: " + event.EndTime);
         })
     }
 

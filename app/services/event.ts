@@ -18,10 +18,11 @@ export class Event {
     EventImageUrl: string;
     EventThumbnailImageUrl: string;
 
-    constructor(subject: string, description: string, startTime: Date) {
+    constructor(subject: string, description: string, startTime: Date, endTime: Date) {
         this.Subject = subject;
         this.Description = description;
         this.StartTime = startTime.toString();
+        this.EndTime = endTime.toString();
     }
 }
 
