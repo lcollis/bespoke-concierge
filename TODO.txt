@@ -5,9 +5,9 @@
 
 [X]let owner assign task
 
-[ ]let owner and staff assign to butler
-
 [ ]details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
+
+[ ]let owner and staff assign to butler
 
 [ ]FAQ expand from title on tap
 

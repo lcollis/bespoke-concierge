@@ -50,13 +50,13 @@ export class RequestsComponent {
         completed = completed.sort(function (c, d) {
             var a = c.CreatedTimestamp;
             var b = d.CreatedTimestamp;
-            return a > b ? 1 : a < b ? -1 : 0;
+            return a > b ? -1 : a < b ? 1 : 0;
         });
 
         notCompleted = notCompleted.sort(function (c, d) {
             var a = c.CreatedTimestamp;
             var b = d.CreatedTimestamp;
-            return a > b ? 1 : a < b ? -1 : 0;
+            return a > b ? -1 : a < b ? 1 : 0;
         });
 
         //join back together
