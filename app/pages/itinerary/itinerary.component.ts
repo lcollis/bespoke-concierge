@@ -37,11 +37,8 @@ export class ItineraryComponent {
                             that.events = that.events.concat(that.getEvents(that.itineraryEvents, data._body));
                             that.gotItinerary = true;
                             if (that.gotReservations === true) {
-                                console.log("a");
                                 that.sortEvents();
-                                console.log("b");
                                 that.loading = false;
-                                console.log("c");
                             }
                         }, (error: any) => {
                             console.log(error);
@@ -59,6 +56,7 @@ export class ItineraryComponent {
                         return t.ShortDescription === 'Dinner Reservation';
                     });
                     if (dinnerReservations.length > 0) {
+                        console.log("Got dinner reservations: " + JSON.stringify(dinnerReservations));
                         //convert the tasks to events and add them to the list
                         dinnerReservations.forEach((res: Task) => {
                             var resEvent: Event = new Event(res.ShortDescription, res.Description, res.ScheduledTimestamp);
@@ -122,8 +120,8 @@ export class ItineraryComponent {
 
         //remove events that have already happened 
         this.events = this.events.filter((event: Event) => {
-            var eventStartTime = toLocalTimePipe.transform(event.StartTime);
-            return now.getTime() < eventStartTime.getTime();
+            var startTime = new Date(event.StartTime);
+            return now.getTime() < startTime.getTime();
         });
 
         //sort events by start time
