@@ -28,7 +28,7 @@ export class Task {
         this.Description = description;
         this.EndTimestamp = new Date(0);
         this.FollowupNotes = "";
-        this.PersonID = 1;
+        this.PersonID = -1;
         this.Priority = priority;
         this.PrivateTask = false;
         this.RemindDayOfTask = false;

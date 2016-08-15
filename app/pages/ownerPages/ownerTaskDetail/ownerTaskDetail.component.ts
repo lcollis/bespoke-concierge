@@ -1,36 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
+import { NgClass } from "@angular/common";
 import {Router} from '@angular/router';
+import { DatabaseService } from "../../../services/database.service";
 import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
 import { ChatService } from "../../../services/chatServices/chat.service";
 import { Task } from '../../../services/taskServices/task';
+import { User } from "../../../services/user";
 
 @Component({
     selector: 'ownerTaskDetail',
     templateUrl: 'pages/ownerPages/ownerTaskDetail/ownerTaskDetail.html',
-    styleUrls: ['pages/ownerPages/ownerTaskDetail/ownerTaskDetail.css']
+    styleUrls: ['pages/ownerPages/ownerTaskDetail/ownerTaskDetail.css'],
+    directives: [NgClass]
 })
 export class OwnerTaskDetailComponent {
 
     task: Task;
     isTaskAssignedToMe: boolean;
-    staff = [
-        {},
-        { name: "None Assigned" },
-        { name: "Matt" },
-        { name: "Malin" },
-        { name: "Ramesh" },
-        { name: "Hayden" },
-        { name: "Leighton" },
-        { name: "Butler" }
-    ];
+    staff: User[];
 
-    selectedIndex: number = 1;
+    selectedCMSUserID: number = -1;
+
+    loading: boolean = true;
 
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService) {
+    @ViewChild("lv") listView;
+
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService, private _databaseService: DatabaseService) {
         this.task = _taskService.selectedTask;
         this.isTaskAssignedToMe = _taskService.isSelectedTaskAssignedToMe;
+        this.selectedCMSUserID = this.task.PersonID;
+
+        this._databaseService.getApiData("Users")
+            .subscribe((users) => {
+                this.staff = new Array();
+                this.staff.unshift(User.NoUser); //add in the no user option
+                this.staff.unshift(null);   //put a null item in first to show task details (its weird I know)
+                this.staff = this.staff.concat(users._body);
+                this.loading = false;
+                console.log("constructor " + JSON.stringify(this.staff));
+            }, (error: any) => {
+                console.log(error);
+            });
     }
 
     updateNote() {
@@ -40,19 +52,21 @@ export class OwnerTaskDetailComponent {
 
     itemTapped(args) {
         if (args.index != 0) {
-            this.selectedIndex = args.index;
+            var selectedIndex = args.index;
+            this.selectedCMSUserID = this.staff[selectedIndex].CMSUserID;
+            this.listView._elementRef.nativeElement.refresh();
         }
     }
 
     unassign() {
-        this.task.PersonID = 1;
-        this.updateTask();
+        this.task.PersonID = -1;
         this.isTaskAssignedToMe = false;
         this.updateTask();
     }
 
     assign() {
-        console.log("assign");
+        this.task.PersonID = this.selectedCMSUserID;
+        this.updateTask();
     }
 
     take() {

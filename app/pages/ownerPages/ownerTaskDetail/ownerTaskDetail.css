@@ -23,9 +23,13 @@
 }
 
 .selected-staff {
-    background-color: darkgrey;
+    width: 100%;
+    padding: 10;
+    background-color: #aaa;
 }
 
 .unselected-staff {
-    background-color: white;
+    width: 100%;
+    padding: 10;
+    background-color: #fff;
 }

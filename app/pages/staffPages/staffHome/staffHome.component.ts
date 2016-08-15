@@ -58,7 +58,7 @@ export class StaffHomeComponent {
 
         var completedAssignedToMe = completed.filter((task) => { return task.PersonID === userID });
 
-        var notCompleteUnassigned = notCompleted.filter((task) => { return task.PersonID === 1 });
+        var notCompleteUnassigned = notCompleted.filter((task) => { return task.PersonID === -1 });
         var notCompleteAssignedToMe = notCompleted.filter((task) => { return task.PersonID === userID });
 
         //sort lists by created timestamp 
@@ -98,7 +98,7 @@ export class StaffHomeComponent {
             //make sure its not a separator
             if (task.Description) {
                 //if unnasigned
-                if (task.PersonID === 1) {
+                if (task.PersonID === -1) {
                     tasks.splice(i, 0, new Task(null, "unassigned uncompleted requests", null, null, null));
                     break;
                 }

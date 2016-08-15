@@ -26,8 +26,7 @@ export class StaffTaskDetailComponent {
     }
 
     unassign() {
-        this.task.PersonID = 1;
-        this.updateTask();
+        this.task.PersonID = -1;
         this.isTaskAssignedToMe = false ;
         this.updateTask();
     }

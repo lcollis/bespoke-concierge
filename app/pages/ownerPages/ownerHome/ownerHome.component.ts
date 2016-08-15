@@ -63,9 +63,9 @@ export class OwnerHomeComponent {
             return today.getTime() - completedDate.getTime() < oneWeek;
         });
 
-        var notCompleteUnassigned = notCompleted.filter((task) => { return task.PersonID === 1 });
+        var notCompleteUnassigned = notCompleted.filter((task) => { return task.PersonID === -1 });
         var notCompleteAssignedToMe = notCompleted.filter((task) => { return task.PersonID === userID });
-        var notCompleteAssignedToOther = notCompleted.filter((task) => { return task.PersonID !== 1 && task.PersonID !== userID });
+        var notCompleteAssignedToOther = notCompleted.filter((task) => { return task.PersonID !== -1 && task.PersonID !== userID });
 
         //sort lists by created timestamp 
         notCompleteAssignedToMe = notCompleteAssignedToMe.sort(function (c, d) {
@@ -110,7 +110,7 @@ export class OwnerHomeComponent {
             //make sure its not a separator
             if (task.Description) {
                 //if unnasigned
-                if (task.PersonID === 1) {
+                if (task.PersonID === -1) {
                     tasks.splice(i, 0, new Task(null, "unassigned uncompleted requests", null, null, null));
                     break;
                 }
@@ -123,7 +123,7 @@ export class OwnerHomeComponent {
             //make sure its not a separator
             if (task.Description) {
                 //if assigned and uncompleted
-                if (task.PersonID !== userID && task.PersonID !== 1 && task.Completed === false) {
+                if (task.PersonID !== userID && task.PersonID !== -1 && task.Completed === false) {
                     tasks.splice(i, 0, new Task(null, "assigned uncompleted requests", null, null, null));
                     console.log("put assigned and uncompleted separator at index: " + i);
                     break;
