@@ -22,23 +22,29 @@ export class OwnerHomeComponent {
     noTasks: boolean = false;
 
     constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService) {
-        _userIdService.getUserId().then((userID: string) => {
-            this.userID = userID;
-            _taskService.getAllTasks()
+        this.getTasks(this);
+        this._taskService.setUpdateTaskListCallback(this.getTasks, this);
+    }
+
+    getTasks(thisObject: any) {
+        thisObject.loading = true;
+        thisObject._userIdService.getUserId().then((userID: string) => {
+            thisObject.userID = userID;
+            thisObject._taskService.getAllTasks()
                 .subscribe((tasks: Task[]) => {
                     if (tasks) {
                         try {
-                            tasks = this.sortTasks(tasks, parseInt(userID));
-                            this.insertSeparators(tasks, parseInt(userID));
-                            this.tasks = tasks;
+                            tasks = thisObject.sortTasks(tasks, parseInt(userID));
+                            thisObject.insertSeparators(tasks, parseInt(userID));
+                            thisObject.tasks = tasks;
                         } catch (error) {
                             console.log("got error: " + error);
-                            this.noTasks = true;
+                            thisObject.noTasks = true;
                         }
                     } else {
-                        this.noTasks = true;
+                        thisObject.noTasks = true;
                     }
-                    this.loading = false;
+                    thisObject.loading = false;
                 }, (error: any) => {
                     console.log("error getting tasks");
                     console.log(error);
@@ -49,6 +55,13 @@ export class OwnerHomeComponent {
     sortTasks(tasks: Task[], userID: number): Task[] {
         var completed: Task[] = tasks.filter((task) => { return task.Completed });
         var notCompleted: Task[] = tasks.filter((task) => { return !task.Completed });
+
+        var today: Date = new Date();
+        var oneWeek = 7 * 24 * 60 * 60 * 1000; //one week in milliseconds 7 days of 24 hours of 60 minutes of 60 seconds of 1000 milliseconds
+        var completedInLastWeek: Task[] = completed.filter((task) => {
+            var completedDate: Date = new Date(task.TaskCompletedTimestamp.toString());
+            return today.getTime() - completedDate.getTime() < oneWeek;
+        });
 
         var notCompleteUnassigned = notCompleted.filter((task) => { return task.PersonID === 1 });
         var notCompleteAssignedToMe = notCompleted.filter((task) => { return task.PersonID === userID });
@@ -73,14 +86,14 @@ export class OwnerHomeComponent {
             return a > b ? 1 : a < b ? -1 : 0;
         });
 
-        completed = completed.sort(function (c, d) {
+        completedInLastWeek = completedInLastWeek.sort(function (c, d) {
             var a = c.CreatedTimestamp;
             var b = d.CreatedTimestamp;
             return a > b ? 1 : a < b ? -1 : 0;
         });
 
-        //make the list 1. not completed and assigned to me 2. not completed and unassigned 3. not complete assigned to other staff  4. completed
-        return notCompleteAssignedToMe.concat(notCompleteUnassigned, notCompleteAssignedToOther, completed);
+        //make the list 1. not completed and assigned to me 2. not completed and unassigned 3. not complete assigned to other staff  4. completed in last week
+        return notCompleteAssignedToMe.concat(notCompleteUnassigned, notCompleteAssignedToOther, completedInLastWeek);
     }
 
     insertSeparators(tasks: Task[], userID: number) {
@@ -99,6 +112,20 @@ export class OwnerHomeComponent {
                 //if unnasigned
                 if (task.PersonID === 1) {
                     tasks.splice(i, 0, new Task(null, "unassigned uncompleted requests", null, null, null));
+                    break;
+                }
+            }
+        }
+
+        //insert Assigned to other Request separator
+        for (var i = 0; i < tasks.length; i++) {
+            var task: Task = tasks[i];
+            //make sure its not a separator
+            if (task.Description) {
+                //if assigned and uncompleted
+                if (task.PersonID !== userID && task.PersonID !== 1 && task.Completed === false) {
+                    tasks.splice(i, 0, new Task(null, "assigned uncompleted requests", null, null, null));
+                    console.log("put assigned and uncompleted separator at index: " + i);
                     break;
                 }
             }
@@ -124,7 +151,7 @@ export class OwnerHomeComponent {
     }
 
     formatDate(task: Task) {
-        if(task.Completed) {
+        if (task.Completed) {
             return task.TaskCompletedTimestamp;
         } else {
             return task.CreatedTimestamp;

@@ -9,6 +9,9 @@ export class TaskService {
     selectedTask: Task;
     isSelectedTaskAssignedToMe: boolean;
 
+    private updateTaskListCallback: (thisObject: any) => any;
+    private updateTaskListCallbackThis: any;
+
     constructor(private _databaseService: DatabaseService) { }
 
     sendTask(task: Task): Observable<any> {
@@ -40,5 +43,14 @@ export class TaskService {
 
     updateTask(task: Task): Observable<any> {
         return this._databaseService.putObject("Tasks", task, task.TaskID);
+    }
+
+    setUpdateTaskListCallback(callback: (thisObject: any) => any, thisObject: any) {
+        this.updateTaskListCallback = callback;
+        this.updateTaskListCallbackThis = thisObject;
+    }
+
+    callUpdateTaskListCallback() {
+        this.updateTaskListCallback(this.updateTaskListCallbackThis);
     }
 }

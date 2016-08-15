@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
 import {Page} from "ui/page";
 import { Color } from "color";
 import {registerElement} from "nativescript-angular/element-registry";
+import { TaskService } from "../../../services/taskServices/task.service";
 
 @Component({
     selector: 'staffScreen',
@@ -12,7 +13,7 @@ import {registerElement} from "nativescript-angular/element-registry";
 
 })
 export class StaffScreenComponent {
-    constructor(page: Page) {
+    constructor(page: Page, private _router: Router, private _taskService: TaskService) {
         page.actionBarHidden = true;
 
         //allows for ios statusbar coloring
@@ -29,6 +30,11 @@ export class StaffScreenComponent {
 
     lookup() {
         
+    }
+
+    home() {
+        this._router.navigate(['/StaffScreen/Home']);
+        this._taskService.callUpdateTaskListCallback();
     }
 
     switchPropertyChange(args) {

@@ -15,7 +15,7 @@
             <router-outlet></router-outlet>
         </StackLayout>
         <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="70">
-            <Button text="Home" [nsRouterLink]="['/OwnerScreen/Home']" class="menu-button-bottom"></Button>
+            <Button text="Home" (tap)="home()" class="menu-button-bottom"></Button>
             <Button text="Messages" [nsRouterLink]="['/OwnerScreen/ChatSelector']" class="menu-button-bottom"></Button>
         </StackLayout>
     </GridLayout>

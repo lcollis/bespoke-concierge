@@ -58,10 +58,8 @@ export class AppComponent {
     ngOnInit() {
         //lock screen orientation
         orientationModule.setCurrentOrientation("portrait", function () {
-            console.log("portrait orientation set");
         });
         //config firebase
-        console.log("Trying to load firebase");
         firebase.init({
             persist: false
         }).then(
@@ -91,8 +89,7 @@ export class AppComponent {
 
         firebase.addOnMessageReceivedCallback(
             function (message) {
-                console.log("Title: " + message.title);
-                console.log("Body: " + message.body);
+                console.log("Message: " + JSON.stringify(message));
             });
     }
 }

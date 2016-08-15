@@ -1,20 +1,31 @@
-<StackLayout>
-    <Label [text]="task.UserID" class="title"></Label>
-    <Label [text]="task.ShortDescription" class="title"></Label>
+<ListView [items]="staff" (itemTap)="itemTapped($event)">
+    <template let-item="item" let-i="index">
+        <StackLayout>
+            <StackLayout *ngIf="!item.name">
+                <Label [text]="task.UserID" class="title"></Label>
+                <Label [text]="task.ShortDescription" class="title"></Label>
 
-    <Label [text]="task.Priority" class="detail"></Label>
-    <Label [text]="task.scheduledTime" class="detail"></Label>
-    <Label [text]="task.Description" textWrap="true" class="detail"></Label>
+                <Label [text]="task.Priority" class="detail"></Label>
+                <Label [text]="task.scheduledTime" class="detail"></Label>
+                <Label [text]="task.Description" textWrap="true" class="detail"></Label>
 
-    <StackLayout class="note-view">
-        <Label text="Notes:" class="note-label"></Label>
-        <TextField hint="Note" [(ngModel)]="task.FollowupNotes" class="note-text-field"></TextField>
-        <Button text="Update" (tap)="updateNote(note)" class="note-update-button"></Button>
-    </StackLayout>
+                <StackLayout class="note-view">
+                    <Label text="Notes:" class="note-label"></Label>
+                    <TextField hint="Note" [(ngModel)]="task.FollowupNotes" class="note-text-field"></TextField>
+                    <Button text="Update" (tap)="updateNote(note)" class="note-update-button"></Button>
+                </StackLayout>
 
-    <StackLayout orientation="horizontal">
-        <Button [text]="isTaskAssignedToMe? 'Unassign' : 'Take'" (tap)="isTaskAssignedToMe? unassign() : take()" class="task-button"></Button>
-        <Button [text]="task.Completed? 'Uncomplete' : 'Complete'" (tap)="task.Completed? uncomplete() : complete()" class="task-button"></Button>
-        <Button text="Message" (tap)="message()" class="task-button"></Button>
-    </StackLayout>
-</StackLayout>
+                <StackLayout orientation="horizontal">
+                    <Button text="Assign" (tap)="assign()" class="task-button"></Button>
+                    <Button [text]="isTaskAssignedToMe? 'Unassign' : 'Take'" (tap)="isTaskAssignedToMe? unassign() : take()" class="task-button"></Button>
+                    <Button [text]="task.Completed? 'Uncomplete' : 'Complete'" (tap)="task.Completed? uncomplete() : complete()" class="task-button"></Button>
+                    <Button text="Message" (tap)="message()" class="task-button"></Button>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout *ngIf="item.name" orientation="horizontal" class="selectedIndex === index? selected-staff : unselected-staff">
+                <Label [text]="item.name"></Label>
+            </StackLayout>
+        </StackLayout>
+    </template>
+</ListView>

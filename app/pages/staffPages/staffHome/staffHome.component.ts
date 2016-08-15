@@ -22,23 +22,29 @@ export class StaffHomeComponent {
     noTasks: boolean = false;
 
     constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService) {
-        _userIdService.getUserId().then((userID: string) => {
-            this.userID = userID;
-            _taskService.getAllTasks()
+        this.getTasks(this);
+        this._taskService.setUpdateTaskListCallback(this.getTasks, this);
+    }
+
+    getTasks(thisObject: any) {
+        thisObject.loading = true;
+        thisObject._userIdService.getUserId().then((userID: string) => {
+            thisObject.userID = userID;
+            thisObject._taskService.getAllTasks()
                 .subscribe((tasks: Task[]) => {
                     if (tasks) {
                         try {
-                            tasks = this.sortTasks(tasks, parseInt(userID));
-                            this.insertSeparators(tasks, parseInt(userID));
-                            this.tasks = tasks;
+                            tasks = thisObject.sortTasks(tasks, parseInt(userID));
+                            thisObject.insertSeparators(tasks, parseInt(userID));
+                            thisObject.tasks = tasks;
                         } catch (error) {
                             console.log("got error: " + error);
-                            this.noTasks = true;
+                            thisObject.noTasks = true;
                         }
                     } else {
-                        this.noTasks = true;
+                        thisObject.noTasks = true;
                     }
-                    this.loading = false;
+                    thisObject.loading = false;
                 }, (error: any) => {
                     console.log("error getting tasks");
                     console.log(error);

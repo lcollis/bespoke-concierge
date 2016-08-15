@@ -1,6 +1,6 @@
 .task-button {
-    width: 33%;
-    font-size: 14;
+    width: 25%;
+    font-size: 12;
 }
 
 .note-view {
@@ -20,4 +20,12 @@
 .note-update-button {
     font-size: 14;
     width: 100%;
+}
+
+.selected-staff {
+    background-color: darkgrey;
+}
+
+.unselected-staff {
+    background-color: white;
 }

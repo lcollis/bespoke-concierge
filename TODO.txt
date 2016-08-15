@@ -1,16 +1,48 @@
-home button refresh tasks on owner and staff home
+[X]home button refresh tasks on owner and staff home
 
-push almost all text to the server (confirmation pop up especially)
+[X]OWNER SEE EVEN ASSIGNED TASKS
+[X]change owners view of completed tasks to only completed tasks from the last week
 
-details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
+[ ]details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
 
-pull hotel info page text from server
+[ ]FAQ expand from title on tap
 
-FAQ expand from title on tap
+[ ]staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
 
-staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
+[ ]calendar switch reserve button to unreserve after they've reserved it
+
+[ ]task escalation (automatically notifiy owner when an escalated task gets completed)
+
+[ ]show sent tasks in the task request screens( like show phone charger requests that have been sent when theyre in the forgot something page)
+
+[ ]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
+
+[ ]loading screens
+
+[ ]after 9pm nobody's here messages
+
+[ ]multi admin chats with one user make sure the colors are right
+
+[ ]task notes edit button?
+
+[ ]add notifications (open app to the message with notification)
+
+[ ]delete messages after guest leaves (but maybe store it permanently)
+
+[ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)
+
+[ ]Login (get the check in check out date and the room number, this plugin could be cool https://github.com/bthurlow/nativescript-maskedinput)
+
+[ ]praise for employees
+
+[ ]push almost all text to the server (confirmation pop up especially)
+
+[ ]pull hotel info page text from server
 
 =================  kinda sorta want ==============
 
-pop ups like the confirming of tasks sending to remove themselves after a bit
+[ ]pop ups like the confirming of tasks sending to remove themselves after a bit
 
+[ ]let staff make requests for the user
+
+[ ]let owners watch tasks (subscribe to the notifications even though theyre not assigned to it

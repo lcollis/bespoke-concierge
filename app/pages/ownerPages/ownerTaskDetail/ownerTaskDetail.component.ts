@@ -14,6 +14,19 @@ export class OwnerTaskDetailComponent {
 
     task: Task;
     isTaskAssignedToMe: boolean;
+    staff = [
+        {},
+        { name: "None Assigned" },
+        { name: "Matt" },
+        { name: "Malin" },
+        { name: "Ramesh" },
+        { name: "Hayden" },
+        { name: "Leighton" },
+        { name: "Butler" }
+    ];
+
+    selectedIndex: number = 1;
+
 
     constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService) {
         this.task = _taskService.selectedTask;
@@ -25,17 +38,26 @@ export class OwnerTaskDetailComponent {
         this.updateTask();
     }
 
+    itemTapped(args) {
+        if (args.index != 0) {
+            this.selectedIndex = args.index;
+        }
+    }
+
     unassign() {
         this.task.PersonID = 1;
         this.updateTask();
-        this.isTaskAssignedToMe = false ;
+        this.isTaskAssignedToMe = false;
         this.updateTask();
     }
 
+    assign() {
+        console.log("assign");
+    }
+
     take() {
-        console.log("taking task");
         this._userIdService.getUserId().then((userID: string) => {
-            this.task.PersonID = parseInt(userID); 
+            this.task.PersonID = parseInt(userID);
             this.isTaskAssignedToMe = true;
             this.updateTask();
         });
