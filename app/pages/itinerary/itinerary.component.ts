@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ToLocalTimePipe } from "../../pipes/toLocalTime.pipe";
 import { DatabaseService } from "../../services/database.service";
 import { UserIdService } from "../../services/userId.service";
@@ -14,13 +14,13 @@ import { MomentPipe } from "../../pipes/moment.pipe";
 export class ItineraryComponent {
 
     events: Event[] = new Array();
-    private itineraryEvents: ItineraryEvent[];
+    private itineraryEvents: ItineraryEvent[]
 
     loading: boolean = true;
     private gotReservations: boolean = false;
     private gotItinerary: boolean = false;
 
-    constructor(private _dbService: DatabaseService, private _userIdService: UserIdService) {
+    constructor(private _dbService: DatabaseService, private _userIdService: UserIdService, private _ngZone: NgZone) {
         var that = this;
         //get userID
         this._userIdService.getUserId().then((userID: string) => {
@@ -81,14 +81,44 @@ export class ItineraryComponent {
                     console.log(error);
                 })
         });
-
     }
 
-    getEvents(itineraryEvents: ItineraryEvent[], events: Event[]): Event[] {
+    remove(event: Event) {
+        console.log("removing event: " + JSON.stringify(event));
+        console.log('Events' + JSON.stringify(this.events));
+
+        //remove the event from the events list
+        this.events = this.events.filter((e) => {
+            return e !== event;
+        });
+
+        //get all the itinerary events for the event
+        var eventID = event.EventID;
+        var subEventID = event.SubEventID;
+        var itinEventsToRemove = this.itineraryEvents.filter((e) => {
+            return e.EventID === eventID && e.SubEventID === subEventID;
+        });
+        //remove itinerary events from array
+        this.itineraryEvents = this.itineraryEvents.filter((e) => {
+            return !(e.EventID === eventID && e.SubEventID === subEventID);
+        });
+
+        //remove itinerary events from server
+        itinEventsToRemove.forEach((e) => {
+            this._dbService.deleteObject("Itinerary", e.EventItenaryID)
+                .subscribe((response: Response) => {
+                    console.log("Status: " + response.status + " " + response.statusText);
+                }, (error: any) => {
+                    console.log(error);
+                });;
+        });
+    }
+
+    private getEvents(itinEvent: ItineraryEvent[], events: Event[]): Event[] {
         var output: Event[] = new Array();
 
-        for (var i = 0; i < itineraryEvents.length; i++) {
-            var itineraryEvent = itineraryEvents[i];
+        for (var i = 0; i < itinEvent.length; i++) {
+            var itineraryEvent = itinEvent[i];
             var eventID = itineraryEvent.EventID;
             var subEventID = itineraryEvent.SubEventID;
 

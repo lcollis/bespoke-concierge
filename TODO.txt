@@ -5,7 +5,7 @@
 
 [X]let owner assign task
 
-[ ]details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
+[X]details for itinerary items (let them cancel or view more information. maybe not a new page just show more information in the list)
 
 [ ]let owner and staff assign to butler
 

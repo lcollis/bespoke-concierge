@@ -67,7 +67,7 @@ export class DatabaseService {
         }
     }
 
-    getSelectedObject(apiName: string) {
+    getSelectedObject(apiName: string): any {
         var requestedApi: ApiInfo = null;
 
         for (var i = 0; i < this.apiInformation.length; i++) {
@@ -121,6 +121,26 @@ export class DatabaseService {
             console.log("putting object: " + JSON.stringify(object));
             console.log("putting to url: " + url);
             return this._http.put(url, object);
+        } else {
+            console.log("Error: no api with that name is in apiInformation");
+            return null;
+        }
+    }
+
+    deleteObject(apiName: string, index: number): Observable<any> {
+                var requestedApi: ApiInfo = null;
+
+        for (var i = 0; i < this.apiInformation.length; i++) {
+            if (this.apiInformation[i].name === apiName) {
+                requestedApi = this.apiInformation[i];
+                break;
+            }
+        }
+
+        if (requestedApi) {
+            var url = requestedApi.url + "/" + index;
+            console.log("Deleting index " + index + " at url " + url);
+            return this._http.delete(url);
         } else {
             console.log("Error: no api with that name is in apiInformation");
             return null;
