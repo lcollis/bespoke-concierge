@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
+import { DatabaseService } from "../../../services/database.service";
 import { ChatService } from "../../../services/chatServices/chat.service";
 import { Task } from '../../../services/taskServices/task';
+import { User } from "../../../services/user";
 
 @Component({
     selector: 'staffTaskDetail',
@@ -15,9 +17,28 @@ export class StaffTaskDetailComponent {
     task: Task;
     isTaskAssignedToMe: boolean;
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService) {
+    hasButler: boolean = false;
+    taskAssignedToButler: boolean = false;
+    butlerID: number = -1;
+
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService, private _dbService: DatabaseService) {
         this.task = _taskService.selectedTask;
         this.isTaskAssignedToMe = _taskService.isSelectedTaskAssignedToMe;
+        this._dbService.getApiData("Users")
+            .subscribe((response: any) => {
+                var users: User[] = response._body;
+                users.forEach((user) => {
+                    if(user.UserTypeID === 5) {
+                        this.hasButler = true;
+                        this.butlerID = user.CMSUserID;
+                        if(this.task.UserID === this.butlerID) {
+                            this.taskAssignedToButler = true;
+                        }
+                    }
+                });
+            }, (error: any) => {
+                console.log(error);
+            });
     }
 
     updateNote() {
@@ -27,7 +48,8 @@ export class StaffTaskDetailComponent {
 
     unassign() {
         this.task.PersonID = -1;
-        this.isTaskAssignedToMe = false ;
+        this.isTaskAssignedToMe = false;
+        this.taskAssignedToButler = false;
         this.updateTask();
     }
 
@@ -36,6 +58,7 @@ export class StaffTaskDetailComponent {
         this._userIdService.getUserId().then((userID: string) => {
             this.task.PersonID = parseInt(userID); 
             this.isTaskAssignedToMe = true;
+            this.taskAssignedToButler = false;
             this.updateTask();
         });
     }
@@ -55,6 +78,13 @@ export class StaffTaskDetailComponent {
     message() {
         this._chatService.selectedChatUserID = this.task.UserID.toString();
         this._router.navigate(['/StaffScreen/Chat']);
+    }
+
+    assignToButler() {
+        this.task.PersonID = this.butlerID;
+        this.taskAssignedToButler = true;
+        this.isTaskAssignedToMe = false;
+        this.updateTask();
     }
 
     private updateTask() {

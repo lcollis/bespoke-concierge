@@ -12,6 +12,7 @@
         <Button text="Update" (tap)="updateNote(note)" class="note-update-button"></Button>
     </StackLayout>
 
+    <Button [text]="taskAssignedToButler? 'Unassign from Butler' : 'Assign to Butler'" (tap)="taskAssignedToButler? unassign() : assignToButler()" *ngIf="hasButler" class="task-button-wide"></Button>
     <StackLayout orientation="horizontal">
         <Button [text]="isTaskAssignedToMe? 'Unassign' : 'Take'" (tap)="isTaskAssignedToMe? unassign() : take()" class="task-button"></Button>
         <Button [text]="task.Completed? 'Uncomplete' : 'Complete'" (tap)="task.Completed? uncomplete() : complete()" class="task-button"></Button>
