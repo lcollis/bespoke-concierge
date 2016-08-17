@@ -1,9 +1,9 @@
 <GridLayout>
-    <ListView [items]="faq" *ngIf="!loading" height="100%" width="100%">
+    <ListView [items]="faq" *ngIf="!loading" height="100%" width="100%" (itemTap)="onItemTap($event)" #listview>
         <template let-item="item">
             <StackLayout width="100%" horizontalAlignment="center">
                 <Label [text]='item.DisplayText' class="title"></Label>
-                <Label [text]='item.ShortSummaryText' class="detail" textWrap="true"></Label>
+                <Label [text]='item.ShortSummaryText' class="detail" textWrap="true" *ngIf="!isFolded(item)"></Label>
             </StackLayout>
         </template>
     </ListView>

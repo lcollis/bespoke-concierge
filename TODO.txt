@@ -9,7 +9,7 @@
 
 [ ]let owner and staff assign to butler
 
-[ ]FAQ expand from title on tap
+[X]FAQ expand from title on tap
 
 [ ]staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
 

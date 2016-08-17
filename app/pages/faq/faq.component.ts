@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database.service";
 import { Faq } from "../../services/Faq";
@@ -11,8 +11,11 @@ import { Faq } from "../../services/Faq";
 
 export class FaqComponent  {
     faq: Faq[];
+    folded: boolean[];
    
     loading: boolean = true;
+
+    @ViewChild("listview") listView;
 
     constructor(private _router: Router, private _databaseService: DatabaseService) {
         _databaseService.getApiData("Faq").subscribe( 
@@ -23,7 +26,24 @@ export class FaqComponent  {
   
     gotFaq(faq) {  
         this.faq = faq._body;
+
+        this.folded = new Array(this.faq.length);
+        for (var i = 0; i < this.folded.length; ++i) { this.folded[i] = true; }
+        console.log("folded: " + JSON.stringify(this.folded));
+
         this.loading = false;
+    }
+
+    onItemTap(args) {
+        var index = args.index;
+        this.folded[index] = !this.folded[index];
+        console.log(JSON.stringify(this.folded));
+        this.listView._elementRef.nativeElement.refresh();
+    }
+
+    isFolded(item: Faq): boolean {
+        var index = this.faq.indexOf(item);
+        return this.folded[index];
     }
     
     gotError(error) {
