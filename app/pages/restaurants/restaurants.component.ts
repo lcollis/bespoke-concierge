@@ -45,7 +45,8 @@ export class RestaurantsComponent {
 
 
     getRestaurant(restaurant) {
-        this.restaurants = restaurant._body;
+        this.restaurants = new Array();
+        this.restaurants = this.restaurants.concat(restaurant._body); //do it like this because a direct assignment adds the null to the cached array of restaurants in the DatabaseService
         this.restaurants.push(null);
 
         this.gotRestaurants = true;
