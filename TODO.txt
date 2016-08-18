@@ -16,7 +16,7 @@
 [x]task escalation (automatically notifiy owner when an escalated task gets completed)
 [x]praise for employees
 
-[ ]show sent tasks in the task request screens( like show phone charger requests that have been sent when theyre in the forgot something page)
+[x]show sent tasks in the task request screens( like show phone charger requests that have been sent when theyre in the forgot something page)
 
 [ ]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
 
