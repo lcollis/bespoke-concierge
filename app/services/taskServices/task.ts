@@ -1,6 +1,10 @@
 export class Task {
+
+    static Priorities = ["normal", "high", "urgent"];
+
     AutomatedFollowUpTask: boolean;
     Canceled: boolean;
+    Clap: number;
     Completed: boolean;
     CreatedTimestamp: Date;
     Description: string;
@@ -23,6 +27,7 @@ export class Task {
     constructor(description: string, shortDescription: string, scheduledTime: Date, priority: string, userID: number) {
         this.AutomatedFollowUpTask = false;
         this.Canceled = false;
+        this.Clap = 0;
         this.Completed = false;
         this.CreatedTimestamp = new Date();
         this.Description = description;

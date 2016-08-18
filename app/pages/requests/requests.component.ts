@@ -41,6 +41,25 @@ export class RequestsComponent {
         })
     }
 
+   praise(task: Task) {
+        task.Clap++;
+        this.updateTask(task);
+   }
+
+   escalate(task: Task) {
+       var priorityNumber = Task.Priorities.indexOf(task.Priority);
+       var maxPriority = Task.Priorities.length;
+
+       if(priorityNumber < maxPriority - 1) {
+           priorityNumber++;
+           task.Priority = Task.Priorities[priorityNumber];
+       } else {
+           alert("Task is already set to the highest priority.");
+       }
+
+       this.updateTask(task);
+   }
+
     sortTasks(tasks: Task[]): Task[] {
         //split tasks into completed and not completed
         var completed = tasks.filter((task) => { return task.Completed });
@@ -83,5 +102,14 @@ export class RequestsComponent {
         if (index) {
             this.tasks.splice(index, 0, null);
         }
+    }
+
+    private updateTask(task: Task) {
+        this._taskService.updateTask(task)
+            .subscribe((response: any) => {
+                console.log(response);
+            }, (error: any) => {
+                console.log(error);
+            });
     }
 }

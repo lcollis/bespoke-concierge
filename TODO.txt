@@ -11,11 +11,10 @@
 
 [Done if the butler is going to be added to the user list.]let owner and staff assign to butler
 
-[ ]staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
+[X]calendar switch reserve button to unreserve after they've reserved it
 
-[ ]calendar switch reserve button to unreserve after they've reserved it
-
-[ ]task escalation (automatically notifiy owner when an escalated task gets completed)
+[x]task escalation (automatically notifiy owner when an escalated task gets completed)
+[x]praise for employees
 
 [ ]show sent tasks in the task request screens( like show phone charger requests that have been sent when theyre in the forgot something page)
 
@@ -37,11 +36,11 @@
 
 [ ]Login (get the check in check out date and the room number, this plugin could be cool https://github.com/bthurlow/nativescript-maskedinput)
 
-[ ]praise for employees
-
 [ ]push almost all text to the server (confirmation pop up especially)
 
 [ ]pull hotel info page text from server
+
+[ ](tried and plugin didnt work) staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
 
 =================  kinda sorta want ==============
 

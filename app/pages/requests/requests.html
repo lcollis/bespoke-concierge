@@ -2,12 +2,19 @@
     <ListView [items]="tasks" *ngIf="!loading">
         <template let-item="item">
             <StackLayout>
-                <GridLayout rows="auto,auto" columns="*,*,*" *ngIf="item && item.Description">
-                    <Label row="0" col="0" [text]="item.ScheduledTimestamp | toLocalTime | fromNow"></Label>
-                    <Label row="0" col="1" textWrap="true" [text]="item.ShortDescription"></Label>
-                    <Label row="0" col="2" [text]="item.CreatedTimestamp | toLocalTime | fromNow"></Label>
-                    <Label row="1" colSpan="3" [text]="item.Description" textWrap="true"></Label>
-                </GridLayout>
+                <StackLayout *ngIf="item && item.Description">
+                    <GridLayout rows="auto,auto,auto" columns="*,*,*">
+                        <Label row="0" col="0" [text]="item.ScheduledTimestamp | toLocalTime | fromNow"></Label>
+                        <Label row="0" col="1" textWrap="true" [text]="item.ShortDescription"></Label>
+                        <Label row="0" col="2" [text]="item.CreatedTimestamp | toLocalTime | fromNow"></Label>
+                        <Label row="1" colSpan="3" [text]="item.Description" textWrap="true"></Label>
+                        <Label row="2" col="0" [text]="'Priority: ' + item.Priority"></Label>
+                        <Label row="2" col="1" [text]="'Praise: ' + item.Clap"></Label>
+                    </GridLayout>
+                    
+                    <Button text="Escalate Task" (tap)="escalate(item)" class="escalate-button" *ngIf="!item.Completed"></Button>
+                    <Button text="Send Praise" (tap)="praise(item)" class="praise-button" *ngIf="item.Completed"></Button>
+                </StackLayout>
 
                 <!--if item is null treat it as the completed separator-->
                 <Label text="Completed Tasks" class="separator" *ngIf="!item" width="100%"></Label>
