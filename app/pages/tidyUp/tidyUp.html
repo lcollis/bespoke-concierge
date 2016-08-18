@@ -1,9 +1,20 @@
 <StackLayout>
-    <ListView [items]="requests" *ngIf="!loading" height="100%" width="100%" (itemTap)="onItemTap($event)">
+    <ListView [items]="requests" *ngIf="!loading" height="100%" (itemTap)="onItemTap($event)">
         <template let-item="item">
-            <StackLayout width="100%" horizontalAlignment="center" class="request-layout">
-                <Label [text]='item.title' class="request-item-title" textWrap="true" width="100%"></Label>
+            <StackLayout>
+                <StackLayout class="request-layout" *ngIf="item">
+                    <Label [text]='item.title' class="request-item-title" textWrap="true" width="100%"></Label>
+                </StackLayout>
+
+                <StackLayout *ngIf="!item" class="made-requests-list">
+                    <Label text="Your requests from this page" class="requests-separator" *ngIf="madeRequests.length > 0"></Label>
+                    <StackLayout class="past-requests-layout" *ngFor="let request of madeRequests">
+                        <Label [text]='request.ShortDescription'></Label>
+                        <Label [text]='"Request Made: " + request.CreatedTimestamp'></Label>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
         </template>
     </ListView>
+    <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
 </StackLayout>
