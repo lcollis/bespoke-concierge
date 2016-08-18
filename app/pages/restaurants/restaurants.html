@@ -1,17 +1,27 @@
 <StackLayout>
     <Label text="We highly reccomend the following restaurants." class="header" textWrap="true" horizontalAlignment="left" width="100%"></Label>
     <Label text="Let us make reservations for you." class="header" textWrap="true" horizontalAlignment="left"></Label>
-    <ListView [items]="restaurant" *ngIf="!loading" height="100%">
+    <ListView [items]="restaurants" *ngIf="!loading" height="100%">
         <template let-item="item">
             <StackLayout>
-                <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
-                <GridLayout rows="auto" columns="7*, 3*">
-                    <StackLayout>
-                        <Label [text]='item.Street1 + " " + item.Street2 + ", " + item.City' class="restaurantDetail" textWrap="true"></Label>
-                        <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
+                <StackLayout *ngIf="item">
+                    <Label [text]='item.RestaurantName' class="restaurantTitle"></Label>
+                    <GridLayout rows="auto" columns="7*, 3*">
+                        <StackLayout>
+                            <Label [text]='item.Street1 + " " + item.Street2 + ", " + item.City' class="restaurantDetail" textWrap="true"></Label>
+                            <Label [text]='item.PhoneNumber' class="restaurantPhone" textWrap="true"></Label>
+                        </StackLayout>
+                        <Button text="Reserve" (tap)="reserve(item)" col="2" class="reserve-button"></Button>
+                    </GridLayout>
+                </StackLayout>
+
+                <StackLayout *ngIf="!item" class="made-requests-list">
+                    <Label text="Your requested reservations" class="requests-separator" *ngIf="madeRequests.length > 0"></Label>
+                    <StackLayout class="past-requests-layout" *ngFor="let request of madeRequests">
+                        <Label [text]='request.ShortDescription'></Label>
+                        <Label [text]='"Request Made: " + request.CreatedTimestamp'></Label>
                     </StackLayout>
-                    <Button text="Reserve" (tap)="reserve(item)" col="2" class="reserve-button"></Button>
-                </GridLayout>
+                </StackLayout>
             </StackLayout>
         </template>
     </ListView>
