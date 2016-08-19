@@ -65,11 +65,21 @@ export class ReservationComponent {
                     //stop loading animation
                     loader.hide();
 
-                    dialogs.alert({
-                        title: "Complete",
-                        message: "We are making your reservation! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
-                        okButtonText: "OK"
-                    });
+                    var hours = new Date().getHours();
+                    //after 9pm and before 6am send "nobodys here" message instead
+                    if(hours >= 21 || hours < 6) {
+                        dialogs.alert({
+                            title: "Complete",
+                            message: "Request Sent! It's past 9pm so we may wait to make your reservation until tomorrow morning, but feel free to message us with any changes in the meantime!",
+                            okButtonText: "OK"
+                        });
+                    } else {
+                        dialogs.alert({
+                            title: "Complete",
+                            message: "We are making your reservation! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
+                            okButtonText: "OK"
+                        });
+                    }
                     this._router.navigate(["/GuestScreen/Home"]);
                 }, (error: any) => {
                     //stop loading animation

@@ -18,34 +18,34 @@
 
 [x]show sent tasks in the task request screens( like show phone charger requests that have been sent when theyre in the forgot something page)
 
-[ ]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
+[X]after 9pm nobody's here messages
 
-[ ]loading screens
-
-[ ]after 9pm nobody's here messages
-
-[ ]multi admin chats with one user make sure the colors are right
-
-[ ]task notes edit button?
+[ ] fix requests being empty being fine
 
 [ ]add notifications (open app to the message with notification)
 
-[ ]delete messages after guest leaves (but maybe store it permanently)
+[ ]loading screens
+
+[ ]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
 
 [ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)
 
-[ ]Login (get the check in check out date and the room number, this plugin could be cool https://github.com/bthurlow/nativescript-maskedinput)
+[ ]multi admin chats with one user make sure the colors are right
 
-[ ]push almost all text to the server (confirmation pop up especially)
-
-[ ]pull hotel info page text from server
+[ ]let owners watch tasks (subscribe to the notifications even though theyre not assigned to it only on urgent
 
 [ ](tried and plugin didnt work) staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
+
+[ ]-delete messages after guest leaves (but maybe store it permanently)
+
+[ ]-Login (get the check in check out date and the room number, this plugin could be cool https://github.com/bthurlow/nativescript-maskedinput)
+
+[ ]-push almost all text to the server (confirmation pop up especially)
+
+[ ]-pull hotel info page text from server
 
 =================  kinda sorta want ==============
 
 [ ]pop ups like the confirming of tasks sending to remove themselves after a bit
 
 [ ]let staff make requests for the user
-
-[ ]let owners watch tasks (subscribe to the notifications even though theyre not assigned to it

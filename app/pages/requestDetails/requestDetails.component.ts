@@ -72,11 +72,22 @@ export class RequestDetailsComponent {
                     //stop loading animation
                     loader.hide();
 
-                    dialogs.alert({
-                        title: "Complete",
-                        message: "Request Sent! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
-                        okButtonText: "OK"
-                    });
+                    var hours = new Date().getHours();
+                    console.log(hours);
+                    //after 9pm and before 6am send "nobodys here" message instead
+                    if(hours >= 21 || hours < 6) {
+                        dialogs.alert({
+                            title: "Complete",
+                            message: "Request Sent! It's past 9pm so we may wait to complete your task until tomorrow morning, but feel free to message us with any changes in the meantime!",
+                            okButtonText: "OK"
+                        });
+                    } else {
+                        dialogs.alert({
+                            title: "Complete",
+                            message: "Request Sent! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
+                            okButtonText: "OK"
+                        });
+                    }
                     this._routerExtensions.router.navigate(["/GuestScreen/Home"]);
                 }, (error: any) => {
                     //stop loading animation

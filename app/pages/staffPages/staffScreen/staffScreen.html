@@ -6,7 +6,7 @@
         <GridLayout row="0" rows="70" , columns="*,*" class="menu-top">
             <StackLayout col="0" orientation="horizontal">
                 <Button text="On call: " (tap)="duty()" class="menu-button-top"></Button>
-                <Switch (propertyChange)="switchPropertyChange"></Switch>
+                <Switch [(ngModel)]="clockedSwitch" (propertyChange)="switchPropertyChange($event)"></Switch>
             </StackLayout>
             <Button col="1" text="Guest lookup" (tap)="lookup()" class="menu-button-top"></Button>
         </GridLayout>
