@@ -73,7 +73,6 @@ export class RequestDetailsComponent {
                     loader.hide();
 
                     var hours = new Date().getHours();
-                    console.log(hours);
                     //after 9pm and before 6am send "nobodys here" message instead
                     if(hours >= 21 || hours < 6) {
                         dialogs.alert({

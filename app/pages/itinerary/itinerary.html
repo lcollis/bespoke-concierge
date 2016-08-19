@@ -1,4 +1,4 @@
-<StackLayout>
+<GridLayout rows="*,auto">
     <ListView [items]="events" *ngIf="!loading" height="100%">
         <template let-item="item">
             <GridLayout rows="auto,auto,auto" columns="*, 4*">
@@ -12,4 +12,6 @@
         </template>
     </ListView>
     <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
-</StackLayout>
+    <Label *ngIf="noEvents" text="You have no events reserved. Check out the other sections of this app to add events!" textWrap="true"
+        class="no-events-label"></Label>
+</GridLayout>

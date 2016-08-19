@@ -20,7 +20,7 @@
 
 [X]after 9pm nobody's here messages
 
-[ ] fix requests being empty being fine
+[X] fix requests being empty being fine
 
 [ ]add notifications (open app to the message with notification)
 
@@ -32,7 +32,7 @@
 
 [ ]multi admin chats with one user make sure the colors are right
 
-[ ]let owners watch tasks (subscribe to the notifications even though theyre not assigned to it only on urgent
+[ ]only on urgent notify owner about task complete
 
 [ ](tried and plugin didnt work) staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
 

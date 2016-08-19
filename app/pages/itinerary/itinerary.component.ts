@@ -17,6 +17,7 @@ export class ItineraryComponent {
     private itineraryEvents: ItineraryEvent[]
 
     loading: boolean = true;
+    noEvents: boolean = false;
     private gotReservations: boolean = false;
     private gotItinerary: boolean = false;
 
@@ -40,13 +41,17 @@ export class ItineraryComponent {
                             if (that.gotReservations === true) {
                                 that.sortEvents();
                                 that.loading = false;
+                                if(that.events.length === 0) {
+                                    console.log("No Events!");
+                                    that.noEvents = true;
+                                }
                             }
                         }, (error: any) => {
                             console.log(error);
                         });
                 }, (error: any) => {
                     console.log(error);
-                })
+                });
 
             //get restaurant reservations and add these to itinerary too
             that._dbService.getApiData("Tasks")
@@ -75,6 +80,10 @@ export class ItineraryComponent {
                     if (that.gotItinerary === true) {
                         that.sortEvents();
                         that.loading = false;
+                        if(that.events.length === 0) {
+                            console.log("No Events!");
+                            that.noEvents = true;
+                        }
                     }
 
                 }, (error) => {

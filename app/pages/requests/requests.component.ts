@@ -23,9 +23,13 @@ export class RequestsComponent {
         _userIdService.getUserId().then((userID: string) => {
             _taskService.getTasks(parseInt(userID))
                 .subscribe((tasks) => {
-                    this.tasks = this.sortTasks(tasks);
-                    this.addSeparators();
-                    this.loading = false;
+                    if(tasks.length > 0) {
+                        this.tasks = this.sortTasks(tasks);
+                        this.addSeparators();
+                        this.loading = false;
+                    } else {
+                        this.noTasks = true;
+                    }
                 }, (error: any) => {
                     console.log(error);
                     alert("No internet access. Could not get requests");
