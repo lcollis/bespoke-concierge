@@ -22,11 +22,11 @@
 
 [X] fix requests being empty being fine
 
+[X]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
+
 [ ]add notifications (open app to the message with notification)
 
 [ ]loading screens
-
-[ ]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
 
 [ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)
 

@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/directives/dialogs";
 var dialogs = require("ui/dialogs");
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 import * as moment from 'moment';
@@ -9,18 +10,23 @@ import { UserIdService } from "../../../services/userId.service";
 import { Restaurants } from "../../../services/restaurants";
 import { Task } from "../../../services/taskServices/task";
 import { ItineraryEvent } from "../../../services/event";
+import { PickerModal } from "../../modals/pickerModal.component";
+import { MomentPipe } from "../../../pipes/moment.pipe";
 
 
 @Component({
     selector: 'reservation',
+    directives: [ModalDialogHost],
     templateUrl: 'pages/restaurants/reservation/reservation.html',
-    styleUrls: ['pages/restaurants/reservation/reservation.css']
+    styleUrls: ['pages/restaurants/reservation/reservation.css'],
+    pipes: [MomentPipe],
+    providers: [ModalDialogService]
 })
 export class ReservationComponent {
 
     @ViewChild("specialoccasion") specialOccasionTextField;
     @ViewChild("detail") detailsTextField;
-    
+
     restaurant: Restaurants;
 
     date: Date = new Date();
@@ -29,8 +35,23 @@ export class ReservationComponent {
     specialOccasion: string;
     details: string;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService) {
         this.restaurant = this._databaseService.getSelectedObject("Restaurant");
+    }
+
+    openDateModal(hasDate: boolean) {
+        var options: ModalDialogOptions = {
+            context: { hasDate: hasDate, date: hasDate? this.date : this.time },
+            fullscreen: false
+        };
+
+        this.modal.showModal(PickerModal, options).then((res: Date) => {
+            if(hasDate) {
+                this.date = res;
+            } else {
+                this.time = res;
+            }
+        });
     }
 
     cancel() {
@@ -67,7 +88,7 @@ export class ReservationComponent {
 
                     var hours = new Date().getHours();
                     //after 9pm and before 6am send "nobodys here" message instead
-                    if(hours >= 21 || hours < 6) {
+                    if (hours >= 21 || hours < 6) {
                         dialogs.alert({
                             title: "Complete",
                             message: "Request Sent! It's past 9pm so we may wait to make your reservation until tomorrow morning, but feel free to message us with any changes in the meantime!",

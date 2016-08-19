@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterExtensions } from "nativescript-angular/router"
+import { RouterExtensions } from "nativescript-angular/router";
+import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/directives/dialogs";
 var dialogs = require("ui/dialogs");
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 import { RequestPickerService, RequestDetails } from "../../services/requestPicker.service";
 import { UserIdService } from "../../services/userId.service";
 import { TaskService } from "../../services/taskServices/task.service";
 import { Task } from "../../services/taskServices/task";
+import { MomentPipe } from "../../pipes/moment.pipe";
+import { PickerModal } from "../modals/pickerModal.component";
 
 @Component({
     selector: 'requestDetails',
+    directives: [ModalDialogHost],
     templateUrl: 'pages/requestDetails/requestDetails.html',
-    styleUrls: ['pages/requestDetails/requestDetails.css']
+    styleUrls: ['pages/requestDetails/requestDetails.css'],
+    pipes: [MomentPipe],
+    providers: [ModalDialogService]
 })
 export class RequestDetailsComponent {
 
@@ -20,9 +26,34 @@ export class RequestDetailsComponent {
     dateInput: Date;
     timeInput: Date;
 
-    constructor(private _routerExtensions: RouterExtensions, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService) {
+    datePickerIsUp: boolean = false;
+    timePickerIsUp: boolean = false;
+
+    constructor(private _routerExtensions: RouterExtensions, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService) {
         this.requestDetails = _requestPickerService.requestDetails;
         console.log(JSON.stringify(this.requestDetails));
+    }
+
+    pickDate() {
+        var options: ModalDialogOptions = {
+            context: { hasDate: true, date: this.dateInput },
+            fullscreen: false
+        };
+
+        this.modal.showModal(PickerModal, options).then((res: Date) => {
+            this.dateInput = res;
+        });
+    }
+
+    pickTime() {
+        var options: ModalDialogOptions = {
+            context: { hasDate: false, date: this.timeInput },
+            fullscreen: false
+        };
+
+        this.modal.showModal(PickerModal, options).then((res: Date) => {
+            this.timeInput = res;
+        });
     }
 
     cancel() {
@@ -74,7 +105,7 @@ export class RequestDetailsComponent {
 
                     var hours = new Date().getHours();
                     //after 9pm and before 6am send "nobodys here" message instead
-                    if(hours >= 21 || hours < 6) {
+                    if (hours >= 21 || hours < 6) {
                         dialogs.alert({
                             title: "Complete",
                             message: "Request Sent! It's past 9pm so we may wait to complete your task until tomorrow morning, but feel free to message us with any changes in the meantime!",

@@ -1,30 +1,31 @@
 <ScrollView>
-<StackLayout width="100%">
-    <Label text="Reservation" class="title"></Label>
-    <GridLayout columns="auto, *" rows="auto" width="100%">
-        <Label text="Date: " class="detail"></Label>
-        <DatePicker [(ngModel)]="date" col="2"></DatePicker>
-    </GridLayout>
-    <GridLayout columns="auto, *" rows="auto" width="100%">
-        <Label text="Time: " class="detail"></Label>
-        <TimePicker [(ngModel)]="time" col="2"></TimePicker>
-    </GridLayout>
-    <GridLayout columns="auto, *" rows="auto" width="100%">
-        <Label text="Party Size: " class="detail"></Label>
-        <TextField class="detail-text-field" [(ngModel)]="party" hint="party size" col="2" returnKeyType="next" (returnPress)="focusSpecialOccasion()"></TextField>
-    </GridLayout>
-    <GridLayout columns="auto, *" rows="auto" width="100%">
-        <Label text="Special Occasion: " class="detail"></Label>
-        <TextField class="detail-text-field" [(ngModel)]="specialOccasion" hint="special occasion" col="2" returnKeyType="next" (returnPress)="focusDetails()" #specialoccasion></TextField>
-    </GridLayout>
-    <GridLayout columns="auto, *" rows="auto" width="100%">
-        <Label text="Other Details:" class="detail"></Label>
-        <TextField [(ngModel)]="details" hint="details" col="2" returnKeyType="done" #detail></TextField>
-    </GridLayout>
+    <StackLayout width="100%" modal-dialog-host>
+        <Label text="Reservation" class="title"></Label>
+        <GridLayout columns="auto, *" rows="auto" width="100%">
+            <Label text="Date: " class="detail"></Label>
+            <Button [text]="date | moment:'MMM Do YYYY'" (tap)="openDateModal(true)" col="2"></Button>
+        </GridLayout>
+        <GridLayout columns="auto, *" rows="auto" width="100%">
+            <Label text="Time: " class="detail"></Label>
+            <Button [text]="time | moment:'h:mm a'" (tap)="openDateModal(false)" col="2"></Button>
+        </GridLayout>
+        <GridLayout columns="auto, *" rows="auto" width="100%">
+            <Label text="Party Size: " class="detail"></Label>
+            <TextField class="detail-text-field" [(ngModel)]="party" hint="party size" col="2" returnKeyType="next" (returnPress)="focusSpecialOccasion()"></TextField>
+        </GridLayout>
+        <GridLayout columns="auto, *" rows="auto" width="100%">
+            <Label text="Special Occasion: " class="detail"></Label>
+            <TextField class="detail-text-field" [(ngModel)]="specialOccasion" hint="special occasion" col="2" returnKeyType="next" (returnPress)="focusDetails()"
+                #specialoccasion></TextField>
+        </GridLayout>
+        <GridLayout columns="auto, *" rows="auto" width="100%">
+            <Label text="Other Details:" class="detail"></Label>
+            <TextField [(ngModel)]="details" hint="details" col="2" returnKeyType="done" #detail></TextField>
+        </GridLayout>
 
-    <StackLayout orientation="horizontal" width="100%">
-        <Button text="Cancel" (tap)="cancel()"></Button>
-        <Button text="Reserve" (tap)="reserve()"></Button>
+        <StackLayout orientation="horizontal" width="100%">
+            <Button text="Cancel" (tap)="cancel()"></Button>
+            <Button text="Reserve" (tap)="reserve()"></Button>
+        </StackLayout>
     </StackLayout>
-</StackLayout>
 </ScrollView>
