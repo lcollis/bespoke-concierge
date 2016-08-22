@@ -1,33 +1,60 @@
 <StackLayout height="100%">
-	<ListView [items]="tasks" (itemTap)="onItemTap($event)" *ngIf="!loading" height="100%">
-		<template let-item="item">
-			<StackLayout>
-				<!--task-->
-				<GridLayout rows="auto" columns="3*,1,*" class="list" *ngIf="item.Description">
-					<StackLayout col="0">
-						<Label [text]="formatRequestInfo(item)" class="request-details"></Label>
-						<Label [text]="item.ShortDescription" class="request-details"></Label>
-					</StackLayout>
-					<StackLayout col="1" class="seperator"></StackLayout>
-					<StackLayout col="2">
-						<Label [text]="formatDate(item) | toLocalTime | moment:'MMM D[\n]h:mm a'" class="request-time" textWrap="true"></Label>
-					</StackLayout>
-				</GridLayout>
+    <GridLayout rows="*,auto" columns="*" *ngIf="!loading">
+        <ListView [items]="tasks" row="0" (itemTap)="onItemTap($event)" height="100%">
+            <template let-item="item">
+                <StackLayout>
+                    <!--task-->
+                    <GridLayout rows="auto" columns="3*,1,*" class="list" *ngIf="item.Description">
+                        <StackLayout col="0">
+                            <Label [text]="formatRequestInfo(item)" class="request-details"></Label>
+                            <Label [text]="item.ShortDescription" class="request-details"></Label>
+                        </StackLayout>
+                        <StackLayout col="1" class="seperator"></StackLayout>
+                        <StackLayout col="2">
+                            <Label [text]="formatDate(item) | toLocalTime | moment:'MMM D[\n]h:mm a'" class="request-time" textWrap="true"></Label>
+                        </StackLayout>
+                    </GridLayout>
 
-				<!--Separators-->
-				<GridLayout rows="auto" columns="3*,1,*" class="list-separator" *ngIf="!item.Description">
-					<Label col="0" text="My Working Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'my working requests'"> </Label>
-					<Label col="0" text="Unassigned Open Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'unassigned uncompleted requests'"> </Label>
-					<Label col="0" text="Assigned Open Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'assigned uncompleted requests'"> </Label>
-					<Label col="0" text="Completed Requests from Past Week" class="list-separator-title" *ngIf="item.ShortDescription === 'completed requests'"> </Label>
+                    <!--Separators-->
+                    <GridLayout rows="auto" columns="3*,1,*" class="list-separator" *ngIf="!item.Description">
+                        <Label col="0" text="My Working Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'my working requests'"> </Label>
+                        <Label col="0" text="Unassigned Open Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'unassigned uncompleted requests'"> </Label>
+                        <Label col="0" text="Assigned Open Requests" class="list-separator-title" *ngIf="item.ShortDescription === 'assigned uncompleted requests'"> </Label>
+                        <Label col="0" text="Completed Requests from Past Week" class="list-separator-title" *ngIf="item.ShortDescription === 'completed requests'"> </Label>
 
-					<StackLayout col="1" class="seperator"></StackLayout>
+                        <StackLayout col="1" class="seperator"></StackLayout>
 
-					<Label col="3" [text]=" item.ShortDescription === 'completed requests' ? 'Completed' :'Made'" class="list-separator-detail"></Label>
-				</GridLayout>
-			</StackLayout>
-		</template>
-	</ListView>
+                        <Label col="3" [text]=" item.ShortDescription === 'completed requests' ? 'Completed' :'Made'" class="list-separator-detail"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </template>
+        </ListView>
+
+       <!-- owner info bar --> 
+       <GridLayout row="1" rows="auto" columns="*,1,*,1,*,1,*" class="owner-info-bar">
+            <StackLayout col="0" class="owner-info-bar-item">
+                <Label [text]="getOpenCount() + ' Open'" class="owner-info-bar-text"> </Label>
+            </StackLayout>
+
+            <StackLayout col="1" class="seperator"></StackLayout>
+
+            <StackLayout col="2" class="owner-info-bar-item">
+                <Label [text]="getClaimedCount() + ' Claimed'" class="owner-info-bar-text"> </Label>
+            </StackLayout>
+
+            <StackLayout col="3" class="seperator"></StackLayout>
+
+            <StackLayout col="4" class="owner-info-bar-item">
+                <Label [text]="getClosedCount() + ' Closed'" class="owner-info-bar-text"> </Label>
+            </StackLayout>
+
+            <StackLayout col="5" class="seperator"></StackLayout>
+
+            <StackLayout col="6" class="owner-info-bar-item">
+                <Label [text]="getPraiseCount() + ' Praise'" class="owner-info-bar-text"> </Label>
+            </StackLayout>
+       </GridLayout>
+    </GridLayout>
 
 	<ActivityIndicator *ngIf="loading" busy="true"></ActivityIndicator>
 	<Label text="No requests" *ngIf="noTasks"></Label>

@@ -158,6 +158,38 @@ export class OwnerHomeComponent {
         }
     }
 
+    getOpenCount(): number {
+        var count = 0;
+        this.tasks.forEach((t) => {
+            if(t.Description && t.Completed === false) count++;
+        });
+        return count;
+    }
+    
+    getClaimedCount(): number {
+        var count = 0;
+        this.tasks.forEach((t) => {
+            if(t.Description && t.Completed === false && t.PersonID != -1) count++;
+        });
+        return count;
+    }
+
+    getClosedCount(): number {
+        var count = 0;
+        this.tasks.forEach((t) => {
+            if(t.Description && t.Completed === true) count++;
+        });
+        return count;
+    }
+    
+    getPraiseCount(): number {
+        var count = 0;
+        this.tasks.forEach((t) => {
+            count += t.Clap;
+        });
+        return count;
+    }
+
     onItemTap(args) {
         var index = args.index;
         var task: Task = this.tasks[index];

@@ -26,6 +26,8 @@
 
 [X]multi admin chats with one user make sure the colors are right
 
+[X]owner summary numbers at bottom of screen
+
 [ ]loading screens
 
 [ ]show unseen message notification in home screen(store a last time on screen variable on phone)
