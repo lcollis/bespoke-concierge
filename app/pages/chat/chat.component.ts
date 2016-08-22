@@ -70,11 +70,12 @@ export class ChatComponent {
             });
     }
 
-    addMessage(message) {
-        if (message) {
-            console.log("+++++++++++ message: " + message + "  sender: " + this.userID);
-            this.messages.push({ text: message, timeStamp: Date.now(), sender: this.userID });
-            this._chatService.sendMessage(this.newMessage, this.userID, this.room)
+    addMessage(text) {
+        if (text) {
+            console.log("+++++++++++ message: " + text + "  sender: " + this.userID);
+            var message: Message = { text: text, timeStamp: Date.now(), sender: this.userID };
+            this.messages.push(message);
+            this._chatService.sendMessage(message, this.userID, this.room)
                 .catch((error: any) => {
                     console.log(error);
                     alert("Error sending message. Please try again later");

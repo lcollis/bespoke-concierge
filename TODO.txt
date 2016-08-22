@@ -24,15 +24,15 @@
 
 [X]fix the date selector weirdness (github issue: https://github.com/NativeScript/nativescript-angular/issues/324  and the alternative option:  https://github.com/AntonioCuevaUrraco/nativescript-timedatepicker)
 
-[ ]add notifications (open app to the message with notification)
+[X]multi admin chats with one user make sure the colors are right
 
 [ ]loading screens
 
-[ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)
-
-[ ]multi admin chats with one user make sure the colors are right
-
+[ ]show unseen message notification in home screen(store a last time on screen variable on phone)
+[ ]add notifications (open app to the message with notification)
 [ ]only on urgent notify owner about task complete
+
+[ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)
 
 [ ](tried and plugin didnt work) staff and owner pull to refresh tasks (https://www.npmjs.com/package/nativescript-pulltorefresh)
 

@@ -9,8 +9,7 @@ export class ChatService {
 
     selectedChatUserID: string;
 
-    sendMessage(text: string, senderID: string, room: string): Promise<PushResult> {
-        var message: Message = { text: text, sender: senderID, timeStamp: Date.now() };
+    sendMessage(message: Message, senderID: string, room: string): Promise<PushResult> {
         var messagesUrl = "/messages/" + senderID + "/" + room;
 
         console.log("+++++++++++++++++++++ sending message: " + JSON.stringify(message));

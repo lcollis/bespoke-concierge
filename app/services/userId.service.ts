@@ -35,6 +35,6 @@ export class UserIdService {
 
     private makeNewId(): string {
         console.log("Making a new user ID. This should only happen once per install");
-        return 1 + "";
+        return 1234 + "";
     }
 }

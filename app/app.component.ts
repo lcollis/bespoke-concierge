@@ -43,6 +43,14 @@ export class AppComponent {
                                 _routerExtensions.navigate(['/StaffScreen/Home']);
                             });
                         }
+
+                        //if user is in the owner screen
+                        if (url.search("OwnerScreen") !== -1) {
+                            //use ngzone so angular can see the navigation. Otherwise the listview is empty
+                            ngZone.run(() => {
+                                _routerExtensions.navigate(['/OwnerScreen/Home']);
+                            });
+                        }
                     }
                 })
         }
