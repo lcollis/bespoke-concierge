@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from "@angular/router";
 import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
 import {registerElement} from "nativescript-angular/element-registry";
+import { ChatService } from "../../services/chatServices/chat.service";
 import {Page} from "ui/page";
 import { Color } from "color";
+import { UserIdService } from "../../services/userId.service";
 
 @Component({
     selector: 'guestScreen',
@@ -12,7 +14,11 @@ import { Color } from "color";
 })
 
 export class GuestScreenComponent {
-    constructor(page: Page, _routerExtensions: RouterExtensions) {
+    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService) {
+        _userIdService.getUserId().then((userID: string) => {
+            _chatService.subscribeToNewMessagesCallback(userID, "default", () => { console.log("new messages.") });
+        });
+
         page.actionBarHidden = true;
 
         //allows for ios statusbar coloring
