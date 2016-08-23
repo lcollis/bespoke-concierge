@@ -51,6 +51,11 @@ export class ChatService {
         this.newChatsWatcherCallback = callback;
 
         this.checkForNewMessages();
+
+        //add a dummy messages subscription so that even if the user
+        //doesnt look at the messages the ui still updates when they
+        //get a new message inside the app
+        this.subscribeToMessages(guestID, room, () => {});
     }
 
     getLastActiveTime(callback: (date: Date) => any) {
