@@ -16,15 +16,13 @@ export class ChatService {
 
     private newChatsWatcherGuestID: string;
     private newChatsWatcherRoom: string;
-    private newChatsWatcherCallback: () => any;
+    private newChatsWatcherCallback: (newMessages: boolean) => any;
 
 
     sendMessage(message: Message, senderID: string, room: string): Promise<PushResult> {
         this.updateLastActive();
 
         var messagesUrl = "/messages/" + senderID + "/" + room;
-
-        console.log("+++++++++++++++++++++ sending message: " + JSON.stringify(message));
         
         var chat: Chat = { room: room, lastMessageTime: message.timeStamp, guestID: senderID };
         var chatsUrl = "/chats/" + senderID + "/" + room;
@@ -36,8 +34,6 @@ export class ChatService {
     subscribeToMessages(senderID: string, room: string, callBack: (data: FBData) => any) {
         var messagesUrl = "/messages/" + senderID + "/" + room;
         firebase.addValueEventListener((data: FBData) => this.callbackWrapper(data, callBack), messagesUrl);
-
-        console.log("Subscribed to messages at url: " + messagesUrl);
     }
 
     getListOfChats(callBack: (data:FBData) => any) {
@@ -45,7 +41,7 @@ export class ChatService {
         firebase.addValueEventListener((data: FBData) => this.callbackWrapper(data, callBack), chatsUrl);
     }
 
-    subscribeToNewMessagesCallback(guestID: string, room: string, callback: ()=>void) {
+    subscribeToNewMessagesCallback(guestID: string, room: string, callback: (newMessages: boolean)=>void) {
         this.newChatsWatcherGuestID = guestID;
         this.newChatsWatcherRoom = room;
         this.newChatsWatcherCallback = callback;
@@ -102,7 +98,9 @@ export class ChatService {
             that.getLastActiveTime((lastActiveTime: Date) => {
                 if(newestMessageDate.getTime() > lastActiveTime.getTime()) {
                     console.log("NEW MESSAGES!!!!");
-                    that.newChatsWatcherCallback();
+                    that.newChatsWatcherCallback(true);
+                } else {
+                    that.newChatsWatcherCallback(false);
                 }
             });
         }
@@ -135,6 +133,7 @@ export class ChatService {
         console.log("Updating Last Active Timestamp: " + this.lastActiveTimeStamp);
         //write the timestamp to phone storage
         fs.knownFolders.documents().getFile("lastActive").writeText(this.lastActiveTimeStamp.toString());
+        this.checkForNewMessages();
     }
 
 }

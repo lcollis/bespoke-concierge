@@ -6,6 +6,7 @@ import { ChatService } from "../../services/chatServices/chat.service";
 import {Page} from "ui/page";
 import { Color } from "color";
 import { UserIdService } from "../../services/userId.service";
+import { NgZone } from "@angular/core/src/zone/ng_zone";
 
 @Component({
     selector: 'guestScreen',
@@ -14,9 +15,16 @@ import { UserIdService } from "../../services/userId.service";
 })
 
 export class GuestScreenComponent {
-    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService) {
+
+    newMessages: boolean = false;
+
+    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService, private _ngZone: NgZone) {
         _userIdService.getUserId().then((userID: string) => {
-            _chatService.subscribeToNewMessagesCallback(userID, "default", () => { console.log("new messages.") });
+            _chatService.subscribeToNewMessagesCallback(userID, "default", (newMessages) => { 
+                _ngZone.run(() => {
+                    console.log("--------------Got new Messages update and its: " + newMessages);
+                    this.newMessages = newMessages; });
+            });
         });
 
         page.actionBarHidden = true;
