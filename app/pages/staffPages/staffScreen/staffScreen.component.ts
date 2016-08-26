@@ -10,6 +10,8 @@ import { UserIdService } from "../../../services/userId.service";
 import { User } from "../../../services/user";
 import { Task } from "../../../services/taskServices/task";
 import { Observable } from "rxjs/Observable";
+import { ChatService } from "../../../services/chatServices/chat.service";
+import { NgZone } from "@angular/core/src/zone/ng_zone";
 var dialogs = require("ui/dialogs");
 
 @Component({
@@ -21,26 +23,36 @@ var dialogs = require("ui/dialogs");
 export class StaffScreenComponent {
 
     clockedSwitch: boolean;
+    newMessages: boolean;
     private user: User;
 
-    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService) {
+    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatService: ChatService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
 
-        this._userIdService.getUserId().then((userID: string) => {
-            this._databaseService.getApiData("Users").subscribe(
-                (response) => {
-                    //get the user from the server
-                    this.user = response._body.filter((u: User) => { return u.CMSUserID === parseInt(userID) })[0];
-                    if(!this.user) {
-                        alert("Could not find your userID in the server. Please try again.");
-                        this._router.navigate(["/Login"]);
-                    }
-                    //set the clocked value to the servers value
-                    this.clockedSwitch = this.user.Clocked;
-                });
-        }, (error) => {
-
+        //new messages indicator
+        this._chatService.subscribeToNewMessagesCallback("", "default", (newMessages: boolean) => { 
+            this._ngZone.run(() => {
+                this.newMessages = newMessages 
+                console.log("New messages callback: " + newMessages);
+            });
         });
+
+        // //clocking in and out
+        // this._userIdService.getUserId().then((userID: string) => {
+        //     this._databaseService.getApiData("Users").subscribe(
+        //         (response) => {
+        //             //get the user from the server
+        //             this.user = response._body.filter((u: User) => { return u.CMSUserID === parseInt(userID) })[0];
+        //             if(!this.user) {
+        //                 alert("Could not find your userID in the server. Please try again.");
+        //                 this._router.navigate(["/Login"]);
+        //             }
+        //             //set the clocked value to the servers value
+        //             this.clockedSwitch = this.user.Clocked;
+        //         });
+        // }, (error) => {
+
+        // });
 
         //allows for ios statusbar coloring
         page.backgroundSpanUnderStatusBar = true;

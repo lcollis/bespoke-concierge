@@ -16,7 +16,7 @@
         </StackLayout>
         <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="70">
             <Button text="Home" (tap)="home()" class="menu-button-bottom"></Button>
-            <Button text="Messages" [nsRouterLink]="['/StaffScreen/ChatSelector']" class="menu-button-bottom"></Button>
+            <Button [text]="newMessages? 'Messages !' : 'Messages'" [nsRouterLink]="['/StaffScreen/ChatSelector']" class="menu-button-bottom"></Button>
         </StackLayout>
     </GridLayout>
 </StackLayout>

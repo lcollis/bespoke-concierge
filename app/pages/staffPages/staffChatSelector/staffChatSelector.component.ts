@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import {Router} from '@angular/router';
 import {ChatService} from "../../../services/chatServices/chat.service";
 import {FromNowPipe} from "../../../pipes/fromnow.pipe";
@@ -13,8 +13,11 @@ import {FBData} from "nativescript-plugin-firebase";
 })
 export class StaffChatSelectorComponent {
     chats: Chat[];
+    hasNewMessage: boolean[];
     userID: string;
     loading: boolean = true;
+
+    @ViewChild("chatlist") chatlist;
 
     constructor(private _router: Router, private _chatService: ChatService, private _ngZone: NgZone) { }
 
@@ -29,17 +32,39 @@ export class StaffChatSelectorComponent {
                     that.chats.unshift(chat);
                 });
 
-                this._ngZone.run(() => {
+                that._ngZone.run(() => {
                     //sort chats by last message time
                     that.chats = that.chats.sort(function (c, d) {
                         var a = c.lastMessageTime;
                         var b = d.lastMessageTime;
                         return a > b ? -1 : a < b ? 1 : 0;
                     });
-                    that.loading = false;
+
+                    //set the has new messages flag
+                    that.hasNewMessage = new Array<boolean>(that.chats.length);
+                    
+                    that.chats.forEach((chat: Chat, index: number) => {
+                        that._chatService.chatHasNewMessages(chat.guestID, (hasNewMessages: boolean) => {
+                            that._ngZone.run(() => {
+                                that.hasNewMessage[index] = hasNewMessages;
+                                console.log("Writting: " + hasNewMessages);
+                                if(index === that.hasNewMessage.length - 1) {
+                                    that.loading = false;
+                                }
+                            });
+                        });
+                    });
+
                 });
             }
         });
+    }
+
+    chatHasNewMessage(chat: Chat): boolean {
+        var index = this.chats.indexOf(chat);
+        console.log("asking for index: " + index);
+        console.log("giving answer: " + this.hasNewMessage[index]);
+        return this.hasNewMessage[index];
     }
 
     onItemTap(args) {
