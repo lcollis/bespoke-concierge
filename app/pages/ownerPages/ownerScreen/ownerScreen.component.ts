@@ -5,6 +5,8 @@ import {Page} from "ui/page";
 import { Color } from "color";
 import {registerElement} from "nativescript-angular/element-registry";
 import { TaskService } from "../../../services/taskServices/task.service";
+import { NgZone } from "@angular/core/src/zone/ng_zone";
+import { ChatService } from "../../../services/chatServices/chat.service";
 
 @Component({
     selector: 'ownerScreen',
@@ -13,8 +15,19 @@ import { TaskService } from "../../../services/taskServices/task.service";
 
 })
 export class OwnerScreenComponent {
-    constructor(page: Page, private _router: Router, private _taskService: TaskService) {
+
+    newMessages: boolean;
+
+    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _chatService: ChatService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
+
+        //new messages indicator
+        this._chatService.subscribeToNewMessagesCallback("", "default", (newMessages: boolean) => { 
+            this._ngZone.run(() => {
+                this.newMessages = newMessages 
+                console.log("New messages callback: " + newMessages);
+            });
+        });
 
         //allows for ios statusbar coloring
         page.backgroundSpanUnderStatusBar = true;

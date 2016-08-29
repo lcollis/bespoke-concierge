@@ -34,7 +34,7 @@
 
 [ ]fix chat tap issue on ios. set background color of the list view template or the stack layout in it
 
-[everyone but owner so far]show unseen message notification in home screen(store a last time on screen variable on phone)
+[X]show unseen message notification in home screen(store a last time on screen variable on phone)
 [ ]add notifications (open app to the message with notification)
 [ ]only on urgent notify owner about task complete
 
