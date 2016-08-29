@@ -28,7 +28,7 @@
 
 [X]owner summary numbers at bottom of screen
 
-[ ]Call front desk button in top menu
+[X]Call front desk button in top menu
 
 [ ]loading screens
 

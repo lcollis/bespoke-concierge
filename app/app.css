@@ -33,6 +33,14 @@ button {
     border-width: 0.1;
 }
 
+.guest-menu-button-top {
+    height: 100%;
+    horizontal-align: center;
+    font-size: 22;
+    background-color: lightblue;
+    border-width: 0.1;
+}
+
 .menu-button-bottom {
     width: 50%;
     height: 100%;
@@ -52,4 +60,9 @@ button {
     background-color: #132020;
     color: white;
     height: "70";
+}
+
+.phone-button {
+    background-color: #F00;
+    font-size: 16;
 }

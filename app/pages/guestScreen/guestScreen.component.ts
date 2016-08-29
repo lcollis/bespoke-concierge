@@ -7,6 +7,7 @@ import {Page} from "ui/page";
 import { Color } from "color";
 import { UserIdService } from "../../services/userId.service";
 import { NgZone } from "@angular/core/src/zone/ng_zone";
+var phone = require( "nativescript-phone" );
 
 @Component({
     selector: 'guestScreen',
@@ -35,5 +36,10 @@ export class GuestScreenComponent {
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
         } catch (error) { }
+    }
+
+    phone() {
+        console.log("PHONE");
+        phone.dial("123-456-7890", true);
     }
 }

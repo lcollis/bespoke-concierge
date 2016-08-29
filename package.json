@@ -25,6 +25,7 @@
     "nativescript-angular": "0.3.0",
     "nativescript-iqkeyboardmanager": "^1.0.1",
     "nativescript-loading-indicator": "^2.0.1",
+    "nativescript-phone": "^1.1.0",
     "nativescript-plugin-firebase": "^3.4.4",
     "nativescript-screen-orientation": "^1.0.2",
     "nativescript-statusbar": "^1.0.0",

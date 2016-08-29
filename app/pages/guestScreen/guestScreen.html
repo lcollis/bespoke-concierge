@@ -2,10 +2,11 @@
     <StatusBar ios:barStyle="light" android:barStyle="lightblue"></StatusBar>
 
     <GridLayout columns="*" rows="70,*,70" class="content">
-        <StackLayout row="0" orientation="horizontal" class="menu-top" height="70">
-            <Button text="My itinerary" [nsRouterLink]="['/GuestScreen/Itinerary']" class="menu-button-top"></Button>
-            <Button text="My requests" [nsRouterLink]="['/GuestScreen/Requests']" class="menu-button-top"></Button>
-        </StackLayout>
+        <GridLayout row="0" rows="auto" columns="*,auto,*" class="menu-top" height="70">
+            <Button text="My itinerary" [nsRouterLink]="['/GuestScreen/Itinerary']" col='0' class="guest-menu-button-top"></Button>
+            <Button text="Call" (tap)="phone()" class="phone-button" col='1'></Button>
+            <Button text="My requests" [nsRouterLink]="['/GuestScreen/Requests']" col='2'  class="guest-menu-button-top"></Button>
+        </GridLayout>
         <StackLayout row="1">
             <router-outlet></router-outlet>
         </StackLayout>
