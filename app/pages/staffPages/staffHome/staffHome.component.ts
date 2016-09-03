@@ -6,13 +6,13 @@ import { UserIdService } from "../../../services/userId.service";
 import { ToLocalTimePipe } from "../../../pipes/toLocalTime.pipe";
 import { MomentPipe } from "../../../pipes/moment.pipe";
 import { Task } from '../../../services/taskServices/task';
-
+import { registerElement, ViewClass } from "nativescript-angular/element-registry";
 
 @Component({
     selector: 'staffHome',
     templateUrl: 'pages/staffPages/staffHome/staffHome.html',
     styleUrls: ['pages/staffPages/staffHome/staffHome.css'],
-    pipes: [ToLocalTimePipe, MomentPipe]
+    pipes: [ToLocalTimePipe, MomentPipe],
 })
 export class StaffHomeComponent {
 
@@ -24,10 +24,16 @@ export class StaffHomeComponent {
     constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService) {
         this.getTasks(this);
         this._taskService.setUpdateTaskListCallback(this.getTasks, this);
+
+        try {
+            registerElement("PullToRefresh", () => {
+                var viewClass = require("nativescript-pulltorefresh").PullToRefresh;
+                return viewClass;
+            });
+        } catch (error) {}
     }
 
-    getTasks(thisObject: any) {
-        thisObject.loading = true;
+    getTasks(thisObject: StaffHomeComponent, doneLoadingCallback?: () => any) {
         thisObject._userIdService.getUserId().then((userID: string) => {
             thisObject.userID = userID;
             thisObject._taskService.getAllTasks()
@@ -45,6 +51,9 @@ export class StaffHomeComponent {
                         thisObject.noTasks = true;
                     }
                     thisObject.loading = false;
+                    if(doneLoadingCallback) {
+                        doneLoadingCallback();
+                    }
                 }, (error: any) => {
                     console.log("error getting tasks");
                     console.log(error);
@@ -132,8 +141,14 @@ export class StaffHomeComponent {
         }
     }
 
-    onItemTap(args) {
+    refreshList(args) {
+        var pullRefresh = args.object;
+        this.getTasks(this, () => { 
+            pullRefresh.refreshing = false;
+        });
+    }
 
+    onItemTap(args) {
         var index = args.index;
         var task: Task = this.tasks[index];
         //dont go if its a separator

@@ -1,3 +1,6 @@
+.message-layout {
+    background-color: white;
+}
 .message-border-right {
     border-radius: 8;
     margin: 3;

@@ -153,7 +153,10 @@ export class DatabaseService {
             api.lastUpdate = new Date();
             if (api.url !== "") {
                 return this._http.get(api.url)
-                    .map(response => api.data = response);
+                    .map(response => { 
+                        return api.data = response;
+                    });
+
             } else {
                 console.log("No url given for api: " + api.name)
                 return new Observable(observer => {

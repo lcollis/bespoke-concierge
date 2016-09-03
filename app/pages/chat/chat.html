@@ -2,7 +2,7 @@
     <GridLayout>
         <ListView [items]="messages" separatorColor="white" itemLoading="listViewItemLoading" #listview>
             <template let-item="item">
-                <GridLayout columns="auto,*" rows="auto">
+                <GridLayout columns="auto,*" rows="auto" class="message-layout">
                     <Border col="1" [className]="'message-border' + (isMessageFromMe(item) ? '-right' : '-left')">
                         <StackLayout class="message-stack-layout" horizontalAlignment="right">
                             <Label [text]="item.timeStamp | fromNow" horizontalAlignment="right" class="message-timestamp"></Label>
