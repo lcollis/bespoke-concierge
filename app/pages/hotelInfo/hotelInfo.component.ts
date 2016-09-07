@@ -13,7 +13,16 @@ export class HotelInfoComponent {
 
     constructor(page: Page, _databaseService: DatabaseService) {
         _databaseService.getApiData("Info").subscribe(
-            (data) => this.hotelInfo = data,
+            (data) => { 
+                var hotelData = data._body;
+                console.log("Got hotel data: " + JSON.stringify(hotelData));
+                var hotelInfo = hotelData.filter((d) => { 
+                    console.log("d: " + JSON.stringify(d));
+                    return d.SettingName === "hotelInfo"
+                })[0];
+                console.log("hotel info: " + JSON.stringify(hotelInfo));
+                this.hotelInfo = hotelInfo.SettingValue;
+            },
             (error) => console.log(error)
         );
 
