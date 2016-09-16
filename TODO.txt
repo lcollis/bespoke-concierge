@@ -48,7 +48,7 @@
 
 [ ]-push almost all text to the server (confirmation pop up especially)
 
-[ ]-pull hotel info page text from server
+[X]-pull hotel info page text from server
 
 =================  kinda sorta want ==============
 
