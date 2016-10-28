@@ -1,0 +1,27 @@
+<GridLayout rows="auto,*,auto">
+    <GridLayout columns="*,*">
+        <Label col="0" [text]="guestID"></Label>
+        <Button col="1" text="Add Request" (tap)="makeRequest()"></Button>src/router
+    </GridLayout>
+    
+    <GridLayout row="1">
+        <ListView [items]="messages" separatorColor="white" itemLoading="listViewItemLoading" #listview>
+            <template let-item="item">
+                <GridLayout columns="auto,*" rows="auto" class="message-layout">
+                    <Border col="1" [className]="'message-border' + (isMessageFromMe(item) ? '-right' : '-left')">
+                        <StackLayout class="message-stack-layout" horizontalAlignment="right">
+                            <Label [text]="item.timeStamp | fromNow" horizontalAlignment="right" class="message-timestamp"></Label>
+                            <Label [text]="item.text" textWrap="true" horizontalAlignment="right" class="message-text"></Label>
+                        </StackLayout>
+                    </Border>
+                </GridLayout>
+            </template>
+        </ListView>
+    </GridLayout>
+
+    <GridLayout row="2" columns="*,auto">
+        <TextField hint="Enter message ...." row="1" [(ngModel)]="newMessage" [isEnabled]="!loading"></TextField>
+        <Button row="1" col="1" text="Send" (tap)="addMessage(newMessage)" [isEnabled]="!loading"></Button>
+    </GridLayout>
+    <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
+</GridLayout>

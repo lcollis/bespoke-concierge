@@ -1,0 +1,33 @@
+.message-layout {
+    background-color: white;
+}
+.message-border-right {
+    border-radius: 8;
+    margin: 3;
+
+    background-color: #00b863;
+    horizontal-align: right;
+}
+
+.message-border-left {
+    border-radius: 8;
+    margin: 3;
+
+    background-color: #888888;
+    horizontal-align: left;
+}
+
+.message-timestamp {
+    font-size: 11;
+    margin-bottom: 12;
+}
+
+.message-text {
+    font-size: 14;
+    text-align: right;
+}
+
+.message-stack-layout {
+    color: white;
+    margin: 12, 16, 12, 16;
+}

@@ -30,11 +30,12 @@
 
 [X]Call front desk button in top menu
 
-[ ]loading screens
-
 [X]fix chat tap issue on ios. set background color of the list view template or the stack layout in it
 
 [X]show unseen message notification in home screen(store a last time on screen variable on phone)
+
+[ ]loading screens
+
 [ ]add notifications (open app to the message with notification)
 [ ]only on urgent notify owner about task complete
 
@@ -54,4 +55,6 @@
 
 [ ]pop ups like the confirming of tasks sending to remove themselves after a bit
 
-[ ]let staff make requests for the user
+[I think it might be done]let staff make requests for the user
+
+[ ] Make the update note button in the request details screen work better
