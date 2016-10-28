@@ -1,0 +1,12 @@
+<StackLayout>
+    <Label [text]="'Making Request for Guest: ' guestID"></Label>
+    <Label [text]="Short Description: "></Label>
+    <TextField hint="Short Description" [(ngModel)]="request.ShortDescription"></TextField>
+    <Label [text]="Description: "></Label>
+    <TextField hint="Description"[(ngModel)]="request.Description"></TextField>
+
+    <StackLayout orientation="horizontal">
+        <Button text="Cancel" (tap)="cancel()"> </Button>
+        <Button text="Create" (tap)="createTask()"></Button>
+    </StackLayout>
+</StackLayout>

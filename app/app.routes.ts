@@ -35,6 +35,7 @@ import { OwnerTaskDetailComponent } from "./pages/ownerPages/ownerTaskDetail/own
 import { OwnerChatSelectorComponent } from "./pages/ownerPages/ownerChatSelector/ownerChatSelector.component";
 import { OwnerChatComponent } from "./pages/ownerPages/ownerChat/ownerChat.component";
 import { StaffTaskMaker } from "./pages/staffPages/staffTaskMaker/staffTaskMaker.component";
+import { OwnerTaskMaker } from "./pages/ownerPages/ownerTaskMaker/ownerTaskMaker.component";
 
 export const routes: RouterConfig = [
     { path: "", redirectTo: "/Login", pathMatch: "full" },
@@ -54,6 +55,7 @@ export const routes: RouterConfig = [
             { path: "", redirectTo: "/OwnerScreen/Home", pathMatch: "full" },
             { path: "Home", component: OwnerHomeComponent },
             { path: "TaskDetail", component: OwnerTaskDetailComponent },
+            { path: "TaskMaker", component: OwnerTaskMaker },
             { path: "ChatSelector", component: OwnerChatSelectorComponent },
             { path: "Chat", component: OwnerChatComponent },
         ]

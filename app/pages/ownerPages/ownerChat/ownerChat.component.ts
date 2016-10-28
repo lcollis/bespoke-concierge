@@ -10,8 +10,8 @@ import { Message } from "../../../services/chatServices/message";
 
 @Component({
     selector: 'staffChat',
-    templateUrl: 'pages/chat/chat.html',
-    styleUrls: ['pages/chat/chat.css'],
+    templateUrl: 'pages/staffChat/staffChat.html',
+    styleUrls: ['pages/staffPages/staffChat/staffChat.css'],
     pipes: [FromNowPipe]
 })
 export class OwnerChatComponent {
@@ -25,7 +25,7 @@ export class OwnerChatComponent {
 
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone) {
+    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _router: Router) {
         var that = this;
 
         this.messages = new Array<Message>();
@@ -85,5 +85,9 @@ export class OwnerChatComponent {
 
     isMessageFromMe(message: Message): boolean {
         return message.sender !== this.guestID;
+    }
+
+    makeRequest() {
+        this._router.navigate(["/OwnerScreen/TaskMaker/" + this.guestID]);
     }
 }
