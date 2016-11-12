@@ -10,7 +10,7 @@ import { Message } from "../../../services/chatServices/message";
 
 @Component({
     selector: 'staffChat',
-    templateUrl: 'pages/staffChat/staffChat.html',
+    templateUrl: 'pages/staffPages/staffChat/staffChat.html',
     styleUrls: ['pages/staffPages/staffChat/staffChat.css'],
     pipes: [FromNowPipe]
 })
