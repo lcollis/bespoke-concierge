@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { RouterExtensions} from "nativescript-angular/router";
 import {registerElement} from "nativescript-angular/element-registry";
 import { ChatService } from "../../services/chatServices/chat.service";
 import {Page} from "ui/page";
 import { Color } from "color";
 import { UserIdService } from "../../services/userId.service";
-import { NgZone } from "@angular/core/src/zone/ng_zone";
+import { DatabaseService } from "../../services/database.service";
+import { TaskService } from "../../services/taskServices/task.service";
+import { RequestPickerService } from "../../services/requestPicker.service";
+
 var phone = require( "nativescript-phone" );
 
 @Component({
     selector: 'guestScreen',
     templateUrl: "pages/guestScreen/guestScreen.html",
+    providers: [DatabaseService, TaskService, RequestPickerService],
 })
 
 export class GuestScreenComponent {

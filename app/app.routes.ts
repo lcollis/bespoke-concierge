@@ -1,6 +1,3 @@
-import { RouterConfig } from "@angular/router";
-import { nsProvideRouter } from "nativescript-angular/router"
-
 //components for routing 
 import { HomeComponent } from "./pages/home/home.component";
 import { OffersComponent } from "./pages/offers/offers.component";
@@ -36,8 +33,9 @@ import { OwnerChatSelectorComponent } from "./pages/ownerPages/ownerChatSelector
 import { OwnerChatComponent } from "./pages/ownerPages/ownerChat/ownerChat.component";
 import { StaffTaskMaker } from "./pages/staffPages/staffTaskMaker/staffTaskMaker.component";
 import { OwnerTaskMaker } from "./pages/ownerPages/ownerTaskMaker/ownerTaskMaker.component";
+import { PickerModal } from "./pages/modals/pickerModal.component";
 
-export const routes: RouterConfig = [
+export const routes = [
     { path: "", redirectTo: "/Login", pathMatch: "full" },
     { path: "Login", component: LoginComponent },
     {
@@ -87,6 +85,40 @@ export const routes: RouterConfig = [
     }
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-    nsProvideRouter(routes, {})
+export const navigatableComponents = [
+  LoginComponent,
+  StaffScreenComponent,
+  StaffHomeComponent,
+  StaffTaskDetailComponent,
+  StaffTaskMaker,
+  StaffChatSelectorComponent,
+  StaffChatComponent,
+  OwnerScreenComponent,
+  OwnerHomeComponent,
+  OwnerTaskDetailComponent,
+  OwnerTaskMaker,
+  OwnerChatSelectorComponent,
+  OwnerChatComponent,
+  GuestScreenComponent,
+  HomeComponent,
+  OffersComponent,
+  OfferDetailComponent,
+  HotelInfoComponent,
+  FaqComponent,
+  WeatherComponent,
+  TripAdvisorComponent,
+  SocialMediaComponent,
+  CalendarComponent,
+  RestaurantsComponent,
+  ChatComponent,
+  MenuComponent,
+  RequestsComponent,
+  ReservationComponent,
+  MakeRequestsComponent,
+  RequestDetailsComponent,
+  ForgotSomethingComponent,
+  TidyUpComponent,
+  MaintenanceComponent,
+  ItineraryComponent,
+  PickerModal,
 ];

@@ -1,19 +1,17 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
+import { Component, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterExtensions} from "nativescript-angular/router";
 import {Page} from "ui/page";
 import { Color } from "color";
 import {registerElement} from "nativescript-angular/element-registry";
 import { TaskService } from "../../../services/taskServices/task.service";
-import { NgZone } from "@angular/core/src/zone/ng_zone";
 import { ChatService } from "../../../services/chatServices/chat.service";
 
 @Component({
     selector: 'ownerScreen',
     templateUrl: 'pages/ownerPages/ownerScreen/ownerScreen.html',    
-    directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
-
 })
+
 export class OwnerScreenComponent {
 
     newMessages: boolean;

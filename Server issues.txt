@@ -1,0 +1,3 @@
+SQL SERVER BUGS
+1. Event api throws error
+2. AgentTask post claims the description element is null when its not

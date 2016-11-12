@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Chat } from "./chat";
 import { Message } from "./message";
 import { FBData, PushResult } from "nativescript-plugin-firebase";
-import { Router } from "@angular/router/src/router";
+import { Router } from "@angular/router";
 import firebase = require("nativescript-plugin-firebase");
 import fs = require("file-system");
 

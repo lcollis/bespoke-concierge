@@ -12,7 +12,6 @@ import { Message } from "../../../services/chatServices/message";
     selector: 'staffChat',
     templateUrl: 'pages/staffPages/staffChat/staffChat.html',
     styleUrls: ['pages/staffPages/staffChat/staffChat.css'],
-    pipes: [FromNowPipe]
 })
 export class StaffChatComponent {
 

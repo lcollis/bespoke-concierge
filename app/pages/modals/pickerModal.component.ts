@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ModalDialogParams} from "nativescript-angular/directives/dialogs";
 
 @Component({
@@ -13,8 +13,8 @@ import {ModalDialogParams} from "nativescript-angular/directives/dialogs";
 })
 export class PickerModal {
     
-    hasDate: boolean;
-    date: Date;
+    @Input() public hasDate: boolean;
+    @Input() public date: Date;
 
     constructor(private params: ModalDialogParams) {
         console.log("ModalContent.constructor: " + JSON.stringify(params))

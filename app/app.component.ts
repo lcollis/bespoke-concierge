@@ -1,26 +1,23 @@
-import { Component, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES } from "@angular/router";
-import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
+import { Component, NgZone } from "@angular/core";
+import { RouterExtensions } from "nativescript-angular/router";
 import {registerElement} from "nativescript-angular/element-registry";
+import { ChatService } from "./services/chatServices/chat.service";
+import { UserIdService } from "./services/userId.service";
 import {Page} from "ui/page";
-import fs = require("file-system");
-import firebase = require("nativescript-plugin-firebase");
 import { Color } from "color";
+import firebase = require("nativescript-plugin-firebase");
+import fs = require("file-system");
 
 var application = require("application");
 var orientationModule = require("nativescript-screen-orientation");
 
 @Component({
-    selector: 'app',
+    selector: "my-app",
     template: "<page-router-outlet></page-router-outlet>",
-    directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
+    providers: [ChatService, UserIdService]
 })
-
 export class AppComponent {
-
     constructor(page: Page, _routerExtensions: RouterExtensions, ngZone: NgZone) {
-        page.actionBarHidden = true;
-
         //fix the android back button just quitting everything
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent,
@@ -61,12 +58,11 @@ export class AppComponent {
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
         } catch (error) { }
-    }
 
-    ngOnInit() {
-        //lock screen orientation
-        orientationModule.setCurrentOrientation("portrait", function () {
-        });
+
+                //lock screen orientation
+        orientationModule.setCurrentOrientation("portrait", function () {});
+        
         //config firebase
         firebase.init({
             persist: false

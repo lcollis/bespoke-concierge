@@ -9,7 +9,6 @@ import {FBData} from "nativescript-plugin-firebase";
     selector: 'staffChatSelector',
     templateUrl: 'pages/staffPages/staffChatSelector/staffChatSelector.html',
     styleUrls: ['pages/staffPages/staffChatSelector/staffChatSelector.css'],
-    pipes: [FromNowPipe]
 })
 export class StaffChatSelectorComponent {
     chats: Chat[];

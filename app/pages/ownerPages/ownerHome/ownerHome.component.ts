@@ -13,7 +13,6 @@ import { registerElement, ViewClass } from "nativescript-angular/element-registr
     selector: 'staffHome',
     templateUrl: 'pages/ownerPages/ownerHome/ownerHome.html',
     styleUrls: ['pages/ownerPages/ownerHome/ownerHome.css'],
-    pipes: [ToLocalTimePipe, MomentPipe]
 })
 export class OwnerHomeComponent {
 

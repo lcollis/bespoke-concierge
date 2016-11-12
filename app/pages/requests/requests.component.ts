@@ -10,7 +10,6 @@ import { ToLocalTimePipe } from "../../pipes/toLocalTime.pipe";
     selector: 'requests',
     templateUrl: 'pages/requests/requests.html',
     styleUrls: ["pages/requests/requests.css"],
-    pipes: [FromNowPipe, ToLocalTimePipe]
 })
 export class RequestsComponent {
 

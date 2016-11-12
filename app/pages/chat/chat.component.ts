@@ -11,7 +11,6 @@ import { Message } from "../../services/chatServices/message";
     selector: 'chat',
     templateUrl: 'pages/chat/chat.html',
     styleUrls: ['pages/chat/chat.css'],
-    pipes: [FromNowPipe]
 })
 
 

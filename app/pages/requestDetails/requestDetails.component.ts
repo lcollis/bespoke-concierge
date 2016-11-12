@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
-import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/directives/dialogs";
+import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/directives/dialogs";
 var dialogs = require("ui/dialogs");
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 import { RequestPickerService, RequestDetails } from "../../services/requestPicker.service";
@@ -12,10 +12,8 @@ import { PickerModal } from "../modals/pickerModal.component";
 
 @Component({
     selector: 'requestDetails',
-    directives: [ModalDialogHost],
     templateUrl: 'pages/requestDetails/requestDetails.html',
     styleUrls: ['pages/requestDetails/requestDetails.css'],
-    pipes: [MomentPipe],
     providers: [ModalDialogService]
 })
 export class RequestDetailsComponent {

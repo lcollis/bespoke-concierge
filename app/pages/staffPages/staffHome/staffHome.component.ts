@@ -12,7 +12,6 @@ import { registerElement, ViewClass } from "nativescript-angular/element-registr
     selector: 'staffHome',
     templateUrl: 'pages/staffPages/staffHome/staffHome.html',
     styleUrls: ['pages/staffPages/staffHome/staffHome.css'],
-    pipes: [ToLocalTimePipe, MomentPipe],
 })
 export class StaffHomeComponent {
 

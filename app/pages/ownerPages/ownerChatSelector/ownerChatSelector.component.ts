@@ -9,7 +9,6 @@ import {FBData} from "nativescript-plugin-firebase";
     selector: 'ownerChatSelector',
     templateUrl: 'pages/ownerPages/ownerChatSelector/ownerChatSelector.html',
     styleUrls: ['pages/ownerPages/ownerChatSelector/ownerChatSelector.css'],
-    pipes: [FromNowPipe]
 })
 export class OwnerChatSelectorComponent {
     chats: Chat[];

@@ -12,7 +12,6 @@ import { User } from "../../../services/user";
     selector: 'ownerTaskDetail',
     templateUrl: 'pages/ownerPages/ownerTaskDetail/ownerTaskDetail.html',
     styleUrls: ['pages/ownerPages/ownerTaskDetail/ownerTaskDetail.css'],
-    directives: [NgClass]
 })
 export class OwnerTaskDetailComponent {
 

@@ -7,8 +7,8 @@
 
 android {  
   defaultConfig {  
-    generatedDensities = []  
-    applicationId = "org.nativescript.bespokeconcierge"
+    generatedDensities = []
+    applicationId = "org.nativescript.bespokeconcierge"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

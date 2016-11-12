@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/directives/dialogs";
+import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/modal-dialog";
 var dialogs = require("ui/dialogs");
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 import * as moment from 'moment';
@@ -16,11 +16,9 @@ import { MomentPipe } from "../../../pipes/moment.pipe";
 
 @Component({
     selector: 'reservation',
-    directives: [ModalDialogHost],
     templateUrl: 'pages/restaurants/reservation/reservation.html',
     styleUrls: ['pages/restaurants/reservation/reservation.css'],
-    pipes: [MomentPipe],
-    providers: [ModalDialogService]
+    providers: [ModalDialogService],
 })
 export class ReservationComponent {
 
@@ -35,14 +33,15 @@ export class ReservationComponent {
     specialOccasion: string;
     details: string;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService, private vcRef: ViewContainerRef) {
         this.restaurant = this._databaseService.getSelectedObject("Restaurant");
     }
 
     openDateModal(hasDate: boolean) {
         var options: ModalDialogOptions = {
             context: { hasDate: hasDate, date: hasDate? this.date : this.time },
-            fullscreen: false
+            fullscreen: false,
+            viewContainerRef: this.vcRef,
         };
 
         this.modal.showModal(PickerModal, options).then((res: Date) => {

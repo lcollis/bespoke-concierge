@@ -47,10 +47,16 @@ export class ItineraryComponent {
                                 }
                             }
                         }, (error: any) => {
+                            console.log("Error getting calendar events");
                             console.log(error);
+                            that.loading = false;
+                            that.noEvents = that.events.length === 0;
                         });
                 }, (error: any) => {
+                    console.log("Error getting itinerary events");
                     console.log(error);
+                    that.loading = false;
+                    that.noEvents = true;
                 });
 
             //get restaurant reservations and add these to itinerary too

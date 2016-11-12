@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import { NS_ROUTER_DIRECTIVES, NS_ROUTER_PROVIDERS, RouterExtensions} from "nativescript-angular/router";
+import { Component, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterExtensions} from "nativescript-angular/router";
 import {Page} from "ui/page";
 import { Color } from "color";
 import {registerElement} from "nativescript-angular/element-registry";
@@ -11,15 +11,13 @@ import { User } from "../../../services/user";
 import { Task } from "../../../services/taskServices/task";
 import { Observable } from "rxjs/Observable";
 import { ChatService } from "../../../services/chatServices/chat.service";
-import { NgZone } from "@angular/core/src/zone/ng_zone";
 var dialogs = require("ui/dialogs");
 
 @Component({
     selector: 'staffScreen',
     templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',    
-    directives: [NS_ROUTER_DIRECTIVES, ROUTER_DIRECTIVES]
-
 })
+
 export class StaffScreenComponent {
 
     clockedSwitch: boolean;

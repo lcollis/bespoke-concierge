@@ -53,7 +53,7 @@ export class CalendarComponent {
 
     receivingError(error) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert("Error getting Calendar Events. Please check your internet connection.");
         this._router.navigate(["/GuestScreen/Home"]);
     }
 

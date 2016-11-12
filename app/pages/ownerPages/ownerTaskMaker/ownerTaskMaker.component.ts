@@ -6,8 +6,8 @@ var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicato
 
 @Component({
     selector: 'ownerTaskMaker',
-    templateUrl: 'pages/ownwerPages/ownerTaskMaker/ownerTaskMaker.html',
-    styleUrls: ['pages/ownwerPages/ownerTaskMaker/ownerTaskMaker.css'],
+    templateUrl: 'pages/ownerPages/ownerTaskMaker/ownerTaskMaker.html',
+    styleUrls: ['pages/ownerPages/ownerTaskMaker/ownerTaskMaker.css'],
 })
 export class OwnerTaskMaker {
 
