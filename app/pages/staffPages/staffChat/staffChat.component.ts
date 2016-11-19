@@ -87,6 +87,6 @@ export class StaffChatComponent {
     }
 
     makeRequest() {
-        this._router.navigate(["/StaffScreen/TaskMaker/" + this.guestID]);
+        this._router.navigate(["/StaffScreen/TaskMaker"]);
     }
 }

@@ -55,6 +55,6 @@
 
 [ ]pop ups like the confirming of tasks sending to remove themselves after a bit
 
-[Still needs to be tested]let staff make requests for the user
+[X ugly but yes]let staff make requests for the user
 
 [ ] Make the update note button in the request details screen work better

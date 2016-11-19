@@ -22,6 +22,7 @@
     "nativescript-loading-indicator": "^2.2.1",
     "nativescript-phone": "^1.2.3",
     "nativescript-plugin-firebase": "^3.7.1",
+    "nativescript-pulltorefresh": "^1.1.8",
     "nativescript-screen-orientation": "^1.0.2",
     "nativescript-statusbar": "^1.0.0",
     "nativescript-theme-core": "^0.1.3",

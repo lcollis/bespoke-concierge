@@ -16,6 +16,7 @@ var dialogs = require("ui/dialogs");
 @Component({
     selector: 'staffScreen',
     templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',    
+    providers: [TaskService, ChatService, DatabaseService, UserIdService],
 })
 
 export class StaffScreenComponent {
