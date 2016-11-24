@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database.service";
 import { Faq } from "../../services/Faq";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'faq',
@@ -17,7 +18,7 @@ export class FaqComponent  {
 
     @ViewChild("listview") listView;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _textService: TextService) {
         _databaseService.getApiData("Faq").subscribe( 
             (data) => this.gotFaq(data),
             (error) => this.gotError(error)
@@ -48,7 +49,7 @@ export class FaqComponent  {
     
     gotError(error) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert(this._textService.getText().serverError);
         this._router.navigate(["/GuestScreen/Home"]);
     }
 }

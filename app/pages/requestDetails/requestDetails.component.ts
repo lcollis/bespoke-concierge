@@ -9,6 +9,7 @@ import { TaskService } from "../../services/taskServices/task.service";
 import { Task } from "../../services/taskServices/task";
 import { MomentPipe } from "../../pipes/moment.pipe";
 import { PickerModal } from "../modals/pickerModal.component";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'requestDetails',
@@ -27,7 +28,7 @@ export class RequestDetailsComponent {
     datePickerIsUp: boolean = false;
     timePickerIsUp: boolean = false;
 
-    constructor(private _routerExtensions: RouterExtensions, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService) {
+    constructor(private _routerExtensions: RouterExtensions, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService, private _textService: TextService) {
         this.requestDetails = _requestPickerService.requestDetails;
         console.log(JSON.stringify(this.requestDetails));
     }
@@ -106,13 +107,13 @@ export class RequestDetailsComponent {
                     if (hours >= 21 || hours < 6) {
                         dialogs.alert({
                             title: "Complete",
-                            message: "Request Sent! It's past 9pm so we may wait to complete your task until tomorrow morning, but feel free to message us with any changes in the meantime!",
+                            message: this._textService.getText().afterHoursRequestConfirmation,
                             okButtonText: "OK"
                         });
                     } else {
                         dialogs.alert({
                             title: "Complete",
-                            message: "Request Sent! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
+                            message: this._textService.getText().requestConfirmation,
                             okButtonText: "OK"
                         });
                     }
@@ -122,7 +123,7 @@ export class RequestDetailsComponent {
                     loader.hide();
 
                     console.log(error);
-                    alert("No connection to the internet. Request information not sent.");
+                    alert(this._textService.getText().serverError);
                 });
 
         });

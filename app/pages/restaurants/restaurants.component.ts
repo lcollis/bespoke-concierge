@@ -5,6 +5,7 @@ import { TaskService } from "../../services/taskServices/task.service";
 import { UserIdService } from "../../services/userId.service";
 import {Restaurants} from "../../services/restaurants";
 import { Task } from "../../services/taskServices/task";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'restaurants',
@@ -20,7 +21,7 @@ export class RestaurantsComponent {
 
     madeRequests: Task[];
 
-    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private _textService: TextService) {
         _databaseService.getApiData("Restaurant").subscribe(
             restaurant => this.getRestaurant(restaurant),
             error => this.receivingError(error));
@@ -57,7 +58,7 @@ export class RestaurantsComponent {
 
     receivingError(error) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert(this._textService.getText().serverError);
         this._router.navigate(["/GuestScreen/Home"]);
     }
 

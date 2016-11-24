@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {WeatherService} from "../../services/weather.service";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'weather',
@@ -18,11 +19,11 @@ export class WeatherComponent {
     icon: string;
     imageURL: string;
 
-    constructor(private _router: Router, weatherService: WeatherService) {
+    constructor(private _router: Router, weatherService: WeatherService, private _textService: TextService) {
         weatherService.getWeather()
-            .subscribe(
+        .subscribe(
             weather => this.gotWeather(weather),
-            error => this.weatherError(error));
+                error => this.weatherError(error));
 
     }
 
@@ -44,46 +45,46 @@ export class WeatherComponent {
 
     weatherError(error:any) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert(this._textService.getText().serverError);
         this._router.navigate(["/GuestScreen/Home"]);
     }
 
-    handleImage() {        
+    handleImage() {
         switch (this.icon) {
             case "clear-day":
             case "clear-night":
             case "wind":
                 this.imageURL = "sunny";
-                break;
+            break;
 
             case "cloudy":
             case "fog":
                 this.imageURL = "cloudy";
-                break;
+            break;
 
             case "rain":
                 this.imageURL = "drizzle";
-                break;
+            break;
 
-                case "partly-cloudy-day":                
-                case "partly-cloudy-night":                
+            case "partly-cloudy-day":
+            case "partly-cloudy-night":
                 this.imageURL = "mostlycloudy";
-                break;
+            break;
 
-                case "snow":
-                case "sleet":
+            case "snow":
+            case "sleet":
                 this.imageURL = "snow";
-                break;
+            break;
 
-                case "thunderstorm":
-                case "hail":
-                case "tornado":
+            case "thunderstorm":
+            case "hail":
+            case "tornado":
                 this.imageURL = "thunderstorm";
-                break;
+            break;
 
             default:
                 this.imageURL = "sunny";
-                break;
+            break;
         }
     }
 

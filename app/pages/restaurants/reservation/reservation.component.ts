@@ -12,6 +12,7 @@ import { Task } from "../../../services/taskServices/task";
 import { ItineraryEvent } from "../../../services/event";
 import { PickerModal } from "../../modals/pickerModal.component";
 import { MomentPipe } from "../../../pipes/moment.pipe";
+import { TextService } from "../../../services/text.service";
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ReservationComponent {
     specialOccasion: string;
     details: string;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService, private vcRef: ViewContainerRef) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _taskService: TaskService, private _userIdService: UserIdService, private modal: ModalDialogService, private vcRef: ViewContainerRef, private _textService: TextService) {
         this.restaurant = this._databaseService.getSelectedObject("Restaurant");
     }
 
@@ -90,13 +91,13 @@ export class ReservationComponent {
                     if (hours >= 21 || hours < 6) {
                         dialogs.alert({
                             title: "Complete",
-                            message: "Request Sent! It's past 9pm so we may wait to make your reservation until tomorrow morning, but feel free to message us with any changes in the meantime!",
+                            message: this._textService.getText().afterHoursRequestConfirmation,
                             okButtonText: "OK"
                         });
                     } else {
                         dialogs.alert({
                             title: "Complete",
-                            message: "We are making your reservation! Expect a message from us in a few minutes with details, and feel free to message us first with any changes!",
+                            message: this._textService.getText().requestConfirmation,
                             okButtonText: "OK"
                         });
                     }
@@ -106,7 +107,7 @@ export class ReservationComponent {
                     loader.hide();
 
                     console.log(error);
-                    alert("No connection to the internet. Reservation information not sent.");
+                    alert(this._textService.getText().serverError);
                 });
         });
     }

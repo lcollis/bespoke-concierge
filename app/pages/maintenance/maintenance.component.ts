@@ -4,6 +4,7 @@ import { RequestPickerService, RequestDetails } from "../../services/requestPick
 import { TaskService } from "../../services/taskServices/task.service";
 import { UserIdService } from "../../services/userId.service";
 import { Task } from "../../services/taskServices/task";
+import { TextService } from "../../services/text.service";
 
 
 @Component({
@@ -64,7 +65,7 @@ export class MaintenanceComponent {
     loading: boolean = true;
     madeRequests: Task[];
 
-    constructor(private _router: Router, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService) {
+    constructor(private _router: Router, private _requestPickerService: RequestPickerService, private _taskService: TaskService, private _userIdService: UserIdService, private _textService: TextService) {
         this._userIdService.getUserId().then((userID: string) => {
             this._taskService.getTasks(parseInt(userID)).subscribe((response) => {
                 this.madeRequests = response.filter((madeRequest) => {
@@ -83,6 +84,7 @@ export class MaintenanceComponent {
                 this.loading = false;
             }, (error) => {
                 console.log(error);
+                alert(this._textService.getText().serverError);
             });
         });
     }

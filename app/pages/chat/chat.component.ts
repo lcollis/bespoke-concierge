@@ -5,6 +5,7 @@ import { ListView } from "ui/list-view";
 import { FromNowPipe } from '../../pipes/fromnow.pipe';
 import { ChatService } from "../../services/chatServices/chat.service";
 import { UserIdService } from "../../services/userId.service";
+import { TextService } from "../../services/text.service";
 import { Message } from "../../services/chatServices/message";
 
 @Component({
@@ -26,7 +27,7 @@ export class ChatComponent {
 
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone) {
+    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _textService: TextService) {
         var that = this;
 
         this.messages = new Array<Message>();
@@ -75,7 +76,7 @@ export class ChatComponent {
             this._chatService.sendMessage(message, this.userID, this.room)
                 .catch((error: any) => {
                     console.log(error);
-                    alert("Error sending message. Please try again later");
+                    alert(this._textService.getText().chatError);
                 });
             this.newMessage = '';
         }

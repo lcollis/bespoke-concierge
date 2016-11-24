@@ -8,20 +8,21 @@ import { UserIdService } from "../../services/userId.service";
 import { DatabaseService } from "../../services/database.service";
 import { TaskService } from "../../services/taskServices/task.service";
 import { RequestPickerService } from "../../services/requestPicker.service";
+import { TextService } from "../../services/text.service";
 
 var phone = require( "nativescript-phone" );
 
 @Component({
     selector: 'guestScreen',
     templateUrl: "pages/guestScreen/guestScreen.html",
-    providers: [DatabaseService, TaskService, RequestPickerService],
+    providers: [DatabaseService, TaskService, RequestPickerService, TextService],
 })
 
 export class GuestScreenComponent {
 
     newMessages: boolean = false;
 
-    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService, private _ngZone: NgZone) {
+    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
         _userIdService.getUserId().then((userID: string) => {
             _chatService.subscribeToNewMessagesCallback(userID, "default", (newMessages) => { 
                 _ngZone.run(() => {

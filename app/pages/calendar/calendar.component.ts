@@ -4,6 +4,7 @@ var dialogs = require("ui/dialogs");
 import {Event, ItineraryEvent} from "../../services/event";
 import {DatabaseService} from "../../services/database.service";
 import {UserIdService} from "../../services/userId.service";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'calendar',
@@ -20,7 +21,7 @@ export class CalendarComponent {
     private receivedItineraryEvents = false;
     private receivedEvents = false;
 
-    constructor(private _router: Router, private _userIdService: UserIdService, private _databaseService: DatabaseService) {
+    constructor(private _router: Router, private _userIdService: UserIdService, private _databaseService: DatabaseService, private _textService: TextService) {
         _databaseService.getApiData("Calendar").subscribe(
             events => this.gotEvents(events),
             error => this.receivingError(error));
@@ -53,7 +54,8 @@ export class CalendarComponent {
 
     receivingError(error) {
         console.error(error.status);
-        alert("Error getting Calendar Events. Please check your internet connection.");
+        var alertText = this._textService.getText().serverError;
+        alert(alertText);
         this._router.navigate(["/GuestScreen/Home"]);
     }
 
@@ -64,15 +66,15 @@ export class CalendarComponent {
                 .subscribe((response) => {
                     dialogs.alert({
                         title: "Reserve",
-                        message: "Successfully reserved! You can find your reserved events in the Itinerary",
+                        message: this._textService.getText().calendarReservationConfirmation,
                         okButtonText: "OK"
                     });
-                    
+
                     var madeEvent = response._body;
                     this.itineraryEvents.push(madeEvent);
                     this.listView._elementRef.nativeElement.refresh();
                 }, (error) => {
-                    alert("Could not connect to the server. Please try again later.");
+                    this.receivingError(error);
                 });
         });
     }

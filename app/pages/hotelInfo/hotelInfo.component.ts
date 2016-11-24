@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {DatabaseService} from "../../services/database.service";
+import { TextService } from "../../services/text.service";
 import {Page} from "ui/page";
 
 @Component({
@@ -11,7 +12,7 @@ export class HotelInfoComponent {
 
     hotelInfo: string;
 
-    constructor(page: Page, _databaseService: DatabaseService) {
+    constructor(page: Page, _databaseService: DatabaseService, private _textService: TextService) {
         _databaseService.getApiData("Info").subscribe(
             (data) => { 
                 var hotelData = data._body;
@@ -23,7 +24,10 @@ export class HotelInfoComponent {
                 console.log("hotel info: " + JSON.stringify(hotelInfo));
                 this.hotelInfo = hotelInfo.SettingValue;
             },
-            (error) => console.log(error)
+            (error) => {
+                console.log(error)
+                alert(this._textService.getText().serverError);
+            }
         );
 
         page.actionBarHidden = true;

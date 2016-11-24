@@ -5,6 +5,7 @@ import { TaskService } from "../../services/taskServices/task.service";
 import {Task} from "../../services/taskServices/task";
 import {FromNowPipe} from "../../pipes/fromnow.pipe";
 import { ToLocalTimePipe } from "../../pipes/toLocalTime.pipe";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'requests',
@@ -18,7 +19,7 @@ export class RequestsComponent {
 
     tasks: Task[];
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService) {
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _textService: TextService) {
         _userIdService.getUserId().then((userID: string) => {
             _taskService.getTasks(parseInt(userID))
                 .subscribe((tasks) => {
@@ -31,7 +32,7 @@ export class RequestsComponent {
                     }
                 }, (error: any) => {
                     console.log(error);
-                    alert("No internet access. Could not get requests");
+                    alert(this._textService.getText().serverError);
                     _router.navigate(["/GuestScreen/Home"]);
                 }, () => {
                     this.loading = false;

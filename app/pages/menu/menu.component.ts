@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database.service";
 import {Menu} from "../../services/menu";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'menu',
@@ -14,7 +15,7 @@ export class MenuComponent implements OnInit {
    
     loading: boolean = true;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _textService: TextService) {
         _databaseService.getApiData("Menu").subscribe(
             menu => this.getMenu(menu),
             error => this.receivingError(error));
@@ -26,7 +27,7 @@ export class MenuComponent implements OnInit {
     }
     receivingError(error) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert(this._textService.getText().serverError);
         this._router.navigate(["/GuestScreen/Home"]);
     }
     ngOnInit() { }

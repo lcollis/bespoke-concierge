@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Page} from "ui/page";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'tripAdvisor',
@@ -10,10 +11,11 @@ export class TripAdvisorComponent {
 
     loading: boolean = true;
 
-    inviteText: string = "Consequat mollit sit incididunt sint do aute aute et velit labore deserunt.";
+    inviteText: string;
 
-    constructor(page: Page) {
+    constructor(page: Page, private _textService: TextService) {
         page.actionBarHidden = true;
+        this.inviteText = this._textService.getText().tripAdvisorText;
      }
 
     pageLoaded() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database.service";
 import { Offer } from "../../services/offer";
+import { TextService } from "../../services/text.service";
 
 @Component({
     selector: 'offers',
@@ -12,7 +13,7 @@ export class OffersComponent implements OnInit {
     offers: Offer[];
     loading: boolean = true;
 
-    constructor(private _router: Router, private _databaseService: DatabaseService) {
+    constructor(private _router: Router, private _databaseService: DatabaseService, private _textService: TextService) {
         _databaseService.getApiData("Offer").subscribe(
             offers => this.gotOffers(offers),
             error => this.receivingError(error));
@@ -25,7 +26,7 @@ export class OffersComponent implements OnInit {
 
     receivingError(error) {
         console.error(error.status);
-        alert("No Internet Connection");
+        alert(this._textService.getText().serverError);
         this._router.navigate(["/Home"]);
     }
 

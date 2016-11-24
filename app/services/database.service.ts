@@ -11,7 +11,6 @@ import {Menu} from "./menu";
 import {Offer} from "./offer";
 import {Restaurants} from "./restaurants";
 
-
 const defaultDelayTime: number = 5 * 60 * 1000; //5 minutes
 
 @Injectable()
@@ -26,7 +25,8 @@ export class DatabaseService {
         new ApiInfo("Itinerary", "http://bespokeapi.dev.bespoke.house/api/EventItenary", null, 0),
         new ApiInfo("Tasks", "http://bespokeapi.dev.bespoke.house/api/AgentTask", null, 0),
         new ApiInfo("Users", "http://bespokeapi.dev.bespoke.house/api/User"),
-        new ApiInfo("Info", "http://bespokeapi.dev.bespoke.house/api/hotelinfo")
+        new ApiInfo("Info", "http://bespokeapi.dev.bespoke.house/api/hotelinfo"),
+        new ApiInfo("Text", "", null),
     ];
 
     constructor(private _http: Http) { }

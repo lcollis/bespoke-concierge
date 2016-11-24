@@ -31,3 +31,7 @@
     color: white;
     margin: 12, 16, 12, 16;
 }
+
+.add-request-button {
+    font-size: 16;
+}
