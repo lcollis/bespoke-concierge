@@ -1,11 +1,11 @@
 <GridLayout rows="*,auto">
     <ListView [items]="events" *ngIf="!loading" height="100%">
         <template let-item="item">
-            <GridLayout rows="auto,auto,auto" columns="*, 4*">
-                <Label [text]="item.Subject" row="0" col="1"></Label>
-                <Label [text]="item.Description" row="1" col="1"></Label>
-                <Label [text]="item.StartTime | date: 'medium'" row="0" col="0" textWrap="true"></Label>
-                <Label [text]="item.EndTime | date: 'medium'" row="1" col="0" textWrap="true"></Label>
+            <GridLayout rows="auto,auto,auto" columns="3*, *">
+                <Label [text]="item.Subject" row="0" colSpan="2" class="title"></Label>
+                <Label [text]="item.Description" row="1" rowSpan="2" col="0" textWrap="true" class="description"></Label>
+                <Label [text]="item.StartTime | date: 'medium'" row="1" col="1" textWrap="true"></Label>
+                <Label [text]="item.EndTime | date: 'medium'" row="2" col="1" textWrap="true"></Label>
 
                 <Button text="Remove" (tap)="remove(item)" row="2" colSpan="2" *ngIf="item.Subject !== 'Dinner Reservation'"></Button>
             </GridLayout>

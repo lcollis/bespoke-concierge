@@ -5,3 +5,15 @@
     font-size: 20;
     color: black;
 }
+
+.title {
+    font-weight: bold;
+    font-size: 18;
+    color: black;
+}
+
+.description {
+    padding-left: 20;
+    padding-right: 20;
+    padding-bottom: 20;
+}

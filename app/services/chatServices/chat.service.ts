@@ -119,6 +119,11 @@ export class ChatService {
     private checkChatForNewMessages(lastActive: Date, userID: string, room: string, callback: (newMessages: boolean) => any) {
         var messagesUrl = "/chats/" + userID + "/" + room + "/";
         var onQueryEvent = function (result) {
+            if(!result.value) {
+                callback(false);
+                return;
+            }
+
             var newestMessageDate: Date = new Date(result.value.lastMessageTime);
 
             if (newestMessageDate.getTime() > lastActive.getTime()) {

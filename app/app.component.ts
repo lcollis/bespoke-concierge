@@ -17,7 +17,9 @@ var orientationModule = require("nativescript-screen-orientation");
     providers: [ChatService, UserIdService]
 })
 export class AppComponent {
-    constructor(page: Page, _routerExtensions: RouterExtensions, ngZone: NgZone) {
+    private pushToken = null;
+
+    constructor(page: Page, _routerExtensions: RouterExtensions, private _userIdService: UserIdService, ngZone: NgZone) {
         //fix the android back button just quitting everything
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent,
@@ -62,7 +64,7 @@ export class AppComponent {
 
                 //lock screen orientation
         orientationModule.setCurrentOrientation("portrait", function () {});
-        
+
         //config firebase
         firebase.init({
             persist: false
@@ -78,13 +80,17 @@ export class AppComponent {
         firebase.addOnPushTokenReceivedCallback(
             function (token) {
                 console.log("Firebase push token: " + token);
+                that.pushToken = token;
+
+                //store the push token on the server
+                that.storePushTokenOnServer();
 
                 //store the push token on the phone storage
                 var documentsFolder: fs.Folder = fs.knownFolders.documents();
                 var userPushTokenFile = documentsFolder.getFile("userPushToken.txt");
                 userPushTokenFile.writeText(token)
                     .then(function () {
-                        console.log("successfully stored pushToken on device");
+                        console.log("successfully stored pushToken on device: " + token);
                     }).catch(function (error) {
                         console.log("Error storing push token on device");
                         console.log(error);
@@ -95,5 +101,32 @@ export class AppComponent {
             function (message) {
                 console.log("Message: " + JSON.stringify(message));
             });
+
+        this.makeSurePushTokenIsOnServer();
+    }
+
+
+    storePushTokenOnServer() {
+        this._userIdService.getUserId()
+            .then((userID) => {
+                firebase.setValue("/pushTokens", { [userID]: this.pushToken });
+                console.log("Stored push token on server: " + this.pushToken);
+            });
+    }
+
+    makeSurePushTokenIsOnServer() {
+        //just push the token to the server every time just to make sure its up there
+        var that = this;
+        this.getPushTokenFromPhoneStorage()
+        .then((token) => {
+            that.pushToken = token;
+            that.storePushTokenOnServer();
+        });
+    }
+
+    getPushTokenFromPhoneStorage(): Promise<string> {
+        var documentsFolder: fs.Folder = fs.knownFolders.documents();
+        var userPushTokenFile = documentsFolder.getFile("userPushToken.txt");
+        return userPushTokenFile.readText();
     }
 }

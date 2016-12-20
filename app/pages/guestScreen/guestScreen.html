@@ -3,9 +3,9 @@
 
     <GridLayout columns="*" rows="70,*,70" class="content">
         <GridLayout row="0" rows="auto" columns="*,auto,*" class="menu-top" height="70">
-            <Button text="My itinerary" [nsRouterLink]="['/GuestScreen/Itinerary']" col='0' class="guest-menu-button-top"></Button>
+            <Button text="My itinerary" [nsRouterLink]="['/GuestScreen/Itinerary']" col='0' class="guest-menu-button-top-left"></Button>
             <Button text="Call" (tap)="phone()" class="phone-button" col='1'></Button>
-            <Button text="My requests" [nsRouterLink]="['/GuestScreen/Requests']" col='2'  class="guest-menu-button-top"></Button>
+            <Button text="My requests" [nsRouterLink]="['/GuestScreen/Requests']" col='2'  class="guest-menu-button-top-right"></Button>
         </GridLayout>
         <StackLayout row="1">
             <router-outlet></router-outlet>

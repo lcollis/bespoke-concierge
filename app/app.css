@@ -33,11 +33,25 @@ button {
     border-width: 0.1;
 }
 
-.guest-menu-button-top {
+.guest-menu-button-top-left {
     height: 100%;
     horizontal-align: center;
     font-size: 22;
-    background-color: lightblue;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 20;
+    background-color: #B3E5FC;
+    border-width: 0.1;
+}
+
+.guest-menu-button-top-right {
+    height: 100%;
+    horizontal-align: center;
+    font-size: 22;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 20;
+    background-color: #B3E5FC;
     border-width: 0.1;
 }
 
@@ -46,23 +60,26 @@ button {
     height: 100%;
     horizontal-align: center;
     font-size: 22;
+    font-weight: bold;
     background-color: #132020;
     border-width: 0.1;
 }
 
 .menu-top {
-    background-color: lightblue;
+    background-color: #B3E5FC;
     height: "70";
     color: black;
 }
 
 .menu-bottom {
-    background-color: #132020;
+    background-color: #0288D1;
     color: white;
     height: "70";
 }
 
 .phone-button {
-    background-color: #F00;
+    background-color: #132020;
+    color: #FFF;
     font-size: 16;
+    font-weight: bold;
 } 

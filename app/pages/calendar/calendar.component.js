@@ -5,12 +5,14 @@ var dialogs = require("ui/dialogs");
 var event_1 = require("../../services/event");
 var database_service_1 = require("../../services/database.service");
 var userId_service_1 = require("../../services/userId.service");
+var text_service_1 = require("../../services/text.service");
 var CalendarComponent = (function () {
-    function CalendarComponent(_router, _userIdService, _databaseService) {
+    function CalendarComponent(_router, _userIdService, _databaseService, _textService) {
         var _this = this;
         this._router = _router;
         this._userIdService = _userIdService;
         this._databaseService = _databaseService;
+        this._textService = _textService;
         this.itineraryEvents = new Array();
         this.loading = true;
         this.receivedItineraryEvents = false;
@@ -40,7 +42,8 @@ var CalendarComponent = (function () {
     };
     CalendarComponent.prototype.receivingError = function (error) {
         console.error(error.status);
-        alert("Error getting Calendar Events. Please check your internet connection.");
+        var alertText = this._textService.getText().serverError;
+        alert(alertText);
         this._router.navigate(["/GuestScreen/Home"]);
     };
     CalendarComponent.prototype.addToItinerary = function (event) {
@@ -51,14 +54,14 @@ var CalendarComponent = (function () {
                 .subscribe(function (response) {
                 dialogs.alert({
                     title: "Reserve",
-                    message: "Successfully reserved! You can find your reserved events in the Itinerary",
+                    message: _this._textService.getText().calendarReservationConfirmation,
                     okButtonText: "OK"
                 });
                 var madeEvent = response._body;
                 _this.itineraryEvents.push(madeEvent);
                 _this.listView._elementRef.nativeElement.refresh();
             }, function (error) {
-                alert("Could not connect to the server. Please try again later.");
+                _this.receivingError(error);
             });
         });
     };
@@ -107,7 +110,7 @@ var CalendarComponent = (function () {
             templateUrl: 'pages/calendar/calendar.html',
             styleUrls: ['pages/calendar/calendar.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, userId_service_1.UserIdService, database_service_1.DatabaseService])
+        __metadata('design:paramtypes', [router_1.Router, userId_service_1.UserIdService, database_service_1.DatabaseService, text_service_1.TextService])
     ], CalendarComponent);
     return CalendarComponent;
 }());
