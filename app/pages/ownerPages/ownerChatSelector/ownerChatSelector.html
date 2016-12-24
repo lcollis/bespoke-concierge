@@ -1,5 +1,5 @@
 <StackLayout>
-    <ListView [items]="chats" (itemTap)="onItemTap($event)" *ngIf="!loading">
+    <ListView [items]="chats" (itemTap)="onItemTap($event)" height="100%" *ngIf="!loading">
         <template let-item="item">
             <StackLayout>
                 <GridLayout rows="auto,auto" columns="2*,*" width="100%" class="list-item">

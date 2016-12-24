@@ -9,7 +9,6 @@ import firebase = require("nativescript-plugin-firebase");
 import fs = require("file-system");
 
 var application = require("application");
-var orientationModule = require("nativescript-screen-orientation");
 
 @Component({
     selector: "my-app",
@@ -60,11 +59,7 @@ export class AppComponent {
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
         } catch (error) { }
-
-
-                //lock screen orientation
-        orientationModule.setCurrentOrientation("portrait", function () {});
-
+ 
         //config firebase
         firebase.init({
             persist: false
