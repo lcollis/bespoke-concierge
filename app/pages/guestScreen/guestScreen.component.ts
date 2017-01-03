@@ -24,9 +24,8 @@ export class GuestScreenComponent {
 
     constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
         _userIdService.getUserId().then((userID: string) => {
-            _chatService.subscribeToNewMessagesCallback(userID, "default", (newMessages) => { 
+            _chatService.subscribeToNewMessagesCallback(userID, "default", (newMessages) => {
                 _ngZone.run(() => {
-                    console.log("--------------Got new Messages update and its: " + newMessages);
                     this.newMessages = newMessages; });
             });
         });

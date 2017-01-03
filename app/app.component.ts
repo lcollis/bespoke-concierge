@@ -59,14 +59,12 @@ export class AppComponent {
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
         } catch (error) { }
- 
+
         //config firebase
         firebase.init({
             persist: false
         }).then(
-            (instance) => {
-                console.log("firebase.init done");
-            },
+            (instance) => { },
             (error) => {
                 console.log("firebase.init error: " + error);
             });
