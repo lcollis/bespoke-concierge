@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FBData, PushResult } from "nativescript-plugin-firebase";
 import { ListView } from "ui/list-view";
 import { FromNowPipe } from '../../../pipes/fromnow.pipe';
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { AdminChatService } from "../../../services/chatServices/adminChat.service";
 import { UserIdService } from "../../../services/userId.service";
 import { Message } from "../../../services/chatServices/message";
 
@@ -24,7 +24,7 @@ export class OwnerChatComponent {
 
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _router: Router) {
+    constructor(private _chatService: AdminChatService, private _userIdService: UserIdService, ngZone: NgZone, private _router: Router) {
         var that = this;
 
         this.messages = new Array<Message>();

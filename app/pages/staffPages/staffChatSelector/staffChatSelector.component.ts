@@ -1,6 +1,6 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
 import {Router} from '@angular/router';
-import {ChatService} from "../../../services/chatServices/chat.service";
+import {AdminChatService} from "../../../services/chatServices/adminChat.service";
 import {FromNowPipe} from "../../../pipes/fromnow.pipe";
 import {Chat} from "../../../services/chatServices/chat";
 import {FBData} from "nativescript-plugin-firebase";
@@ -18,7 +18,7 @@ export class StaffChatSelectorComponent {
 
     @ViewChild("chatlist") chatlist;
 
-    constructor(private _router: Router, private _chatService: ChatService, private _ngZone: NgZone) { }
+    constructor(private _router: Router, private _chatService: AdminChatService, private _ngZone: NgZone) { }
 
     ngOnInit() {
         var that = this;
@@ -41,7 +41,7 @@ export class StaffChatSelectorComponent {
 
                     //set the has new messages flag
                     that.hasNewMessage = new Array<boolean>(that.chats.length);
-                    
+
                     that.chats.forEach((chat: Chat, index: number) => {
                         that._chatService.chatHasNewMessages(chat.guestID, (hasNewMessages: boolean) => {
                             that._ngZone.run(() => {
@@ -68,7 +68,7 @@ export class StaffChatSelectorComponent {
 
     onItemTap(args) {
        var index = args.index;
-       var chat: Chat = this.chats[index] 
+       var chat: Chat = this.chats[index]
        this._chatService.selectedChatUserID = chat.guestID;
        this._router.navigate(['/StaffScreen/Chat']);
     }

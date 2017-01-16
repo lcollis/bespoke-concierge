@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import {Router} from '@angular/router';
-import {ChatService} from "../../../services/chatServices/chat.service";
+import {AdminChatService} from "../../../services/chatServices/adminChat.service";
 import {FromNowPipe} from "../../../pipes/fromnow.pipe";
 import {Chat} from "../../../services/chatServices/chat";
 import {FBData} from "nativescript-plugin-firebase";
@@ -16,7 +16,7 @@ export class OwnerChatSelectorComponent {
     userID: string;
     loading: boolean = true;
 
-    constructor(private _router: Router, private _chatService: ChatService, private _ngZone: NgZone) { }
+    constructor(private _router: Router, private _chatService: AdminChatService, private _ngZone: NgZone) { }
 
     ngOnInit() {
         var that = this;
@@ -39,7 +39,7 @@ export class OwnerChatSelectorComponent {
 
                     //set the has new messages flag
                     that.hasNewMessage = new Array<boolean>(that.chats.length);
-                    
+
                     that.chats.forEach((chat: Chat, index: number) => {
                         that._chatService.chatHasNewMessages(chat.guestID, (hasNewMessages: boolean) => {
                             that._ngZone.run(() => {
@@ -65,7 +65,7 @@ export class OwnerChatSelectorComponent {
 
     onItemTap(args) {
        var index = args.index;
-       var chat: Chat = this.chats[index] 
+       var chat: Chat = this.chats[index]
        this._chatService.selectedChatUserID = chat.guestID;
        this._router.navigate(['/OwnerScreen/Chat']);
     }
