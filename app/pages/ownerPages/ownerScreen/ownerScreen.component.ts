@@ -9,7 +9,7 @@ import { ChatService } from "../../../services/chatServices/chat.service";
 
 @Component({
     selector: 'ownerScreen',
-    templateUrl: 'pages/ownerPages/ownerScreen/ownerScreen.html',    
+    templateUrl: 'pages/ownerPages/ownerScreen/ownerScreen.html',
 })
 
 export class OwnerScreenComponent {
@@ -18,14 +18,6 @@ export class OwnerScreenComponent {
 
     constructor(page: Page, private _router: Router, private _taskService: TaskService, private _chatService: ChatService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
-
-        //new messages indicator
-        this._chatService.subscribeToNewMessagesCallback("", "default", (newMessages: boolean) => { 
-            this._ngZone.run(() => {
-                this.newMessages = newMessages 
-                console.log("New messages callback: " + newMessages);
-            });
-        });
 
         //allows for ios statusbar coloring
         page.backgroundSpanUnderStatusBar = true;
@@ -40,7 +32,7 @@ export class OwnerScreenComponent {
     }
 
     lookup() {
-        
+
     }
 
     home() {

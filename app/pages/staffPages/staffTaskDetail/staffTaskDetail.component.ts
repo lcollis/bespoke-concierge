@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
 import { DatabaseService } from "../../../services/database.service";
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { AdminChatService } from "../../../services/chatServices/adminChat.service";
 import { Task } from '../../../services/taskServices/task';
 import { User } from "../../../services/user";
 
@@ -21,7 +21,7 @@ export class StaffTaskDetailComponent {
     taskAssignedToButler: boolean = false;
     butlerID: number = -1;
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService, private _dbService: DatabaseService) {
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: AdminChatService, private _dbService: DatabaseService) {
         this.task = _taskService.selectedTask;
         this.isTaskAssignedToMe = _taskService.isSelectedTaskAssignedToMe;
         this._dbService.getApiData("Users")

@@ -1,6 +1,6 @@
 import { Task } from "../../../services/taskServices/task";
 import { TaskService } from "../../../services/taskServices/task.service";
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { AdminChatService } from "../../../services/chatServices/adminChat.service";
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
@@ -15,7 +15,7 @@ export class OwnerTaskMaker {
     guestID: string;
     request: Task;
 
-    constructor(private _router: Router, private taskService: TaskService, private _chatService: ChatService) {
+    constructor(private _router: Router, private taskService: TaskService, private _chatService: AdminChatService) {
         this.guestID = this._chatService.selectedChatUserID;
         console.log("GOT GUEST ID: " + this.guestID);
         this.request = new Task("", "", new Date(), Task.Priorities[0], parseInt(this.guestID));

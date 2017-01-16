@@ -15,7 +15,7 @@ var dialogs = require("ui/dialogs");
 
 @Component({
     selector: 'staffScreen',
-    templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',    
+    templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',
     providers: [TaskService, ChatService, DatabaseService, UserIdService],
 })
 
@@ -27,14 +27,6 @@ export class StaffScreenComponent {
 
     constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatService: ChatService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
-
-        //new messages indicator
-        this._chatService.subscribeToNewMessagesCallback("", "default", (newMessages: boolean) => { 
-            this._ngZone.run(() => {
-                this.newMessages = newMessages 
-                console.log("New messages callback: " + newMessages);
-            });
-        });
 
         // //clocking in and out
         // this._userIdService.getUserId().then((userID: string) => {
@@ -66,7 +58,7 @@ export class StaffScreenComponent {
     }
 
     lookup() {
-        
+
     }
 
     home() {

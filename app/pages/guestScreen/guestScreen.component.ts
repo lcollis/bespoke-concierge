@@ -20,16 +20,7 @@ var phone = require( "nativescript-phone" );
 
 export class GuestScreenComponent {
 
-    newMessages: boolean = false;
-
-    constructor(page: Page, _routerExtensions: RouterExtensions, _chatService: ChatService, _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
-        _userIdService.getUserId().then((userID: string) => {
-            _chatService.subscribeToNewMessagesCallback(userID, "default", (newMessages) => {
-                _ngZone.run(() => {
-                    this.newMessages = newMessages; });
-            });
-        });
-
+    constructor(page: Page, _routerExtensions: RouterExtensions, private _chatService: ChatService, _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
 
         //allows for ios statusbar coloring
