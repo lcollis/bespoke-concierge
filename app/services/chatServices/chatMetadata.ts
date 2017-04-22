@@ -5,11 +5,19 @@ export class ChatMetadata {
     lastMessageTime: number;
     seenByIDs: string[];
 
-    constructor(chatMetadata: ChatMetadata) {
-        this.lastMessageTime = chatMetadata.lastMessageTime;
-        this.guestID = chatMetadata.guestID;
-        this.room = chatMetadata.room;
-        this.seenByIDs = chatMetadata.seenByIDs || [];
+    constructor(chatMetadata?: ChatMetadata) {
+
+        if(chatMetadata) {
+            this.lastMessageTime = chatMetadata.lastMessageTime || 0;
+            this.guestID = chatMetadata.guestID || "";
+            this.room = chatMetadata.room || "default";
+            this.seenByIDs = chatMetadata.seenByIDs || [];
+        } else {
+            this.lastMessageTime = 0;
+            this.guestID = "";
+            this.room = "default";
+            this.seenByIDs = [];
+        }
     }
 
     resetSeenByIDs() {

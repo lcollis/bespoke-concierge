@@ -30,7 +30,7 @@ export class ChatListService {
         return false;
     }
 
-    private sortChatMetadata(metadata: ChatMetadata[]) {
+    private sortChatMetadata(metadata: ChatMetadata[]): ChatMetadata[] {
         return metadata.sort((a: ChatMetadata, b: ChatMetadata) => {
             return b.lastMessageTime - a.lastMessageTime;
         });

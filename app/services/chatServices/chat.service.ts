@@ -1,7 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Chat } from "./chat";
 import { UserIdService } from "../userId.service";
+import { ChatDatabaseAdapter } from "./chatDatabaseAdapter.service";
 import { Message } from "./message";
+import { ChatMetadata } from "./chatMetadata";
 import { FBData, PushResult } from "nativescript-plugin-firebase";
 import { Router, NavigationStart } from "@angular/router";
 import firebase = require("nativescript-plugin-firebase");
@@ -10,18 +12,80 @@ import fs = require("file-system");
 @Injectable()
 export class ChatService {
 
-    messages: Message[] = new Array<Message>();
-    private messagesData: FBData;
+    chat: Chat = new Chat();
+    loadingMessages: boolean = true;
 
-    unreadMessages: boolean = false; //public marker that there are new unread messages
+    constructor(private _chatDatabaseAdapter: ChatDatabaseAdapter, private _ngZone: NgZone) { }
 
-    private userID: string;
+    connectToChatWithGuestID(guestID: string, onNewMessagesCallback: () => any) {
+        //set the chat metadatas guestID to the right guestID while the real metadata loads
+        this.chat.metadata.guestID = guestID;
 
-    private onMessageCallback: () => any;
 
-    private lastViewedMessageTime: number;
-    private viewingMessages: boolean = false;
-    private lastViewedMessageFileName = "lastviewedmessage";
+        //subscribe to the chat
+        this._chatDatabaseAdapter.subscribeToChatMessages(guestID,
+            (messages: Message[]) => {
+                //run in ngzone so that the data is updated in the view
+                this._ngZone.run(() => {
+                    this.chat.messages = this.sortChatMessages(messages);
+                    this.loadingMessages = false;
+
+                    onNewMessagesCallback();
+                });
+            });
+
+        //subscribe to the chat metadata
+        this._chatDatabaseAdapter.subscribeToChatMetadata(guestID,
+            (metadata: ChatMetadata) => {
+                this.chat.metadata = metadata;
+            });
+    }
+
+    sendMessage(message: Message) {
+        //update the chat metadata in firebase
+        this.chat.metadata.lastMessageTime = Math.max(this.chat.metadata.lastMessageTime, message.timeStamp);
+        this.chat.metadata.resetSeenByIDs();
+        this.chat.metadata.addSeenByID(message.sender);
+
+        this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
+
+        this._chatDatabaseAdapter.sendMessage(this.chat.metadata, message);
+
+       //  var chatsUrl = "/chats/" + senderID + "/" + room;
+       //  firebase.setValue(chatsUrl, chat);
+
+       //  //update the messages list in firebase
+       //  var messagesUrl = "/messages/" + senderID + "/" + room;
+       // return firebase.push(messagesUrl, message);
+    }
+
+    unseenMessages(userID: string): boolean {
+        if (this.chat) {
+            return !this.chat.metadata.hasBeenSeenByID(userID);
+        }
+
+        return false;
+    }
+
+    private sortChatMessages(messages: Message[]): Message[] {
+        messages.sort((a: Message, b: Message) => {
+            return a.timeStamp - b.timeStamp;
+        });
+
+        return messages;
+    }
+    // messages: Message[] = new Array<Message>();
+    // private messagesData: FBData;
+
+    // unreadMessages: boolean = false; //public marker that there are new unread messages
+
+    // private userID: string;
+
+    // private onMessageCallback: () => any;
+
+    // private lastViewedMessageTime: number;
+    // private viewingMessages: boolean = false;
+    // private lastViewedMessageFileName = "lastviewedmessage";
 
     // constructor(private _router: Router, private _userIdService: UserIdService, private _ngZone: NgZone) {
     //     //subscribe to the chat's message data

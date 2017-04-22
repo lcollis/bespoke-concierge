@@ -31,19 +31,33 @@ export class ChatDatabaseAdapter {
 
     }
 
-    subscribeToChat(metadata: ChatMetadata, callback: (chat: Chat) => any) {
-        var messagesUrl = "/messages/" + metadata.guestID + "/default";
+    subscribeToChatMetadata(guestID: string, callback: (metadata: ChatMetadata) => any) {
+        var metadataUrl = "/chats/" + guestID + "/default";
+
+        firebase.addValueEventListener((data: FBData) => {
+            if(data.value) {
+                callback(new ChatMetadata(data.value));
+            }
+        }, metadataUrl);
+    }
+
+    unsubscribeFromchatMetadata() {
+
+    }
+
+    subscribeToChatMessages(guestID: string, callback: (messages: Message[]) => any) {
+        var messagesUrl = "/messages/" + guestID + "/default";
 
         firebase.addValueEventListener((data: FBData) => {
             if(data.value) {
                 //parse FBData into a chat array and send it to the callback
-                var chat = new Chat();
+                var messages = [];
                 Object.keys(data.value).forEach((key) => {
                     var message: Message = data.value[key];
-                    chat.messages.push(message);
+                    messages.push(message);
                 });
 
-                callback(chat);
+                callback(messages);
             }
         }, messagesUrl);
     }
@@ -53,7 +67,8 @@ export class ChatDatabaseAdapter {
     }
 
     sendMessage(metadata: ChatMetadata, message: Message) {
-
+        var messagesUrl = "/messages/" + metadata.guestID + "/" + metadata.room;
+        return firebase.push(messagesUrl, message);
     }
 
     updateChatMetadata(metadata: ChatMetadata) {

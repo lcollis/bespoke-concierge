@@ -11,6 +11,7 @@ import { FromNowPipe } from "./pipes/fromnow.pipe";
 import { MomentPipe } from "./pipes/moment.pipe";
 import { ToLocalTimePipe } from "./pipes/toLocalTime.pipe";
 import { PickerModal } from "./pages/modals/pickerModal.component";
+import { ChatDatabaseAdapter } from "./services/chatServices/chatDatabaseAdapter.service";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,7 @@ import { PickerModal } from "./pages/modals/pickerModal.component";
         NativeScriptRouterModule,
         NativeScriptRouterModule.forRoot(routes)
     ],
-    providers: [ModalDialogService],
+    providers: [ModalDialogService, ChatDatabaseAdapter],
     entryComponents: [PickerModal],
 })
 class AppComponentModule {}
