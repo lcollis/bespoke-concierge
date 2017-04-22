@@ -23,47 +23,51 @@ export class ChatComponent {
 
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _textService: TextService) {
-        //get userId
-        this._userIdService.getUserId()
-            .then((userID: string) => {
-                this.userID = userID;
-            })
-            .catch((error: any) => {
-                console.log("Error getting userID");
-                console.log(error);
-            });
-    }
+    // constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _textService: TextService) {
+    //     //get userId
+    //     this._userIdService.getUserId()
+    //         .then((userID: string) => {
+    //             this.userID = userID;
+    //         })
+    //         .catch((error: any) => {
+    //             console.log("Error getting userID");
+    //             console.log(error);
+    //         });
+    // }
 
-    ngOnInit() {
-        this.scrollToBottom();
-        var that = this;
-        this._chatService.onNewMessage(() => {
-            this.scrollToBottom(that);
-        });
-    }
-
-    addMessage(text) {
-        if (text) {
-            var message: Message = { text: text, timeStamp: Date.now(), sender: this.userID };
-            this._chatService.sendMessage(message, this.userID)
-                .catch((error: any) => {
-                    console.log(error);
-                    alert(this._textService.getText().chatError);
-                });
-            this.newMessage = '';
-        }
-    }
-
-    isMessageFromMe(message: Message): boolean {
-        return message.sender === this.userID;
-    }
+    // ngOnInit() {
+    //     this.scrollToBottom();
+    //     var that = this;
+    //     this._chatService.onMessage(() => {
+    //         this.scrollToBottom(that);
+    //     });
 
 
-    private scrollToBottom(that=this) {
-        //needs the delay because this method gets called when the listview items are changing, or very soon afer that, and it takes the list view a little bit to get setup, and without this it will not scroll to the right spot consistently
-        setTimeout(() => {
-            that.listView._elementRef.nativeElement.scrollToIndex(that._chatService.messages.length - 1);
-        }, 30);
-    }
+    //     //TODO REMOVE THIS TESTING
+    //     console.log("CHAT COMPONENT GOT MESSAGES: " + JSON.stringify(this._chatService.messages));
+    // }
+
+    // addMessage(text) {
+    //     if (text) {
+    //         var message: Message = new Message(text, Date.now(), this.userID);
+    //         this._chatService.sendMessage(message, this.userID)
+    //             .catch((error: any) => {
+    //                 console.log(error);
+    //                 alert(this._textService.getText().chatError);
+    //             });
+    //         this.newMessage = '';
+    //     }
+    // }
+
+    // isMessageFromMe(message: Message): boolean {
+    //     return message.sender === this.userID;
+    // }
+
+
+    // private scrollToBottom(that=this) {
+    //     //needs the delay because this method gets called when the listview items are changing, or very soon afer that, and it takes the list view a little bit to get setup, and without this it will not scroll to the right spot consistently
+    //     setTimeout(() => {
+    //         that.listView._elementRef.nativeElement.scrollToIndex(that._chatService.messages.length - 1);
+    //     }, 30);
+    // }
 }

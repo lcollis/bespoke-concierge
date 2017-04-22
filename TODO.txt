@@ -43,7 +43,7 @@
 [I dont know how to make it animated. I can do a static image with a transition in though]loading screens
 
 [ ]add notifications (open app to the message with notification)
-    [ ] get the phone's firebase push token onto the server
+    [X] get the phone's firebase push token onto the server
 [ ]only on urgent notify owner about task complete
 
 [ ]clock in clock out (on clock out unassign all tasks assigned to them and alert are you sure you want to clock out all your tasks will go to open make sure you left notes)

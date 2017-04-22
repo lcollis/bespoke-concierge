@@ -11,105 +11,126 @@ import fs = require("file-system");
 export class ChatService {
 
     messages: Message[] = new Array<Message>();
-    newMessages: boolean = false; //public marker that there are new unread messages
+    private messagesData: FBData;
+
+    unreadMessages: boolean = false; //public marker that there are new unread messages
 
     private userID: string;
 
-    private onNewMessageCallback: () => any;
+    private onMessageCallback: () => any;
 
     private lastViewedMessageTime: number;
     private viewingMessages: boolean = false;
     private lastViewedMessageFileName = "lastviewedmessage";
 
-    constructor(private _router: Router, private _userIdService: UserIdService, private _ngZone: NgZone) {
-        this._userIdService.getUserId()
-            .then(id => {
-                    this.userID = id;
-                    var messagesUrl = "/messages/" + this.userID + "/default";
-                    firebase.addValueEventListener((data: FBData) => this.gotMesageData(data), messagesUrl);
-                })
-            .catch(error => console.log(error));
+    // constructor(private _router: Router, private _userIdService: UserIdService, private _ngZone: NgZone) {
+    //     //subscribe to the chat's message data
+    //     this._userIdService.getUserId()
+    //     .then(id => {
+    //         this.userID = id;
+    //         var messagesUrl = "/messages/" + this.userID + "/default";
+    //         firebase.addValueEventListener((data: FBData) => this.gotMesageData(data), messagesUrl);
+    //     })
+    //     .catch(error => console.log(error));
 
-        _router.events.subscribe(event => {
-            if(event instanceof NavigationStart) {
-                if(event.url === "/GuestScreen/Chat") {
-                    this.viewingMessages = true;
-                    this.updateLastViewedMessage();
-                    this.updateNewMessages();
-                } else {
-                    this.viewingMessages = false;
-                }
-            }
-        });
-
-        this.lastViewedMessageTime = parseInt(fs.knownFolders.documents().getFile(this.lastViewedMessageFileName).readTextSync((error) => console.log("error getting last viewed message: " + error)));
-    }
-
-
-    sendMessage(message, senderID, room="default"): Promise<any> {
-        //add the message the the messages array so it shows up on the screen
-        this.messages.push(message);
-
-        //update the chat entry in firebase
-        var chat: Chat = { room: room, lastMessageTime: message.timeStamp, guestID: senderID };
-        var chatsUrl = "/chats/" + senderID + "/" + room;
-        firebase.setValue(chatsUrl, chat);
-
-        //update push the message to firebase
-        var messagesUrl = "/messages/" + senderID + "/" + room;
-        return firebase.push(messagesUrl, message);
-    }
-
-    //this sets up a callback that lets the chat view know when new messages come in so it can scroll to the bottom
-    onNewMessage(callback: () => any) {
-        this.onNewMessageCallback = callback;
-    }
+    //     //subscribe to the router's navigation in order to determine when the user has read messages
+    //     _router.events.subscribe(event => {
+    //         if(event instanceof NavigationStart) {
+    //             if(event.url === "/GuestScreen/Chat") {
+    //                 this.viewingMessages = true;
+    //                 this.viewAllMessages();
+    //             } else {
+    //                 this.viewingMessages = false;
+    //             }
+    //         }
+    //     });
+    // }
 
 
+    // sendMessage(message, senderID, room="default"): Promise<any> {
+    //     //add the message the the messages array so it shows up on the screen
+    //     this.messages.push(message);
 
-    private gotMesageData(data: FBData) {
-        //needs the ngzone so that angular notices when new messages come in
-        this._ngZone.run(() => {
-            if(data.value) {
-                //fill this.messages with the messages
-                this.messages = new Array<Message>();
-                Object.keys(data.value).forEach((key) => {
-                    var message: Message = data.value[key];
-                    this.messages.push(message);
-                });
+    //     //update the chat entry in firebase
+    //     var chat: Chat = { room: room, lastMessageTime: message.timeStamp, guestID: senderID };
+    //     var chatsUrl = "/chats/" + senderID + "/" + room;
+    //     firebase.setValue(chatsUrl, chat);
 
-                //sort messages by time sent
-                this.messages.sort(function (a, b) {
-                    var c = new Date(a.timeStamp);
-                    var d = new Date(b.timeStamp);
-                    return c > d ? 1 : c < d ? -1 : 0;
-                });
+    //     //update the messages list in firebase
+    //     var messagesUrl = "/messages/" + senderID + "/" + room;
+    //     return firebase.push(messagesUrl, message);
+    // }
 
-                //call the onNewMessage callback to the view
-                if(this.onNewMessageCallback && this.viewingMessages) {
-                    this.onNewMessageCallback();
-                }
+    // //this sets up a callback that lets the chat view know when new messages come in so it can scroll to the bottom
+    // onMessage(callback: () => any) {
+    //     this.onMessageCallback = callback;
+    // }
+
+    // private gotMesageData(data: FBData) {
+    //     //needs the ngzone so that angular notices when new messages come in
+    //     this._ngZone.run(() => {
+    //         if(data.value) {
+    //             this.messagesData = data;
+    //             //fill this.messages with the messages
+    //             this.messages = new Array<Message>();
+    //             Object.keys(data.value).forEach((key) => {
+    //                 var message: Message = data.value[key];
+    //                 this.messages.push(message);
+    //             });
+
+    //             //sort messages by time sent
+    //             this.messages.sort(function (a, b) {
+    //                 var c = new Date(a.timeStamp);
+    //                 var d = new Date(b.timeStamp);
+    //                 return c > d ? 1 : c < d ? -1 : 0;
+    //             });
 
 
-                //update last viewed message if viewing page
-                if(this.viewingMessages) {
-                    this.updateLastViewedMessage();
-                }
+    //             if(this.viewingMessages) {
+    //                 //viewing the messages, so mark them all as read
+    //                 this.viewAllMessages();
+    //                 if(this.onMessageCallback) {
+    //                     //call the onNewMessage callback to the view only if there is a callback and if viewing messages
+    //                     this.onMessageCallback();
+    //                 }
+    //             } else {
+    //                 this.checkForUnreadMessages();
+    //             }
+    //         }
+    //     });
+    // }
 
-                this.updateNewMessages();
-            }
-        });
-    }
+    // //checks if there are new unviewed messages
+    // private checkForUnreadMessages() {
+    //     console.log("CHAT SERVICE: checking for unread messages");
+    //     var foundUnread = false;
+    //     this.messages.map((message: Message) => {
+    //         if(!message.seenByGuest) {
+    //             foundUnread = true;
+    //         }
+    //     });
 
-    //called whenever a new message is viewed
-    private updateLastViewedMessage() {
-        this.lastViewedMessageTime = this.messages[this.messages.length - 1].timeStamp;
-        fs.knownFolders.documents().getFile(this.lastViewedMessageFileName).writeTextSync(this.lastViewedMessageTime + "", error => console.log(error));
-    }
+    //     console.log("CHAT SERVICE: unreadMessages: " + foundUnread);
+    //     this.unreadMessages = foundUnread;
+    // }
 
-    //checks if there are new unviewed messages
-    private updateNewMessages() {
-        var newestMessageTime = this.messages[this.messages.length - 1].timeStamp;
-        this.newMessages = newestMessageTime > this.lastViewedMessageTime;
-    }
+    // private viewAllMessages() {
+    //     this.messages.map((message: Message) => {
+
+    //         //find the messages id in the server
+    //         var serverMessages = this.messagesData.value;
+    //         Object.keys(serverMessages).forEach((key) => {
+    //             var serverMessage: Message = serverMessages[key];
+    //             if(serverMessage.timeStamp === message.timeStamp) {
+    //                 if(!message.seenByGuest) {
+    //                     message.seenByGuest = true;
+    //                     //update the read value on the server
+    //                     var url = "/messages/" + this.userID + "/default/" + key;
+    //                     firebase.update(url, {'seenByGuest': true});
+    //                 }
+    //             }
+    //         });
+    //     });
+    //     this.checkForUnreadMessages();
+    // }
 }

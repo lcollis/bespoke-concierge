@@ -1,15 +1,15 @@
 <StackLayout>
-    <ListView [items]="chats" (itemTap)="onItemTap($event)" *ngIf="!loading" height="100%" #chatlist>
+    <ListView [items]="this._chatListService.chats" (itemTap)="onItemTap($event)" *ngIf="!this._chatListService.loadingMessages" height="100%" #chatlist>
         <template let-item="item">
             <StackLayout>
                 <GridLayout rows="auto,auto" columns="2*,*" width="100%" class="list-item">
                     <Label [text]="'Guest: ' + item.guestID" row="0"></Label>
                     <Label [text]="item.lastMessageTime | fromNow" row="0" col='1'></Label>
 
-                    <Label text="HAS NEW MESSAGES" row="1" col="0" *ngIf="chatHasNewMessage(item)"></Label>
+                    <Label text="HAS NEW MESSAGES" row="1" col="0" *ngIf="!item.hasBeenSeenByID(this.userID)"></Label>
                 </GridLayout>
             </StackLayout>
         </template>
     </ListView>
-	<ActivityIndicator *ngIf="loading" busy="true"></ActivityIndicator>
+	<ActivityIndicator *ngIf="this._chatListService.loadingMessages" busy="true"></ActivityIndicator>
 </StackLayout>

@@ -12,7 +12,7 @@
         </StackLayout>
         <StackLayout row="2" orientation="horizontal" class="menu-bottom" height="70">
             <Button text="Home" [nsRouterLink]="['/GuestScreen/Home']" class="menu-button-bottom"></Button>
-            <Button [text]="this._chatService.newMessages? 'Messages !' : 'Messages'" [nsRouterLink]="['/GuestScreen/Chat']" class="menu-button-bottom"></Button>
+            <Button [text]="this._chatService.unreadMessages? 'Messages !' : 'Messages'" [nsRouterLink]="['/GuestScreen/Chat']" class="menu-button-bottom"></Button>
         </StackLayout>
     </GridLayout>
 </StackLayout>

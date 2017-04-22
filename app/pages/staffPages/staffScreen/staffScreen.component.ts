@@ -1,31 +1,33 @@
 import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterExtensions} from "nativescript-angular/router";
-import {Page} from "ui/page";
+import { RouterExtensions } from "nativescript-angular/router";
+import { Page } from "ui/page";
 import { Color } from "color";
-import {registerElement} from "nativescript-angular/element-registry";
+import { registerElement } from "nativescript-angular/element-registry";
 import { TaskService } from "../../../services/taskServices/task.service";
 import { DatabaseService } from "../../../services/database.service";
 import { UserIdService } from "../../../services/userId.service";
 import { User } from "../../../services/user";
 import { Task } from "../../../services/taskServices/task";
 import { Observable } from "rxjs/Observable";
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { ChatListService } from "../../../services/chatServices/chatList.service";
+import { ChatDatabaseAdapter } from "../../../services/chatServices/chatDatabaseAdapter.service";
 var dialogs = require("ui/dialogs");
 
 @Component({
     selector: 'staffScreen',
     templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',
-    providers: [TaskService, ChatService, DatabaseService, UserIdService],
+    providers: [TaskService, ChatListService, DatabaseService, UserIdService, ChatDatabaseAdapter],
 })
 
 export class StaffScreenComponent {
 
     clockedSwitch: boolean;
-    newMessages: boolean;
     private user: User;
 
-    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatService: ChatService, private _ngZone: NgZone) {
+    userID: string = "1234";  //TODO do this properly
+
+    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatListService: ChatListService, private _ngZone: NgZone) {
         page.actionBarHidden = true;
 
         // //clocking in and out
