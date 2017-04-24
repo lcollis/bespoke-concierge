@@ -78,8 +78,6 @@ export class ChatDatabaseAdapter {
     updateChatMetadata(metadata: ChatMetadata) {
         var url = "/chats/" + metadata.guestID + "/" + metadata.room;
         firebase.update(url, metadata);
-        console.log("updating url: " + url);
-        console.log("with metadata: "+ JSON.stringify(metadata));
     }
 
     private formatChatMetadata(metadata: ChatMetadata) {
@@ -93,7 +91,6 @@ export class ChatDatabaseAdapter {
             formatedMetadata.seenByIDs = [];
             Object.getOwnPropertyNames(metadata.seenByIDs)
                 .map((key: string) => {
-                    console.log("key: " + key + " value: " + metadata.seenByIDs[key]);
                     if (key != "length") {
                         formatedMetadata.seenByIDs.push(metadata.seenByIDs[key]);
                     }

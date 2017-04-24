@@ -39,8 +39,6 @@ export class ChatMetadata {
             this.seenByIDs = [];
             return false;
         }
-        console.log("this.seenByIDs: " + JSON.stringify(this.seenByIDs));
-
         return this.seenByIDs.indexOf(id) != -1;
     }
 }

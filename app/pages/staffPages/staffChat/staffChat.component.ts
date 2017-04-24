@@ -11,6 +11,7 @@ import { Message } from "../../../services/chatServices/message";
     selector: 'staffChat',
     templateUrl: 'pages/staffPages/staffChat/staffChat.html',
     styleUrls: ['pages/staffPages/staffChat/staffChat.css'],
+    providers: [ChatService]
 })
 export class StaffChatComponent {
 

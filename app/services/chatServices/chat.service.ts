@@ -72,6 +72,12 @@ export class ChatService {
             // already connected to chat, so just add another callback to the list
             this.callbackList.push(new CallbackData(onNewMessagesCallback, callbackThis, canSeeChats));
             this.seeMessages(userID);
+
+            //if we have the messages, just call the callback because the messages are
+            //new to the this callback
+            if(!this.loadingMessages) {
+                onNewMessagesCallback.call(callbackThis);
+            }
         }
     }
 
@@ -102,13 +108,11 @@ export class ChatService {
     }
 
     private seeMessages(userID: string) {
-        console.log("seeing messages");
 
         //if you can see the new messages, and theyre marked unread, mark it as seen
         if (this.canSeeMessages() && !this.chat.metadata.hasBeenSeenByID(userID)) {
             this.chat.metadata.addSeenByID(userID);
             this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
-            console.log("should be updating metadata");
         }
     }
 
