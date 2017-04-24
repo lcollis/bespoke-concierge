@@ -24,7 +24,7 @@ export class StaffChatComponent {
         this._chatService.connectToChatWithGuestID(this._chatListService.selectedChatUserID, () => {
             //on new messages
             this.scrollToBottom();
-        });
+        }, this);
 
         //get userId
         this._userIdService.getUserId().then((userID: string) => {
@@ -33,6 +33,10 @@ export class StaffChatComponent {
             console.log("Error getting userID");
             console.log(error);
         });
+    }
+
+    ngOnDestroy() {
+        this._chatService.disconnectCallback(this);
     }
 
     isMessageFromMe(message: Message): boolean {

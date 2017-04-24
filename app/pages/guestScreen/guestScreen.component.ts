@@ -1,8 +1,9 @@
 import { Component, NgZone } from '@angular/core';
-import { RouterExtensions} from "nativescript-angular/router";
-import {registerElement} from "nativescript-angular/element-registry";
+import { RouterExtensions } from "nativescript-angular/router";
+import { registerElement } from "nativescript-angular/element-registry";
 import { ChatService } from "../../services/chatServices/chat.service";
-import {Page} from "ui/page";
+import { ChatDatabaseAdapter }  from "../../services/chatServices/chatDatabaseAdapter.service";
+import { Page } from "ui/page";
 import { Color } from "color";
 import { UserIdService } from "../../services/userId.service";
 import { DatabaseService } from "../../services/database.service";
@@ -15,12 +16,19 @@ var phone = require( "nativescript-phone" );
 @Component({
     selector: 'guestScreen',
     templateUrl: "pages/guestScreen/guestScreen.html",
-    providers: [DatabaseService, TaskService, RequestPickerService, TextService],
+    providers: [DatabaseService, ChatDatabaseAdapter, TaskService, RequestPickerService, TextService],
 })
 
 export class GuestScreenComponent {
 
-    constructor(page: Page, _routerExtensions: RouterExtensions, private _chatService: ChatService, _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
+    userID: string;
+
+    constructor(page: Page, _routerExtensions: RouterExtensions, private _chatService: ChatService, private _userIdService: UserIdService, private _textService: TextService, private _ngZone: NgZone) {
+        this._userIdService.getUserId()
+            .then((userID: string) => {
+                this.userID = userID;
+                this._chatService.connectToChatWithGuestID(userID, () => {}, this);
+            });
         page.actionBarHidden = true;
 
         //allows for ios statusbar coloring
@@ -34,5 +42,9 @@ export class GuestScreenComponent {
     phone() {
         console.log("PHONE");
         phone.dial("123-456-7890", true);
+    }
+
+    unseenMessages() : boolean {
+        return this._chatService.unseenMessages(this.userID);
     }
 }

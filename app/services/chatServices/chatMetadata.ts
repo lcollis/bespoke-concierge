@@ -25,12 +25,21 @@ export class ChatMetadata {
     }
 
     addSeenByID(seenByID: string) {
+        if(this.seenByIDs == null) {
+            this.seenByIDs = [];
+        }
+
         if(!this.hasBeenSeenByID(seenByID)) {
             this.seenByIDs.push(seenByID);
         }
     }
 
     hasBeenSeenByID(id: string): boolean {
+        if(this.seenByIDs == null) {
+            this.seenByIDs = [];
+            return false;
+        }
+
         return this.seenByIDs.indexOf(id) != -1;
     }
 }
