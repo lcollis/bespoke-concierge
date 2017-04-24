@@ -20,15 +20,15 @@ export class StaffChatComponent {
     @ViewChild("listview") listView;
 
     constructor(private _chatService: ChatService, private _chatListService: ChatListService, private _userIdService: UserIdService, private _router: Router) {
-        //get the right chat data
-        this._chatService.connectToChatWithGuestID(this._chatListService.selectedChatUserID, () => {
-            //on new messages
-            this.scrollToBottom();
-        }, this);
 
         //get userId
         this._userIdService.getUserId().then((userID: string) => {
             this.userID = userID;
+            //get the right chat data
+            this._chatService.connectToChatWithGuestID(userID, this._chatListService.selectedChatUserID, () => {
+                //on new messages
+                this.scrollToBottom();
+            }, this, true);
         }).catch((error: any) => {
             console.log("Error getting userID");
             console.log(error);

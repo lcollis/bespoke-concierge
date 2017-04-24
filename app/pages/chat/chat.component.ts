@@ -22,7 +22,7 @@ export class ChatComponent {
         this._userIdService.getUserId()
             .then((userID: string) => {
                 this.userID = userID;
-                this._chatService.connectToChatWithGuestID(this.userID, this.scrollToBottom, this);
+                this._chatService.connectToChatWithGuestID(this.userID, this.userID, this.scrollToBottom, this, true);
             })
             .catch((error: any) => {
                 console.log("Error getting userID");

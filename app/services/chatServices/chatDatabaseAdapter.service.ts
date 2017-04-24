@@ -17,8 +17,10 @@ export class ChatDatabaseAdapter {
             if (data.value) {
                 //parse FBData into an array of Chat Metadatas and send it to the callback
                 var chatsMetadata = new Array<ChatMetadata>();
-                Object.keys(data.value).forEach(function (key) {
+                Object.keys(data.value).forEach((key: string) => {
                     var metadata: ChatMetadata = new ChatMetadata(data.value[key].default);
+                    metadata = this.formatChatMetadata(metadata);
+
                     chatsMetadata.push(metadata);
                 });
 
@@ -36,7 +38,9 @@ export class ChatDatabaseAdapter {
 
         firebase.addValueEventListener((data: FBData) => {
             if(data.value) {
-                callback(new ChatMetadata(data.value));
+                var metadata = this.formatChatMetadata(data.value);
+                // chatsMetadata.push(this.formatMetadata(metadata));
+                callback(new ChatMetadata(metadata));
             }
         }, metadataUrl);
     }
@@ -76,5 +80,30 @@ export class ChatDatabaseAdapter {
         firebase.update(url, metadata);
         console.log("updating url: " + url);
         console.log("with metadata: "+ JSON.stringify(metadata));
+    }
+
+    private formatChatMetadata(metadata: ChatMetadata) {
+        //format the seenByIds properly.
+        //firebase stores arrays as "key": "value"
+        //where key is usually indicies 0, 1, 2, ect
+        //so we have to strip off the keys and just have
+        //an array of the values
+        if (metadata.seenByIDs) {
+            var formatedMetadata = new ChatMetadata(metadata);
+            formatedMetadata.seenByIDs = [];
+            Object.getOwnPropertyNames(metadata.seenByIDs)
+                .map((key: string) => {
+                    console.log("key: " + key + " value: " + metadata.seenByIDs[key]);
+                    if (key != "length") {
+                        formatedMetadata.seenByIDs.push(metadata.seenByIDs[key]);
+                    }
+                });
+
+            return formatedMetadata;
+        } else {
+            //no seen by IDs
+            metadata.seenByIDs = [];
+            return metadata;
+        }
     }
 }

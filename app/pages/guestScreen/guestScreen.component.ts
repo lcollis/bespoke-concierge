@@ -27,7 +27,7 @@ export class GuestScreenComponent {
         this._userIdService.getUserId()
             .then((userID: string) => {
                 this.userID = userID;
-                this._chatService.connectToChatWithGuestID(userID, () => {}, this);
+                this._chatService.connectToChatWithGuestID(userID, userID, () => {}, this, false);
             });
         page.actionBarHidden = true;
 
