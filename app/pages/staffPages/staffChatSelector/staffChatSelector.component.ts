@@ -1,10 +1,8 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatListService } from "../../../services/chatServices/chatList.service";
 import { ChatMetadata } from "../../../services/chatServices/chatMetadata";
 import { FromNowPipe } from "../../../pipes/fromnow.pipe";
-import { Chat } from "../../../services/chatServices/chat";
-import { FBData } from "nativescript-plugin-firebase";
 import { UserIdService } from "../../../services/userId.service";
 
 @Component({
@@ -14,8 +12,6 @@ import { UserIdService } from "../../../services/userId.service";
 })
 export class StaffChatSelectorComponent {
     userID: string;
-
-    @ViewChild("chatlist") chatlist;
 
     constructor(private _router: Router, private _chatListService: ChatListService, private _userIdService: UserIdService, private _ngZone: NgZone) {
         //get userId

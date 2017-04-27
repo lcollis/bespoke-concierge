@@ -21,17 +21,16 @@ export class ChatService {
     chat: Chat = new Chat();
     loadingMessages: boolean = true;
 
-    private connectedToChat: boolean = false;
+    private requestedChatData: boolean = false;
     private gotMetadata: boolean = false;
-
 
     private callbackList: CallbackData[] = [];
 
     constructor(private _chatDatabaseAdapter: ChatDatabaseAdapter, private _ngZone: NgZone) { }
 
     connectToChatWithGuestID(userID: string, guestID: string, onNewMessagesCallback: (any) => any, callbackThis: any, canSeeChats: boolean) {
-        if (this.connectedToChat == false) {
-            this.connectedToChat = true;
+        if (this.requestedChatData == false) {
+            this.requestedChatData = true;
 
             //add the callback to the list
             this.callbackList.push(new CallbackData(onNewMessagesCallback, callbackThis, canSeeChats));
@@ -88,7 +87,6 @@ export class ChatService {
         this.chat.metadata.addSeenByID(message.sender);
 
         this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
-
         this._chatDatabaseAdapter.sendMessage(this.chat.metadata, message);
     }
 
@@ -108,9 +106,8 @@ export class ChatService {
     }
 
     private seeMessages(userID: string) {
-
         //if you can see the new messages, and theyre marked unread, mark it as seen
-        if (this.canSeeMessages() && !this.chat.metadata.hasBeenSeenByID(userID)) {
+        if (this.canSeeMessages() && !this.chat.metadata.hasBeenSeenByID(userID) && this.gotMetadata) {
             this.chat.metadata.addSeenByID(userID);
             this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
         }
