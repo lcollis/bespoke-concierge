@@ -1,223 +1,132 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Chat } from "./chat";
+import { ChatDatabaseAdapter } from "./chatDatabaseAdapter.service";
 import { Message } from "./message";
-import { FBData, PushResult } from "nativescript-plugin-firebase";
-import { Router } from "@angular/router";
-import firebase = require("nativescript-plugin-firebase");
-import fs = require("file-system");
+import { ChatMetadata } from "./chatMetadata";
+
+class CallbackData {
+    callback: (any) => any;
+    thisValue: any;
+    canSeeChats: boolean;
+
+    constructor(callback: (any) => any, thisValue: any, canSeeChats: boolean) {
+        this.callback = callback;
+        this.thisValue = thisValue;
+        this.canSeeChats = canSeeChats;
+    }
+}
 
 @Injectable()
 export class ChatService {
+    chat: Chat = new Chat();
+    loadingMessages: boolean = true;
 
-    constructor(private _router: Router) { }
+    private requestedChatData: boolean = false;
+    private gotMetadata: boolean = false;
 
-    selectedChatUserID: string;
-    lastActiveTimeStamp: Date;
+    private callbackList: CallbackData[] = [];
 
-    private newChatsWatcherGuestID: string;
-    private newChatsWatcherRoom: string;
-    private newChatsWatcherCallback: (newMessages: boolean) => any;
+    constructor(private _chatDatabaseAdapter: ChatDatabaseAdapter, private _ngZone: NgZone) { }
 
+    connectToChatWithGuestID(userID: string, guestID: string, onNewMessagesCallback: (any) => any, callbackThis: any, canSeeChats: boolean) {
+        if (this.requestedChatData == false) {
+            this.requestedChatData = true;
 
-    sendMessage(message: Message, senderID: string, room: string): Promise<PushResult> {
-        this.updateLastActive();
+            //add the callback to the list
+            this.callbackList.push(new CallbackData(onNewMessagesCallback, callbackThis, canSeeChats));
 
-        var messagesUrl = "/messages/" + senderID + "/" + room;
+            //set the chat metadatas guestID to the right guestID while the real metadata loads
+            this.chat.metadata.guestID = guestID;
 
-        var chat: Chat = { room: room, lastMessageTime: message.timeStamp, guestID: senderID };
-        var chatsUrl = "/chats/" + senderID + "/" + room;
+            //subscribe to the chat
+            this._chatDatabaseAdapter.subscribeToChatMessages(guestID,
+                (messages: Message[]) => {
+                    //run in ngzone so that the data is updated in the view
+                    this._ngZone.run(() => {
+                        //take in the messages
+                        this.chat.messages = this.sortChatMessages(messages);
+                        this.loadingMessages = false;
 
-        firebase.setValue(chatsUrl, chat);
-        return firebase.push(messagesUrl, message);
-    }
+                        //tell the views there are new messages
+                        this.callbackList.map((callbackData: CallbackData) => {
+                            callbackData.callback.call(callbackData.thisValue);
+                        });
 
-    subscribeToMessages(senderID: string, room: string, callBack: (data: FBData) => any) {
-        var messagesUrl = "/messages/" + senderID + "/" + room;
-        firebase.addValueEventListener((data: FBData) => this.callbackWrapper(data, callBack), messagesUrl);
-    }
-
-    getListOfChats(callBack: (data: FBData) => any) {
-        var chatsUrl = "/chats";
-        firebase.addValueEventListener((data: FBData) => this.callbackWrapper(data, callBack), chatsUrl);
-    }
-
-    subscribeToNewMessagesCallback(guestID: string, room: string, callback: (newMessages: boolean) => void) {
-        this.newChatsWatcherGuestID = guestID;
-        this.newChatsWatcherRoom = room;
-        this.newChatsWatcherCallback = callback;
-
-        this.checkForNewMessages();
-
-        //add a dummy messages subscription so that even if the user
-        //doesnt look at the messages the ui still updates when they
-        //get a new message inside the app
-        this.subscribeToMessages(guestID, room, () => { });
-    }
-
-    getLastActiveTime(callback: (date: Date) => any) {
-        var that = this;
-        //get the active time from the phone storage
-        fs.knownFolders.documents().getFile("lastActive").readText()
-            .then((text: string) => {
-                var date = new Date(text);
-
-                //check if theyre both blank. If so, congrats its the first time in the app. return new date(0)
-                if (text === "" && that.lastActiveTimeStamp === undefined) {
-                    console.log("No last active timestamp recorded on phone! Should only happen on fresh installs!!!");
-                    that.lastActiveTimeStamp = new Date(0);
-                    fs.knownFolders.documents().getFile("lastActive").writeText(that.lastActiveTimeStamp.toString());
-                    callback(that.lastActiveTimeStamp);
-                    return;
-                }
-
-                //check if this.lastActiveTimeStamp is blank. if so, set it and return it
-                if (that.lastActiveTimeStamp === undefined) {
-                    that.lastActiveTimeStamp = date;
-                    callback(that.lastActiveTimeStamp);
-                    return;
-                }
-
-                //return the sooner of this.lastActiveTimestamp and the one from the file
-                if (date.getTime() > that.lastActiveTimeStamp.getTime()) {
-                    that.lastActiveTimeStamp = date;
-                }
-                console.log("get last active time returning: " + that.lastActiveTimeStamp);
-                callback(that.lastActiveTimeStamp);
-                return;
-            });
-    }
-
-    chatHasNewMessages(chat: string, callback: (hasNewMessages: boolean) => any) {
-        //get the last active time for the chat
-        fs.knownFolders.documents().getFile(chat).readText()
-            .then((text: string) => {
-                if (text === "") {
-                    //no past date stored. default to new date(0);
-                    var date = new Date(0);
-                } else {
-                    var date = new Date(text);
-                }
-                console.log("last update date: " + date);
-                //see if there is a newer message
-                this.checkChatForNewMessages(date, chat, "default", (newMessages: boolean) => {
-                    callback(newMessages);
+                        this.seeMessages(userID);
+                    });
                 });
-            });
-    }
 
-    private checkForNewMessages() {
-        if (this.newChatsWatcherGuestID !== "") {
-            this.getLastActiveTime((lastActiveTime: Date) => {
-                this.checkChatForNewMessages(lastActiveTime, this.newChatsWatcherGuestID, this.newChatsWatcherRoom, this.newChatsWatcherCallback);
-            });
-        } else {
-            this.checkAllChatsForNewMessages(this.newChatsWatcherCallback);
-        }
+            //subscribe to the chat metadata
+            this._chatDatabaseAdapter.subscribeToChatMetadata(guestID,
+                (metadata: ChatMetadata) => {
+                    //run in ngzone so that the data is updated in the view
+                    this._ngZone.run(() => {
+                        this.gotMetadata = true;
+                        this.chat.metadata = metadata;
 
-    }
-
-    private checkChatForNewMessages(lastActive: Date, userID: string, room: string, callback: (newMessages: boolean) => any) {
-        var messagesUrl = "/chats/" + userID + "/" + room + "/";
-        var onQueryEvent = function (result) {
-            if(!result.value) {
-                callback(false);
-                return;
-            }
-
-            var newestMessageDate: Date = new Date(result.value.lastMessageTime);
-
-            if (newestMessageDate.getTime() > lastActive.getTime()) {
-                console.log("NEW MESSAGES!!!!");
-                callback(true);
-            } else {
-                callback(false);
-            }
-        }
-
-        firebase.query(
-            onQueryEvent,
-            messagesUrl,
-            {
-                singleEvent: true,
-                orderBy: {
-                    type: firebase.QueryOrderByType.VALUE,
-                }
-            });
-    }
-
-    private checkAllChatsForNewMessages(callback: (newMessages: boolean) => any) {
-        var messagesUrl = "/chats/";
-        var that = this;
-        var onQueryEvent = function (result) {
-            var guestChats = result.value;
-            for (var key in guestChats) {
-                var chatObject = guestChats[key];
-                var chat = chatObject["default"];
-                
-                that.chatHasNewMessages(chat.guestID, (hasNewMessages: boolean) => {
-                    if(hasNewMessages) {
-                        callback(true);
-                        return;
-                    }  
+                        this.seeMessages(userID);
+                    });
                 });
-            }
-
-            callback(false);
-            return;
-        }
-
-        firebase.query(
-            onQueryEvent,
-            messagesUrl,
-            {
-                singleEvent: true,
-                orderBy: {
-                    type: firebase.QueryOrderByType.VALUE,
-                }
-            });
-    }
-
-    private callbackWrapper(data: FBData, callback: (data: FBData) => any) {
-        //update last active if they can see the chat
-        var url = this._router.url;
-        if (url.indexOf("Chat") !== -1) {
-            console.log("updating last active on chat!!!");
-
-            //if staff or owner, also check if in a chat and update that chat time
-            if (url.indexOf("Guest") === -1) {
-                //is staff or owner
-                if (url.indexOf("Selector") !== -1) {
-                    //in a chat selector, do the normal things
-                    this.updateLastActive();
-                } else {
-                    //in a chat. update the chat last active time and then do the normal thing
-                    this.updateChatLastActive();
-                    this.updateLastActive();
-                }
-            } else {
-                //guest. do the normal thing
-                this.updateLastActive();
-            }
         } else {
-            //if they cant see the chat, update the new messages callback
-            this.checkForNewMessages();
+            // already connected to chat, so just add another callback to the list
+            this.callbackList.push(new CallbackData(onNewMessagesCallback, callbackThis, canSeeChats));
+            this.seeMessages(userID);
+
+            //if we have the messages, just call the callback because the messages are
+            //new to the this callback
+            if(!this.loadingMessages) {
+                onNewMessagesCallback.call(callbackThis);
+            }
         }
-        callback(data);
     }
 
-    private updateLastActive() {
-        this.lastActiveTimeStamp = new Date();
-        console.log("Updating Last Active Timestamp: " + this.lastActiveTimeStamp);
-        //write the timestamp to phone storage
-        fs.knownFolders.documents().getFile("lastActive").writeText(this.lastActiveTimeStamp.toString());
-        this.checkForNewMessages();
+    sendMessage(message: Message) {
+        //update the chat metadata in firebase
+        this.chat.metadata.lastMessageTime = Math.max(this.chat.metadata.lastMessageTime, message.timeStamp);
+        this.chat.metadata.resetSeenByIDs();
+        this.chat.metadata.addSeenByID(message.sender);
+
+        this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
+        this._chatDatabaseAdapter.sendMessage(this.chat.metadata, message);
     }
 
-    private updateChatLastActive() {
-        var lastActive = new Date();
-        console.log("Updating Last Active Timestamp: " + lastActive + " for chat: " + this.selectedChatUserID);
-        //write the timestamp to phone storage
-        fs.knownFolders.documents().getFile(this.selectedChatUserID).writeText(lastActive.toString());
+    unseenMessages(userID: string): boolean {
+        if (this.gotMetadata) {
+            return !this.chat.metadata.hasBeenSeenByID(userID);
+        }
+        return false;
     }
 
+    disconnectCallback(thisValue: any) {
+        for (var i = 0; i < this.callbackList.length; i++) {
+            if (this.callbackList[i].thisValue == thisValue) {
+                this.callbackList.splice(i, 1);
+            }
+        }
+    }
+
+    private seeMessages(userID: string) {
+        //if you can see the new messages, and theyre marked unread, mark it as seen
+        if (this.canSeeMessages() && !this.chat.metadata.hasBeenSeenByID(userID) && this.gotMetadata) {
+            this.chat.metadata.addSeenByID(userID);
+            this._chatDatabaseAdapter.updateChatMetadata(this.chat.metadata);
+        }
+    }
+
+    private sortChatMessages(messages: Message[]): Message[] {
+        messages.sort((a: Message, b: Message) => {
+            return a.timeStamp - b.timeStamp;
+        });
+
+        return messages;
+    }
+
+    private canSeeMessages(): boolean {
+        for(var i = 0; i < this.callbackList.length; i++) {
+            if(this.callbackList[i].canSeeChats) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

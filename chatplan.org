@@ -1,0 +1,105 @@
+#+TITLE: Chat Plan
+#+STARTUP: showall
+
+* PROBLEMS
+** when and how to start up the database adapter
+*** make it a service
+** How does a chat list tell if is unread?
+** Maybe the unseenMessages(): boolean functions in chat list service wont update with new messages?
+
+* ORGANIZATION
+** CHAT DATABASE ADAPTER
+*** send and receive all data from the database
+**** one subscriber at a time for all chats, and one subscriber at a time for an individual chat
+*** keep the data up to date
+**** poll frequently or recieve notifications
+*** give it to functions in a nice format (Message[], Chat[], ect)
+*** functions:
+**** subscribeToAllChatsMetadata((ChatMetadata[]) -> any);
+**** unsubscribeFromAllChatsMetadata();
+**** subscribeToChat(ChatMetadata, (callback: (Chat[]) -> any));
+**** unsubscribeFromChat();
+**** sendMessage(ChatMetadata, Message);
+**** updateMessageMetadata(ChatMetadata, Message);
+** CHAT SERVICE
+*** make a new one for each chat you open
+**** should be only one chat service running at a time
+*** interface between the database adapter and the views that show one chat or use the information about one chat
+*** organize the data into usable and convenient formats for the views
+*** class objects:
+**** chat: Chat;
+***** should be sorted by time sent
+**** loadingMessages: boolean;
+***** starts as true, but once it gets data for the first time is false.
+*** functions:
+**** sendMessage(text: string);
+***** MAKE SURE TO CLEAR THE CHAT'S SEENBYIDS ARRAY WHEN SENDING A NEW MESSAGE
+**** onNewMessage(callback: () -> any);
+** CHAT LIST SERVICE
+*** should be a singleton
+*** interface between the database adapter and views that show lists chats or use the information about all chats
+*** if you want to go into a single chat you must make a chat service for that chat
+*** class objects:
+**** chats: ChatMetadata[];
+***** should be sorted by last message time
+**** loadingMessages: boolean;
+***** starts as true, but once it gets data for the first time is false.
+**** selectedChatUserID: string;
+***** userid of the chat they want to see on the next screen
+*** functions:
+**** unseenMessages(): boolean;
+** DONE CHAT OBJECT
+   CLOSED: [2017-04-12 Wed 12:47]
+*** store all the information for a chat
+*** class objects:
+**** messages array (Message[])
+**** chatMetadata object
+** DONE CHAT_METADATA OBJECT 
+   CLOSED: [2017-04-12 Wed 12:47]
+*** store all the metadata for the chat
+**** last chat time
+**** guest ID
+**** room name
+**** read by list (userID string array)
+** DONE MESSAGE OBJECT
+   CLOSED: [2017-04-12 Wed 12:47]
+*** stores all the metadata for a message
+**** Message read by array (string[])
+**** Sender ID
+**** Message text
+**** timestamp
+* RESPONSIBILITIES
+** DATABASE ABSTRACTION LAYER
+*** CHAT DATABASE ADAPTER
+** GET / SEND MESSAGES TO / FROM DATABASE THROUGH THE ABSTRACTION
+*** CHAT SERVICE
+*** CHAT LIST SERVICE
+** A NEW MESSAGE CALLBACK (IN A CHAT WINDOW)
+*** CHAT SERVICE
+* NEEDS
+** CHAT VIEW
+*** get messages in a nice format
+**** ChatService.chat.messages
+*** get a callback when there is a new message
+**** ChatService.onNewMessage(callback: () -> any);
+*** send messages
+**** ChatService.sendMessage(text:string);
+** CHAT LIST
+*** get list of all chat rooms
+**** ChatListService.chats
+*** see their last message time
+**** ChatListService.chats[i].lastMessageTime;
+*** tell which chats have new messages
+**** ChatListService.chats[i]
+** HOME SCREEN
+*** know when there are any new messages
+**** Chat list user: ChatListService.unseenMessages();
+**** Chat Service user: ChatService.chat.ChatMetadata.hasBeenSeenByID(this.userID);
+* HOW TO HANDLE UNREAD MESSAGES
+** HAVE A LIST OF WHOS SEEN THE MESSAGE
+*** Each message gets a seen by string[] which has a list of all the userID's who have seen the message
+*** Also have a list of whos read every chat that gets cleared every time there is a new message
+* PITFALLS TO WATCH OUT FOR
+** make sure that angular can see the changed you make to the data going to the views
+*** important in the CHAT SERVICE and CHAT LIST SERVICE
+*** just make sure to do ngzone.run( () -> {  code that updates the data });

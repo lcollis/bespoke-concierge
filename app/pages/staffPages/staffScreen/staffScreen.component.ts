@@ -1,60 +1,41 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterExtensions} from "nativescript-angular/router";
-import {Page} from "ui/page";
+import { Page } from "ui/page";
 import { Color } from "color";
-import {registerElement} from "nativescript-angular/element-registry";
+import { registerElement } from "nativescript-angular/element-registry";
 import { TaskService } from "../../../services/taskServices/task.service";
 import { DatabaseService } from "../../../services/database.service";
 import { UserIdService } from "../../../services/userId.service";
 import { User } from "../../../services/user";
-import { Task } from "../../../services/taskServices/task";
 import { Observable } from "rxjs/Observable";
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { ChatListService } from "../../../services/chatServices/chatList.service";
+import { ChatDatabaseAdapter } from "../../../services/chatServices/chatDatabaseAdapter.service";
 var dialogs = require("ui/dialogs");
 
 @Component({
     selector: 'staffScreen',
-    templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',    
-    providers: [TaskService, ChatService, DatabaseService, UserIdService],
+    templateUrl: 'pages/staffPages/staffScreen/staffScreen.html',
+    providers: [TaskService, ChatListService, DatabaseService, UserIdService, ChatDatabaseAdapter],
 })
 
 export class StaffScreenComponent {
 
     clockedSwitch: boolean;
-    newMessages: boolean;
     private user: User;
 
-    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatService: ChatService, private _ngZone: NgZone) {
-        page.actionBarHidden = true;
+    userID: string;
 
-        //new messages indicator
-        this._chatService.subscribeToNewMessagesCallback("", "default", (newMessages: boolean) => { 
-            this._ngZone.run(() => {
-                this.newMessages = newMessages 
-                console.log("New messages callback: " + newMessages);
-            });
+    constructor(page: Page, private _router: Router, private _taskService: TaskService, private _databaseService: DatabaseService, private _userIdService: UserIdService, private _chatListService: ChatListService) {
+        //get userId
+        this._userIdService.getUserId().then((userID: string) => {
+            this.userID = userID;
+        }).catch((error: any) => {
+            console.log("Error getting userID");
+            console.log(error);
         });
 
-        // //clocking in and out
-        // this._userIdService.getUserId().then((userID: string) => {
-        //     this._databaseService.getApiData("Users").subscribe(
-        //         (response) => {
-        //             //get the user from the server
-        //             this.user = response._body.filter((u: User) => { return u.CMSUserID === parseInt(userID) })[0];
-        //             if(!this.user) {
-        //                 alert("Could not find your userID in the server. Please try again.");
-        //                 this._router.navigate(["/Login"]);
-        //             }
-        //             //set the clocked value to the servers value
-        //             this.clockedSwitch = this.user.Clocked;
-        //         });
-        // }, (error) => {
-
-        // });
-
-        //allows for ios statusbar coloring
-        page.backgroundSpanUnderStatusBar = true;
+        page.actionBarHidden = true;
+        page.backgroundSpanUnderStatusBar = true; //allows for ios statusbar coloring
         page.backgroundColor = new Color("lightblue");
         try {
             registerElement("StatusBar", () => require("nativescript-statusbar").StatusBar);
@@ -66,7 +47,7 @@ export class StaffScreenComponent {
     }
 
     lookup() {
-        
+
     }
 
     home() {
@@ -76,49 +57,18 @@ export class StaffScreenComponent {
 
     switchPropertyChange(args) {
 
-        //this doesnt work yet. Waiting on api updates. The logic is almost sound.
-    /*    if(args.propertyName === "checked") {
-            var clocked = this.user.Clocked;
-
-            if(clocked === true) {
-                //currently clocked in, so clock out
-                this.getMyTasks().subscribe(
-                    (tasks) => {
-                        if(tasks.length > 0) {
-                            //user still has tasks assigned to them. Prompt and make sure they know these tasks will be unassigned when they clock out
-                            dialogs.confirm({
-                                title: "Clocking Out",
-                                message: "When you clock out, all tasks assigned to you will be unassigned. Are you sure you want to clock out?",
-                                okButtonText: "Clock Out",
-                                cancelButtonText: "Cancel"
-                            }).then(function (result) {
-                                // result argument is boolean
-                                console.log("Dialog result: " + result);
-                            });
-                        } else {
-                            //no tasks. clock out
-                            this.clockOut();
-                        }
-                    }, (error) => {
-                        alert("Error while clocking out. You are still clocked in. Please check your internet connection and try again.");
-                    });
-
-            } else {
-                //currently clocked out, so clock in
-                this.clockIn();
-            }
-        } */
     }
 
-    private getMyTasks(): Observable<Task[]> {
-        return this._taskService.getAllTasks()
-            .map((tasks: Task[]) => {
-                if (tasks) {
-                    return tasks.filter((t) => { return t.PersonID === this.user.CMSUserID });
-                } else {
-                    return new Array<Task>();
-                }});
-    }
+    // TODO: not sure if this is necessary here...
+    // private getMyTasks(): Observable<Task[]> {
+    //     return this._taskService.getAllTasks()
+    //         .map((tasks: Task[]) => {
+    //             if (tasks) {
+    //                 return tasks.filter((t) => { return t.PersonID === this.user.CMSUserID });
+    //             } else {
+    //                 return new Array<Task>();
+    //             }});
+    // }
 
     private clockOut() {
         this.user.Clocked = false;

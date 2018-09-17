@@ -1,7 +1,12 @@
-import {Message} from "./message";
+import { Message } from "./message";
+import { ChatMetadata } from "./chatMetadata";
 
 export class Chat {
-    room: string;
-    lastMessageTime: number;
-    guestID: string;
+    messages: Message[];
+    metadata: ChatMetadata;
+
+    constructor() {
+        this.messages = [];
+        this.metadata = new ChatMetadata();
+    }
 }

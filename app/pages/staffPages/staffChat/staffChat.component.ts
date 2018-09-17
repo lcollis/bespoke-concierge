@@ -1,92 +1,62 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FBData, PushResult } from "nativescript-plugin-firebase";
 import { ListView } from "ui/list-view";
 import { FromNowPipe } from '../../../pipes/fromnow.pipe';
 import { ChatService } from "../../../services/chatServices/chat.service";
+import { ChatListService } from "../../../services/chatServices/chatList.service";
 import { UserIdService } from "../../../services/userId.service";
 import { Message } from "../../../services/chatServices/message";
-
 
 @Component({
     selector: 'staffChat',
     templateUrl: 'pages/staffPages/staffChat/staffChat.html',
     styleUrls: ['pages/staffPages/staffChat/staffChat.css'],
+    providers: [ChatService]
 })
 export class StaffChatComponent {
-
-    messages: Message[] = new Array<Message>();
-    newMessage: string;
-    guestID: string;
     userID: string;
-    room: string = "default";
-    loading: boolean = true;
+    newMessage: string;
 
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _router: Router) {
-        var that = this;
-
-        this.messages = new Array<Message>();
-        this.guestID = this._chatService.selectedChatUserID;
-
-        //get messages for guestID
-        that._userIdService.getUserId()
-            .then((userID: string) => {
-                that.userID = userID;
-
-                that._chatService.subscribeToMessages(that.guestID, that.room,
-                    (data: FBData) => {
-                        //use ngZone run because this method gets called outside of angular's zone so you gotta nudge it to update the screen
-                        ngZone.run(() => {
-                            console.log("got Firebase data: " + JSON.stringify(data.value));
-                            that.loading = false;
-                            if (data.value) {
-                                that.messages = new Array<Message>();
-                                Object.keys(data.value).forEach(function (key) {
-                                    var message: Message = data.value[key];
-                                    console.log("Got Message: " + JSON.stringify(message));
-                                    that.messages.push(message);
-                                });
-                                //sort messages by time sent
-                                that.messages.sort(function (a, b) {
-                                    var c = new Date(a.timeStamp);
-                                    var d = new Date(b.timeStamp);
-                                    return c > d ? 1 : c < d ? -1 : 0;
-                                });
-
-                                setTimeout(function () {
-                                    that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
-                                }, 0);
-                            }
-                        });
-                    });
-            })
-            .catch((error: any) => {
-                console.log("Error getting userID");
-                console.log(error);
-            });
+    constructor(private _chatService: ChatService, private _chatListService: ChatListService, private _userIdService: UserIdService, private _router: Router) {
+        //get userId
+        this._userIdService.getUserId().then((userID: string) => {
+            this.userID = userID;
+            this._chatService.connectToChatWithGuestID(userID, this._chatListService.selectedChatUserID, () => {
+                //on new messages
+                this.scrollToBottom();
+            }, this, true);
+        }).catch((error: any) => {
+            console.log("Error getting userID");
+            console.log(error);
+        });
     }
 
-    addMessage(text) {
+    ngOnDestroy() {
+        this._chatService.disconnectCallback(this);
+    }
+
+    isMessageFromMe(message: Message): boolean {
+        return message.sender !== this._chatService.chat.metadata.guestID;
+    }
+
+    sendMessage(text) {
         if (text) {
-            console.log("+++++++++++ message: " + text + "  sender: " + this.userID);
-            var message: Message = { text: text, sender: this.userID, timeStamp: Date.now() };
-            this.messages.push(message);
-            this._chatService.sendMessage(message, this.guestID, this.room)
-                .catch((error: any) => {
-                    console.log(error);
-                    alert("Error sending message. Please try again later");
-                });
+            var message: Message = new Message(text, Date.now(), this.userID);
+            this._chatService.sendMessage(message);
             this.newMessage = '';
         }
     }
 
-    isMessageFromMe(message: Message): boolean {
-        return message.sender !== this.guestID;
-    }
-
     makeRequest() {
         this._router.navigate(["/StaffScreen/TaskMaker"]);
+    }
+
+    private scrollToBottom() {
+        //needs the delay because this method gets called when the listview items are changing, or very soon afer that, and it takes the list view a little bit to get setup, and without this it will not scroll to the right spot consistently
+        setTimeout(() => {
+            this.listView._elementRef.nativeElement.scrollToIndex(this._chatService.chat.messages.length - 1);
+        }, 0);
     }
 }

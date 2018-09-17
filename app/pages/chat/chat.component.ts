@@ -1,6 +1,4 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { FBData, PushResult } from "nativescript-plugin-firebase";
+import { Component, ViewChild } from '@angular/core';
 import { ListView } from "ui/list-view";
 import { FromNowPipe } from '../../pipes/fromnow.pipe';
 import { ChatService } from "../../services/chatServices/chat.service";
@@ -16,51 +14,15 @@ import { Message } from "../../services/chatServices/message";
 
 
 export class ChatComponent {
-
-    messages: Message[] = new Array<Message>();
     newMessage: string;
     userID: string;
-    room: string = "default";
-    loading: boolean = true;
-
-
-
     @ViewChild("listview") listView;
 
-    constructor(private _chatService: ChatService, private _userIdService: UserIdService, ngZone: NgZone, private _textService: TextService) {
-        var that = this;
-
-        this.messages = new Array<Message>();
-
-        //get userId and then get messages for that userID from the server
-        that._userIdService.getUserId()
+    constructor(private _chatService: ChatService, private _userIdService: UserIdService) {
+        this._userIdService.getUserId()
             .then((userID: string) => {
-                that.userID = userID;
-
-                that._chatService.subscribeToMessages(that.userID, that.room,
-                    (data: FBData) => {
-                        //use ngZone run because this method gets called outside of angular's zone so you gotta nudge it to update the screen
-                        ngZone.run(() => {
-                            that.loading = false;
-                            if (data.value) {
-                                that.messages = new Array<Message>();
-                                Object.keys(data.value).forEach(function (key) {
-                                    var message: Message = data.value[key];
-                                    that.messages.push(message);
-                                });
-                                //sort messages by time sent
-                                that.messages.sort(function (a, b) {
-                                    var c = new Date(a.timeStamp);
-                                    var d = new Date(b.timeStamp);
-                                    return c > d ? 1 : c < d ? -1 : 0;
-                                });
-
-                                setTimeout(function () {
-                                    that.listView._elementRef.nativeElement.scrollToIndex(that.messages.length - 1);
-                                }, 0);
-                            }
-                        });
-                    });
+                this.userID = userID;
+                this._chatService.connectToChatWithGuestID(this.userID, this.userID, this.scrollToBottom, this, true);
             })
             .catch((error: any) => {
                 console.log("Error getting userID");
@@ -68,21 +30,30 @@ export class ChatComponent {
             });
     }
 
+    ngAfterViewInit() {
+        this.scrollToBottom();
+    }
+
+    ngOnDestroy() {
+        this._chatService.disconnectCallback(this);
+    }
+
     addMessage(text) {
         if (text) {
-            console.log("+++++++++++ message: " + text + "  sender: " + this.userID);
-            var message: Message = { text: text, timeStamp: Date.now(), sender: this.userID };
-            this.messages.push(message);
-            this._chatService.sendMessage(message, this.userID, this.room)
-                .catch((error: any) => {
-                    console.log(error);
-                    alert(this._textService.getText().chatError);
-                });
-            this.newMessage = '';
+            this.newMessage = "";
+            var message: Message = new Message(text, Date.now(), this.userID);
+            this._chatService.sendMessage(message);
         }
     }
 
     isMessageFromMe(message: Message): boolean {
         return message.sender === this.userID;
+    }
+
+    private scrollToBottom() {
+        //needs the delay because this method gets called when the listview items are changing, or very soon afer that, and it takes the list view a little bit to get setup, and without this it will not scroll to the right spot consistently
+        setTimeout(() => {
+            this.listView._elementRef.nativeElement.scrollToIndex(this._chatService.chat.messages.length - 1);
+        }, 30);
     }
 }

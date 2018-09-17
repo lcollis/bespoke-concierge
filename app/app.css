@@ -1,4 +1,6 @@
-﻿button,
+﻿@import '~/css/core.light.css'; 
+
+button,
 label,
 stack-layout {
     horizontal-align: center;

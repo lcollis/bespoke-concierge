@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import { DatabaseService } from "../../../services/database.service";
 import { TaskService } from "../../../services/taskServices/task.service";
 import { UserIdService } from "../../../services/userId.service";
-import { ChatService } from "../../../services/chatServices/chat.service";
+import { AdminChatService } from "../../../services/chatServices/adminChat.service";
 import { Task } from '../../../services/taskServices/task';
 import { User } from "../../../services/user";
 
@@ -26,7 +26,7 @@ export class OwnerTaskDetailComponent {
 
     @ViewChild("lv") listView;
 
-    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: ChatService, private _databaseService: DatabaseService) {
+    constructor(private _router: Router, private _taskService: TaskService, private _userIdService: UserIdService, private _chatService: AdminChatService, private _databaseService: DatabaseService) {
         this.task = _taskService.selectedTask;
         this.isTaskAssignedToMe = _taskService.isSelectedTaskAssignedToMe;
         this.selectedCMSUserID = this.task.PersonID;

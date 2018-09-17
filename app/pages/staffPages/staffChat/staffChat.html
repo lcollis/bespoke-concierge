@@ -1,11 +1,11 @@
 <GridLayout rows="auto,*,auto">
     <GridLayout columns="*,*">
-        <Label col="0" [text]="guestID"></Label>
+        <Label col="0" [text]="this._chatService.chat.metadata.guestID"></Label>
         <Button col="1" text="Add Request" (tap)="makeRequest()" class="add-request-button"></Button>src/router
     </GridLayout>
-    
+
     <GridLayout row="1">
-        <ListView [items]="messages" separatorColor="white" itemLoading="listViewItemLoading" #listview>
+        <ListView [items]="this._chatService.chat.messages" separatorColor="white" itemLoading="listViewItemLoading" #listview>
             <template let-item="item">
                 <GridLayout columns="auto,*" rows="auto" class="message-layout">
                     <Border col="1" [className]="'message-border' + (isMessageFromMe(item) ? '-right' : '-left')">
@@ -21,7 +21,7 @@
 
     <GridLayout row="2" columns="*,auto">
         <TextField hint="Enter message ...." row="1" [(ngModel)]="newMessage" [isEnabled]="!loading"></TextField>
-        <Button row="1" col="1" text="Send" (tap)="addMessage(newMessage)" [isEnabled]="!loading"></Button>
+        <Button row="1" col="1" text="Send" (tap)="sendMessage(newMessage)" [isEnabled]="!loading"></Button>
     </GridLayout>
     <ActivityIndicator *ngIf="loading" busy="true" width="100" height="100"></ActivityIndicator>
 </GridLayout>
